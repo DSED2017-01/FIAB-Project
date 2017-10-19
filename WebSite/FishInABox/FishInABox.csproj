@@ -211,19 +211,19 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>Logins.tt</DependentUpon>
+      <DependentUpon>logins.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>Logins.tt</DependentUpon>
+      <DependentUpon>logins.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>Logins.tt</DependentUpon>
+      <DependentUpon>logins.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>Logins.tt</DependentUpon>
+      <DependentUpon>logins.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C__MigrationHistory.cs">
-      <DependentUpon>Logins.tt</DependentUpon>
+      <DependentUpon>logins.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FishDB.Context.cs">
       <AutoGen>True</AutoGen>
@@ -274,20 +274,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LiveDatabase.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Logins.Context.cs">
+    <Compile Include="Models\logins.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Logins.Context.tt</DependentUpon>
+      <DependentUpon>logins.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Logins.cs">
+    <Compile Include="Models\logins.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Logins.tt</DependentUpon>
+      <DependentUpon>logins.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Logins.Designer.cs">
+    <Compile Include="Models\logins.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Logins.edmx</DependentUpon>
+      <DependentUpon>logins.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MARINE_CLASS.cs">
@@ -366,15 +366,15 @@
       <DependentUpon>LiveDatabase.edmx</DependentUpon>
       <LastGenOutput>LiveDatabase.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Logins.Context.tt">
+    <Content Include="Models\logins.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Logins.edmx</DependentUpon>
-      <LastGenOutput>Logins.Context.cs</LastGenOutput>
+      <DependentUpon>logins.edmx</DependentUpon>
+      <LastGenOutput>logins.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Logins.tt">
+    <Content Include="Models\logins.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Logins.edmx</DependentUpon>
-      <LastGenOutput>Logins.cs</LastGenOutput>
+      <DependentUpon>logins.edmx</DependentUpon>
+      <LastGenOutput>logins.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -395,19 +395,19 @@
     <Content Include="Models\FishDB.edmx.diagram">
       <DependentUpon>FishDB.edmx</DependentUpon>
     </Content>
-    <EntityDeploy Include="Models\Logins.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Logins.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Logins.edmx.diagram">
-      <DependentUpon>Logins.edmx</DependentUpon>
-    </Content>
     <EntityDeploy Include="Models\LiveDatabase.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>LiveDatabase.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Models\LiveDatabase.edmx.diagram">
       <DependentUpon>LiveDatabase.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\logins.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>logins.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\logins.edmx.diagram">
+      <DependentUpon>logins.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\fishinaboxapp - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

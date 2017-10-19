@@ -57,7 +57,7 @@ namespace ExtractExcel
                         /*  Code field*/
                         case 1:
                             string temp = text;
-                            text = temp.PadRight(8, ' ');
+                            text = temp.PadRight(10, ' ');
                             break;
                         case 2:
                             if (text.Length > len02)

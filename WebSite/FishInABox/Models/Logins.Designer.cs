@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\joshu\OneDrive\Documents\FishInAbox\FishInABox-master\FishInABox\Models\Logins.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\kiwizen\Desktop\FIAB-Project\WebSite\FishInABox\Models\logins.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

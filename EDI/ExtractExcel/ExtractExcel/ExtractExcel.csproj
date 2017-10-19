@@ -84,7 +84,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Excel\orderlist1.xlsx" />
+    <Content Include="Excel\orderlist1.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

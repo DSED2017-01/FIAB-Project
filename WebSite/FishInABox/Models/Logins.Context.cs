@@ -13,10 +13,10 @@ namespace FishInABox.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class fishinaboxlisEntities : DbContext
+    public partial class fishinaboxlogsEntities1 : DbContext
     {
-        public fishinaboxlisEntities()
-            : base("name=fishinaboxlisEntities")
+        public fishinaboxlogsEntities1()
+            : base("name=fishinaboxlogsEntities1")
         {
         }
     
