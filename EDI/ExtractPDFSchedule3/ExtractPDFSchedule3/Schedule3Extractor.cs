@@ -232,7 +232,7 @@ namespace ExtractPDFSchedule3
 
             int field_id = DAOHelper.RetreiveID(command);
 
-            return field_id;
+            //return field_id;
 
             SqlCommand executeDataCommand = new SqlCommand();
             executeDataCommand.Parameters.AddWithValue("@FIELD_TEXT", selected_field);

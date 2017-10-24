@@ -160,15 +160,13 @@ namespace ExtractPDFApprovedSpecies
             SqlCommand command;
             //string selected_field = GetSelectedWord(line, field_name);
 
-
             /*
-                CREATE TABLE [dbo].[MARINE_CLASS]
-                (
-                    [ID_PK] INT NOT NULL PRIMARY KEY IDENTITY, 
-                    [TEXT] NVARCHAR(40) NULL, 
-                    [SCHEDULE4] NVARCHAR(40) NULL
-                )      
-
+                CREATE TABLE [dbo].[MARINE_CLASS] (
+                    [ID_PK]     INT           IDENTITY (1, 1) NOT NULL,
+                    [TEXT]      NVARCHAR (40) NULL,
+                    [SCHEDULE4] NVARCHAR (40) NOT NULL,
+                    PRIMARY KEY CLUSTERED ([ID_PK] ASC)
+                );    
             */
 
             /* Check whether the field name is in [MARINE_CLASS] */
