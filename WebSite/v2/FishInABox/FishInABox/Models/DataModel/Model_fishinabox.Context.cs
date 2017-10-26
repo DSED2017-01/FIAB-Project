@@ -29,5 +29,7 @@ namespace FishInABox.Models.DataModel
         public virtual DbSet<MARINE_FAMILY> MARINE_FAMILY { get; set; }
         public virtual DbSet<MARINE_SPECIES> MARINE_SPECIES { get; set; }
         public virtual DbSet<RECORD_PET_SIZE> RECORD_PET_SIZE { get; set; }
+        public virtual DbSet<RECORD_GROUP> RECORD_GROUP { get; set; }
+        public virtual DbSet<RECORD_PET> RECORD_PET { get; set; }
     }
 }

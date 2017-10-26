@@ -12,18 +12,17 @@ namespace FishInABox.Models.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class RECORD_PET_SIZE
+    public partial class RECORD_PET
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RECORD_PET_SIZE()
-        {
-            this.RECORD_PET = new HashSet<RECORD_PET>();
-        }
-    
         public int ID_PK { get; set; }
+        public string CODE { get; set; }
         public string DESCRIPTION { get; set; }
+        public Nullable<int> SPECIES_FK { get; set; }
+        public int SIZE_FK { get; set; }
+        public Nullable<int> GROUP_FK { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RECORD_PET> RECORD_PET { get; set; }
+        public virtual MARINE_SPECIES MARINE_SPECIES { get; set; }
+        public virtual RECORD_GROUP RECORD_GROUP { get; set; }
+        public virtual RECORD_PET_SIZE RECORD_PET_SIZE { get; set; }
     }
 }

@@ -228,6 +228,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model_fishinabox.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataModel\RECORD_GROUP.cs">
+      <DependentUpon>Model_fishinabox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModel\RECORD_PET.cs">
+      <DependentUpon>Model_fishinabox.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DataModel\RECORD_PET_SIZE.cs">
       <DependentUpon>Model_fishinabox.tt</DependentUpon>
     </Compile>

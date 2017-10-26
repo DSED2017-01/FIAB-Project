@@ -36,6 +36,24 @@
           <Property Name="FLAG" Type="bit" Nullable="false" />
           <Property Name="FAMILY_FK" Type="int" />
         </EntityType>
+        <EntityType Name="RECORD_GROUP">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RECORD_PET">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODE" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="100" />
+          <Property Name="SPECIES_FK" Type="int" />
+          <Property Name="SIZE_FK" Type="int" Nullable="false" />
+          <Property Name="GROUP_FK" Type="int" />
+        </EntityType>
         <EntityType Name="RECORD_PET_SIZE">
           <Key>
             <PropertyRef Name="ID_PK" />
@@ -67,10 +85,48 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RECORD_PET_MARINE_SPECIES">
+          <End Role="MARINE_SPECIES" Type="Self.MARINE_SPECIES" Multiplicity="0..1" />
+          <End Role="RECORD_PET" Type="Self.RECORD_PET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MARINE_SPECIES">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="RECORD_PET">
+              <PropertyRef Name="SPECIES_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECORD_PET_RECORD_GROUP">
+          <End Role="RECORD_GROUP" Type="Self.RECORD_GROUP" Multiplicity="0..1" />
+          <End Role="RECORD_PET" Type="Self.RECORD_PET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RECORD_GROUP">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="RECORD_PET">
+              <PropertyRef Name="GROUP_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECORD_PET_RECORD_PET_SIZE">
+          <End Role="RECORD_PET_SIZE" Type="Self.RECORD_PET_SIZE" Multiplicity="1" />
+          <End Role="RECORD_PET" Type="Self.RECORD_PET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RECORD_PET_SIZE">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="RECORD_PET">
+              <PropertyRef Name="SIZE_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="fishinaboxModelStoreContainer">
           <EntitySet Name="MARINE_CLASS" EntityType="Self.MARINE_CLASS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MARINE_FAMILY" EntityType="Self.MARINE_FAMILY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MARINE_SPECIES" EntityType="Self.MARINE_SPECIES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RECORD_GROUP" EntityType="Self.RECORD_GROUP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RECORD_PET" EntityType="Self.RECORD_PET" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RECORD_PET_SIZE" EntityType="Self.RECORD_PET_SIZE" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_MARINE_SPECIES_MARINE_CLASS" Association="Self.FK_MARINE_SPECIES_MARINE_CLASS">
             <End Role="MARINE_CLASS" EntitySet="MARINE_CLASS" />
@@ -79,6 +135,18 @@
           <AssociationSet Name="FK_MARINE_SPECIES_MARINE_FAMILY" Association="Self.FK_MARINE_SPECIES_MARINE_FAMILY">
             <End Role="MARINE_FAMILY" EntitySet="MARINE_FAMILY" />
             <End Role="MARINE_SPECIES" EntitySet="MARINE_SPECIES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECORD_PET_MARINE_SPECIES" Association="Self.FK_RECORD_PET_MARINE_SPECIES">
+            <End Role="MARINE_SPECIES" EntitySet="MARINE_SPECIES" />
+            <End Role="RECORD_PET" EntitySet="RECORD_PET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECORD_PET_RECORD_GROUP" Association="Self.FK_RECORD_PET_RECORD_GROUP">
+            <End Role="RECORD_GROUP" EntitySet="RECORD_GROUP" />
+            <End Role="RECORD_PET" EntitySet="RECORD_PET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECORD_PET_RECORD_PET_SIZE" Association="Self.FK_RECORD_PET_RECORD_PET_SIZE">
+            <End Role="RECORD_PET_SIZE" EntitySet="RECORD_PET_SIZE" />
+            <End Role="RECORD_PET" EntitySet="RECORD_PET" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -119,6 +187,7 @@
           <Property Name="FAMILY_FK" Type="Int32" />
           <NavigationProperty Name="MARINE_CLASS" Relationship="Self.FK_MARINE_SPECIES_MARINE_CLASS" FromRole="MARINE_SPECIES" ToRole="MARINE_CLASS" />
           <NavigationProperty Name="MARINE_FAMILY" Relationship="Self.FK_MARINE_SPECIES_MARINE_FAMILY" FromRole="MARINE_SPECIES" ToRole="MARINE_FAMILY" />
+          <NavigationProperty Name="RECORD_PET" Relationship="fishinaboxModel.FK_RECORD_PET_MARINE_SPECIES" FromRole="MARINE_SPECIES" ToRole="RECORD_PET" />
         </EntityType>
         <Association Name="FK_MARINE_SPECIES_MARINE_CLASS">
           <End Role="MARINE_CLASS" Type="Self.MARINE_CLASS" Multiplicity="1" />
@@ -157,6 +226,20 @@
             <End Role="MARINE_SPECIES" EntitySet="MARINE_SPECIES" />
           </AssociationSet>
           <EntitySet Name="RECORD_PET_SIZE" EntityType="fishinaboxModel.RECORD_PET_SIZE" />
+          <EntitySet Name="RECORD_GROUP" EntityType="fishinaboxModel.RECORD_GROUP" />
+          <EntitySet Name="RECORD_PET" EntityType="fishinaboxModel.RECORD_PET" />
+          <AssociationSet Name="FK_RECORD_PET_MARINE_SPECIES" Association="fishinaboxModel.FK_RECORD_PET_MARINE_SPECIES">
+            <End Role="MARINE_SPECIES" EntitySet="MARINE_SPECIES" />
+            <End Role="RECORD_PET" EntitySet="RECORD_PET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECORD_PET_RECORD_GROUP" Association="fishinaboxModel.FK_RECORD_PET_RECORD_GROUP">
+            <End Role="RECORD_GROUP" EntitySet="RECORD_GROUP" />
+            <End Role="RECORD_PET" EntitySet="RECORD_PET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECORD_PET_RECORD_PET_SIZE" Association="fishinaboxModel.FK_RECORD_PET_RECORD_PET_SIZE">
+            <End Role="RECORD_PET_SIZE" EntitySet="RECORD_PET_SIZE" />
+            <End Role="RECORD_PET" EntitySet="RECORD_PET" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="RECORD_PET_SIZE">
           <Key>
@@ -164,7 +247,66 @@
           </Key>
           <Property Name="ID_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DESCRIPTION" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RECORD_PET" Relationship="fishinaboxModel.FK_RECORD_PET_RECORD_PET_SIZE" FromRole="RECORD_PET_SIZE" ToRole="RECORD_PET" />
         </EntityType>
+        <EntityType Name="RECORD_GROUP">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPTION" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="RECORD_PET" Relationship="fishinaboxModel.FK_RECORD_PET_RECORD_GROUP" FromRole="RECORD_GROUP" ToRole="RECORD_PET" />
+        </EntityType>
+        <EntityType Name="RECORD_PET">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SPECIES_FK" Type="Int32" />
+          <Property Name="SIZE_FK" Type="Int32" Nullable="false" />
+          <Property Name="GROUP_FK" Type="Int32" />
+          <NavigationProperty Name="MARINE_SPECIES" Relationship="fishinaboxModel.FK_RECORD_PET_MARINE_SPECIES" FromRole="RECORD_PET" ToRole="MARINE_SPECIES" />
+          <NavigationProperty Name="RECORD_GROUP" Relationship="fishinaboxModel.FK_RECORD_PET_RECORD_GROUP" FromRole="RECORD_PET" ToRole="RECORD_GROUP" />
+          <NavigationProperty Name="RECORD_PET_SIZE" Relationship="fishinaboxModel.FK_RECORD_PET_RECORD_PET_SIZE" FromRole="RECORD_PET" ToRole="RECORD_PET_SIZE" />
+        </EntityType>
+        <Association Name="FK_RECORD_PET_MARINE_SPECIES">
+          <End Type="fishinaboxModel.MARINE_SPECIES" Role="MARINE_SPECIES" Multiplicity="0..1" />
+          <End Type="fishinaboxModel.RECORD_PET" Role="RECORD_PET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MARINE_SPECIES">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="RECORD_PET">
+              <PropertyRef Name="SPECIES_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECORD_PET_RECORD_GROUP">
+          <End Type="fishinaboxModel.RECORD_GROUP" Role="RECORD_GROUP" Multiplicity="0..1" />
+          <End Type="fishinaboxModel.RECORD_PET" Role="RECORD_PET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RECORD_GROUP">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="RECORD_PET">
+              <PropertyRef Name="GROUP_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECORD_PET_RECORD_PET_SIZE">
+          <End Type="fishinaboxModel.RECORD_PET_SIZE" Role="RECORD_PET_SIZE" Multiplicity="1" />
+          <End Type="fishinaboxModel.RECORD_PET" Role="RECORD_PET" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RECORD_PET_SIZE">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="RECORD_PET">
+              <PropertyRef Name="SIZE_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -209,6 +351,26 @@
             <EntityTypeMapping TypeName="fishinaboxModel.RECORD_PET_SIZE">
               <MappingFragment StoreEntitySet="RECORD_PET_SIZE">
                 <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RECORD_GROUP">
+            <EntityTypeMapping TypeName="fishinaboxModel.RECORD_GROUP">
+              <MappingFragment StoreEntitySet="RECORD_GROUP">
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RECORD_PET">
+            <EntityTypeMapping TypeName="fishinaboxModel.RECORD_PET">
+              <MappingFragment StoreEntitySet="RECORD_PET">
+                <ScalarProperty Name="GROUP_FK" ColumnName="GROUP_FK" />
+                <ScalarProperty Name="SIZE_FK" ColumnName="SIZE_FK" />
+                <ScalarProperty Name="SPECIES_FK" ColumnName="SPECIES_FK" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
                 <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />
               </MappingFragment>
             </EntityTypeMapping>
