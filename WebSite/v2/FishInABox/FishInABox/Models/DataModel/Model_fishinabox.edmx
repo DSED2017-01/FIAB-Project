@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="fishinaboxModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="fishinaboxModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="MARINE_CLASS">
           <Key>
             <PropertyRef Name="ID_PK" />
@@ -36,6 +36,13 @@
           <Property Name="FLAG" Type="bit" Nullable="false" />
           <Property Name="FAMILY_FK" Type="int" />
         </EntityType>
+        <EntityType Name="RECORD_PET_SIZE">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="25" Nullable="false" />
+        </EntityType>
         <Association Name="FK_MARINE_SPECIES_MARINE_CLASS">
           <End Role="MARINE_CLASS" Type="Self.MARINE_CLASS" Multiplicity="1" />
           <End Role="MARINE_SPECIES" Type="Self.MARINE_SPECIES" Multiplicity="*" />
@@ -64,6 +71,7 @@
           <EntitySet Name="MARINE_CLASS" EntityType="Self.MARINE_CLASS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MARINE_FAMILY" EntityType="Self.MARINE_FAMILY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MARINE_SPECIES" EntityType="Self.MARINE_SPECIES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RECORD_PET_SIZE" EntityType="Self.RECORD_PET_SIZE" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_MARINE_SPECIES_MARINE_CLASS" Association="Self.FK_MARINE_SPECIES_MARINE_CLASS">
             <End Role="MARINE_CLASS" EntitySet="MARINE_CLASS" />
             <End Role="MARINE_SPECIES" EntitySet="MARINE_SPECIES" />
@@ -73,8 +81,7 @@
             <End Role="MARINE_SPECIES" EntitySet="MARINE_SPECIES" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="fishinaboxModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -149,7 +156,15 @@
             <End Role="MARINE_FAMILY" EntitySet="MARINE_FAMILY" />
             <End Role="MARINE_SPECIES" EntitySet="MARINE_SPECIES" />
           </AssociationSet>
+          <EntitySet Name="RECORD_PET_SIZE" EntityType="fishinaboxModel.RECORD_PET_SIZE" />
         </EntityContainer>
+        <EntityType Name="RECORD_PET_SIZE">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPTION" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -187,6 +202,14 @@
                 <ScalarProperty Name="TEXT" ColumnName="TEXT" />
                 <ScalarProperty Name="FLAG" ColumnName="FLAG" />
                 <ScalarProperty Name="FAMILY_FK" ColumnName="FAMILY_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RECORD_PET_SIZE">
+            <EntityTypeMapping TypeName="fishinaboxModel.RECORD_PET_SIZE">
+              <MappingFragment StoreEntitySet="RECORD_PET_SIZE">
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

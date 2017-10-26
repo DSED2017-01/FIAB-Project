@@ -196,11 +196,13 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MARINE_FAMILYController.cs" />
     <Compile Include="Controllers\MARINE_SPECIESController.cs" />
+    <Compile Include="Controllers\RECORD_PET_SIZEController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Controllers\MARINE_CLASSController.cs" />
+    <Compile Include="Helper\SizeComparer.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataModel\MARINE_CLASS.cs">
       <DependentUpon>Model_fishinabox.tt</DependentUpon>
@@ -225,6 +227,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model_fishinabox.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModel\RECORD_PET_SIZE.cs">
+      <DependentUpon>Model_fishinabox.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GroupModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -322,6 +327,11 @@
     <Content Include="Views\MARINE_SPECIES\Details.cshtml" />
     <Content Include="Views\MARINE_SPECIES\Edit.cshtml" />
     <Content Include="Views\MARINE_SPECIES\Index.cshtml" />
+    <Content Include="Views\RECORD_PET_SIZE\Create.cshtml" />
+    <Content Include="Views\RECORD_PET_SIZE\Delete.cshtml" />
+    <Content Include="Views\RECORD_PET_SIZE\Details.cshtml" />
+    <Content Include="Views\RECORD_PET_SIZE\Edit.cshtml" />
+    <Content Include="Views\RECORD_PET_SIZE\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
