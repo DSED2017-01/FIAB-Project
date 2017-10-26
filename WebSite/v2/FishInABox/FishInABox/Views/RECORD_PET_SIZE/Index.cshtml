@@ -4,10 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Marine Length Maintenance Menu</h2>
 
+<!-- Create a button for user to return to previous screen -->
+<input type="button" class='smallerClickButton'
+       value="&laquo; Return to System Menu" onclick="location.href='@Url.Action("Index", "System")'" />
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <div class="col-md-2">
+        @Html.ActionLink("Create New", "Create")
+    </div>
 </p>
 <table class="table">
     <tr>
@@ -17,7 +22,7 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model.OrderBy( x => x.DESCRIPTION, new FishInABox.Helper.SizeComparer())) {
+@foreach (var item in Model.OrderBy(x => x.DESCRIPTION, new FishInABox.Helper.SizeComparer())) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.DESCRIPTION)
