@@ -3,19 +3,34 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Fish in a box Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
-</head>
-<body>
     <!-- https://forums.asp.net/t/1825364.aspx?button+Size+in+MVC  -->
     <style type="text/css">
         .bigClickButton {
             width: 300px;
             height: 50px;
+            font-size: 20px;
+            color: green;
+        }
+
+        .smallerClickButton {
+            width: 250px;
+            height: 30px;
+            font-size: 14px;
+            color: green;
         }
     </style>
+    <style>
+        /* https://www.w3schools.com/tags/att_global_class.asp */
+        h1.main {
+            color: brown;
+        }
+    </style>
+</head>
+<body>
+
 
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -25,7 +40,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Main", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -33,7 +48,8 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                <!-- @Html.Partial("_LoginPartial") -->
+                
             </div>
         </div>
     </div>
@@ -41,7 +57,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Fish In A Box Application</p>
         </footer>
     </div>
 
