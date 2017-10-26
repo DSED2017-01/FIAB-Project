@@ -6,8 +6,13 @@
 
 <h2>Marine Classification Maintenance Menu</h2>
 
+<input type="button" class='smallerClickButton'
+       value="&laquo; Return to System Menu" onclick="location.href='@Url.Action("Index", "System")'" />
+
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <div class="col-md-2">
+        @Html.ActionLink("Create New", "Create")
+    </div>
 </p>
 <table class="table">
     <tr>
@@ -24,7 +29,7 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.OrderBy(x => x.SCHEDULE4)) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.TEXT)
@@ -50,7 +55,5 @@
 
 </table>
 <!-- @Html.ActionLink("Return to System Menu", "Index", "System")  -->
-<input type="button" class='smallerClickButton'
-       value="&laquo; Return to System Menu" onclick="location.href='@Url.Action("Index", "System")'" />
 
 

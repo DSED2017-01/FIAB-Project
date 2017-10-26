@@ -1,0 +1,87 @@
+﻿<!-- https://ole.michelsen.dk/blog/grouping-data-with-linq-and-mvc.html -->
+
+@using FishInABox.Models
+@model List<GroupModel<FishInABox.Models.DataModel.MARINE_SPECIES, FishInABox.Models.DataModel.MARINE_CLASS>>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Marine Species Maintenance Menu</h2>
+<!-- Create a button for user to return to previous screen -->
+<input type="button" class='smallerClickButton'
+       value="&laquo; Return to System Menu" onclick="location.href='@Url.Action("Index", "System")'" />
+<p>
+    <div class="col-md-2">
+        @Html.ActionLink("Create New", "Create")
+    </div>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th>
+                <!-- Classification -->
+            </th>
+            <th>
+                Family
+            </th>
+            <th>
+                Scientific Name
+            </th>
+            <th>
+                Common Name
+            </th>
+            <th>
+                Cam's Terminology
+            </th>
+            <th>
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+@foreach (var group in Model) {
+    <tr><th colspan="8" style="background-color:lightblue">@group.Key.SCHEDULE4</th> </tr>
+
+    foreach (var item in group.Values)
+    {
+        <tr>
+            <td>
+                <!-- @Html.DisplayFor(modelItem => item.SPECIES_FK)  -->
+                <!-- do not display this field -->
+            </td>
+            <td>
+                <!-- @Html.DisplayFor(modelItem => item.MARINE_CLASS.TEXT) -->
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MARINE_FAMILY.TEXT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SCIENTIFIC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COMMON)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TEXT)
+            </td>
+            <td>
+                <!--  @Html.DisplayFor(modelItem => item.FLAG)  -->
+                <!-- do not display this field -->
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID_PK }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID_PK }) |
+                @if (item.FLAG == false)
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID_PK })
+                }
+            </td>
+        </tr>
+    }
+}
+    
+</table>

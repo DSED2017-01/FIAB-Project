@@ -194,6 +194,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MARINE_FAMILYController.cs" />
+    <Compile Include="Controllers\MARINE_SPECIESController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -224,6 +226,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model_fishinabox.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\GroupModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -309,6 +312,16 @@
     <Content Include="Views\MARINE_CLASS\Edit.cshtml" />
     <Content Include="Views\MARINE_CLASS\Index.cshtml" />
     <Content Include="Views\System\index.cshtml" />
+    <Content Include="Views\MARINE_FAMILY\Create.cshtml" />
+    <Content Include="Views\MARINE_FAMILY\Delete.cshtml" />
+    <Content Include="Views\MARINE_FAMILY\Details.cshtml" />
+    <Content Include="Views\MARINE_FAMILY\Edit.cshtml" />
+    <Content Include="Views\MARINE_FAMILY\Index.cshtml" />
+    <Content Include="Views\MARINE_SPECIES\Create.cshtml" />
+    <Content Include="Views\MARINE_SPECIES\Delete.cshtml" />
+    <Content Include="Views\MARINE_SPECIES\Details.cshtml" />
+    <Content Include="Views\MARINE_SPECIES\Edit.cshtml" />
+    <Content Include="Views\MARINE_SPECIES\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

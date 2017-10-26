@@ -1,0 +1,59 @@
+﻿@model IEnumerable<FishInABox.Models.DataModel.MARINE_FAMILY>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Marine Family Maintenance Menu</h2>
+<!-- Create a button for user to return to previous screen -->
+<input type="button" class='smallerClickButton'
+       value="&laquo; Return to System Menu" onclick="location.href='@Url.Action("Index", "System")'" />
+<p>
+    <div class="col-md-2">
+        @Html.ActionLink("Create New", "Create")
+    </div>
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            <!-- @Html.DisplayNameFor(model => model.TEXT) -->
+            Cam's Terminology
+        </th>
+        <th>
+            <!-- @Html.DisplayNameFor(model => model.SCHEDULE3) -->
+            MPI Terminology
+        </th>
+        <th>
+            <!-- @Html.DisplayNameFor(model => model.FLAG)   -->
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.OrderBy(x => x.SCHEDULE3))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TEXT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SCHEDULE3)
+            </td>
+            <td>
+                <!-- @Html.DisplayFor(modelItem => item.FLAG)  -->
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID_PK }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID_PK }) |
+                @if (item.FLAG == false)
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID_PK })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
