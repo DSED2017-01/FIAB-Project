@@ -53,6 +53,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -192,10 +194,36 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\MARINE_CLASSController.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DataModel\MARINE_CLASS.cs">
+      <DependentUpon>Model_fishinabox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModel\MARINE_FAMILY.cs">
+      <DependentUpon>Model_fishinabox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModel\MARINE_SPECIES.cs">
+      <DependentUpon>Model_fishinabox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModel\Model_fishinabox.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_fishinabox.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModel\Model_fishinabox.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_fishinabox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModel\Model_fishinabox.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model_fishinabox.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -208,10 +236,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\DataModel\Model_fishinabox.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_fishinabox.edmx</DependentUpon>
+      <LastGenOutput>Model_fishinabox.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DataModel\Model_fishinabox.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model_fishinabox.edmx</DependentUpon>
+      <LastGenOutput>Model_fishinabox.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EntityDeploy Include="Models\DataModel\Model_fishinabox.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model_fishinabox.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DataModel\Model_fishinabox.edmx.diagram">
+      <DependentUpon>Model_fishinabox.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -258,10 +303,15 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\MARINE_CLASS\Create.cshtml" />
+    <Content Include="Views\MARINE_CLASS\Delete.cshtml" />
+    <Content Include="Views\MARINE_CLASS\Details.cshtml" />
+    <Content Include="Views\MARINE_CLASS\Edit.cshtml" />
+    <Content Include="Views\MARINE_CLASS\Index.cshtml" />
+    <Content Include="Views\System\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DataModel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -275,6 +325,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

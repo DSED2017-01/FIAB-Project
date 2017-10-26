@@ -1,11 +1,9 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "System Page";
 }
 
-
-
 <div class="jumbotron">
-    <h1>Main Menu</h1>
+    <h1>System Menu</h1>
     <p class="lead"></p>
     <!--
     <p><a class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
@@ -14,13 +12,13 @@
 
 <div class="row">
     <div class="col-md-3">
-        <!--  <h2>Menu 1</h2>   -->
+        <!-- <h2>System Menu</h2>  -->
+        
         <p>
-            <!-- @Html.ActionLink("System", "Index", "System") -->
-            <!-- @Html.ActionLink("Maintain Marine Class", "Index", "MARINE_CLASS") -->
-            <!-- https://stackoverflow.com/questions/28471103/how-to-call-controller-from-the-button-click-in-asp-net-mvc-4  -->
             <input type="button" class='bigClickButton'
-                   value="System Menu" onclick="location.href='@Url.Action("Index", "System")'" />
+                   value="Maintain Marine Class" onclick="location.href='@Url.Action("Index", "MARINE_CLASS")'" />
+            <!--  @Html.ActionLink("MARINE_CLASS", "Index", "MARINE_CLASS")  -->
+            
         </p>
         <!-- <p><a class="btn btn-default">Click Me &raquo;</a></p>     -->
         
