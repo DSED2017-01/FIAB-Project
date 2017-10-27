@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Tank Info Loader Page";
+}
+
+
+<div class="jumbotron">
+    <h1 class="main">Tank Info Loader Menu</h1>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <p>
+            1. Setup Bay/Aisle Number or Code
+            <!-- https://stackoverflow.com/questions/28471103/how-to-call-controller-from-the-button-click-in-asp-net-mvc-4  -->
+            <input type="button" class='bigClickButton'
+                   value="Bay/Aisle Maintenance" onclick="location.href='@Url.Action("InComplete", "System")'" />
+        </p>
+        <p>
+            2. Setup Bay/Aisle Number or Code
+            <!-- https://stackoverflow.com/questions/28471103/how-to-call-controller-from-the-button-click-in-asp-net-mvc-4  -->
+            <input type="button" class='bigClickButton'
+                   value="Tank Maintenance" onclick="location.href='@Url.Action("InComplete", "System")'" />
+        </p>
+    </div>
+</div>

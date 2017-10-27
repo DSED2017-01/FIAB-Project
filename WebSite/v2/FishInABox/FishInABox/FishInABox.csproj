@@ -237,6 +237,12 @@
     <Compile Include="Models\DataModel\RECORD_PET_SIZE.cs">
       <DependentUpon>Model_fishinabox.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataModel\TANK.cs">
+      <DependentUpon>Model_fishinabox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModel\TANK_BAY.cs">
+      <DependentUpon>Model_fishinabox.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GroupModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -322,7 +328,7 @@
     <Content Include="Views\MARINE_CLASS\Details.cshtml" />
     <Content Include="Views\MARINE_CLASS\Edit.cshtml" />
     <Content Include="Views\MARINE_CLASS\Index.cshtml" />
-    <Content Include="Views\System\index.cshtml" />
+    <Content Include="Views\System\Index.cshtml" />
     <Content Include="Views\MARINE_FAMILY\Create.cshtml" />
     <Content Include="Views\MARINE_FAMILY\Delete.cshtml" />
     <Content Include="Views\MARINE_FAMILY\Details.cshtml" />
@@ -338,6 +344,8 @@
     <Content Include="Views\RECORD_PET_SIZE\Details.cshtml" />
     <Content Include="Views\RECORD_PET_SIZE\Edit.cshtml" />
     <Content Include="Views\RECORD_PET_SIZE\Index.cshtml" />
+    <Content Include="Views\System\InComplete.cshtml" />
+    <Content Include="Views\System\TankInfoLoader.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

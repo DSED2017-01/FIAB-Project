@@ -16,6 +16,9 @@
         <AssociationConnector Association="fishinaboxModel.FK_RECORD_PET_MARINE_SPECIES" />
         <AssociationConnector Association="fishinaboxModel.FK_RECORD_PET_RECORD_GROUP" />
         <AssociationConnector Association="fishinaboxModel.FK_RECORD_PET_RECORD_PET_SIZE" />
+        <EntityTypeShape EntityType="fishinaboxModel.TANK" Width="1.5" PointX="3" PointY="5.875" />
+        <EntityTypeShape EntityType="fishinaboxModel.TANK_BAY" Width="1.5" PointX="0.75" PointY="6.125" />
+        <AssociationConnector Association="fishinaboxModel.FK_TANK_TANK_BAY" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

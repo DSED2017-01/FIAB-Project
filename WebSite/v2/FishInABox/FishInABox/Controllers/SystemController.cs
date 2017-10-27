@@ -13,5 +13,15 @@ namespace FishInABox.Controllers
         {
             return View();
         }
+
+        public ActionResult InComplete()
+        {
+            return View();
+        }
+
+        public ActionResult TankInfoLoader()
+        {
+            return View();
+        }
     }
 }

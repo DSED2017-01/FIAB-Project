@@ -61,6 +61,24 @@
           <Property Name="ID_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="25" Nullable="false" />
         </EntityType>
+        <EntityType Name="TANK">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BAY_FK" Type="int" Nullable="false" />
+          <Property Name="ID_CODE" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="TEXT" Type="nvarchar" MaxLength="100" />
+          <Property Name="RFID" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="TANK_BAY">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_CODE" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="TEXT" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <Association Name="FK_MARINE_SPECIES_MARINE_CLASS">
           <End Role="MARINE_CLASS" Type="Self.MARINE_CLASS" Multiplicity="1" />
           <End Role="MARINE_SPECIES" Type="Self.MARINE_SPECIES" Multiplicity="*" />
@@ -121,6 +139,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TANK_TANK_BAY">
+          <End Role="TANK_BAY" Type="Self.TANK_BAY" Multiplicity="1" />
+          <End Role="TANK" Type="Self.TANK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TANK_BAY">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK">
+              <PropertyRef Name="BAY_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="fishinaboxModelStoreContainer">
           <EntitySet Name="MARINE_CLASS" EntityType="Self.MARINE_CLASS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MARINE_FAMILY" EntityType="Self.MARINE_FAMILY" Schema="dbo" store:Type="Tables" />
@@ -128,6 +158,8 @@
           <EntitySet Name="RECORD_GROUP" EntityType="Self.RECORD_GROUP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RECORD_PET" EntityType="Self.RECORD_PET" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RECORD_PET_SIZE" EntityType="Self.RECORD_PET_SIZE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TANK" EntityType="Self.TANK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TANK_BAY" EntityType="Self.TANK_BAY" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_MARINE_SPECIES_MARINE_CLASS" Association="Self.FK_MARINE_SPECIES_MARINE_CLASS">
             <End Role="MARINE_CLASS" EntitySet="MARINE_CLASS" />
             <End Role="MARINE_SPECIES" EntitySet="MARINE_SPECIES" />
@@ -147,6 +179,10 @@
           <AssociationSet Name="FK_RECORD_PET_RECORD_PET_SIZE" Association="Self.FK_RECORD_PET_RECORD_PET_SIZE">
             <End Role="RECORD_PET_SIZE" EntitySet="RECORD_PET_SIZE" />
             <End Role="RECORD_PET" EntitySet="RECORD_PET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANK_TANK_BAY" Association="Self.FK_TANK_TANK_BAY">
+            <End Role="TANK_BAY" EntitySet="TANK_BAY" />
+            <End Role="TANK" EntitySet="TANK" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -240,6 +276,12 @@
             <End Role="RECORD_PET_SIZE" EntitySet="RECORD_PET_SIZE" />
             <End Role="RECORD_PET" EntitySet="RECORD_PET" />
           </AssociationSet>
+          <EntitySet Name="TANKs" EntityType="fishinaboxModel.TANK" />
+          <EntitySet Name="TANK_BAY" EntityType="fishinaboxModel.TANK_BAY" />
+          <AssociationSet Name="FK_TANK_TANK_BAY" Association="fishinaboxModel.FK_TANK_TANK_BAY">
+            <End Role="TANK_BAY" EntitySet="TANK_BAY" />
+            <End Role="TANK" EntitySet="TANKs" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="RECORD_PET_SIZE">
           <Key>
@@ -307,6 +349,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TANK">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BAY_FK" Type="Int32" Nullable="false" />
+          <Property Name="ID_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TEXT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RFID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TANK_BAY" Relationship="fishinaboxModel.FK_TANK_TANK_BAY" FromRole="TANK" ToRole="TANK_BAY" />
+        </EntityType>
+        <EntityType Name="TANK_BAY">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_CODE" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="TEXT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TANKs" Relationship="fishinaboxModel.FK_TANK_TANK_BAY" FromRole="TANK_BAY" ToRole="TANK" />
+        </EntityType>
+        <Association Name="FK_TANK_TANK_BAY">
+          <End Type="fishinaboxModel.TANK_BAY" Role="TANK_BAY" Multiplicity="1" />
+          <End Type="fishinaboxModel.TANK" Role="TANK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TANK_BAY">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK">
+              <PropertyRef Name="BAY_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -371,6 +445,26 @@
                 <ScalarProperty Name="SPECIES_FK" ColumnName="SPECIES_FK" />
                 <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
                 <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TANKs">
+            <EntityTypeMapping TypeName="fishinaboxModel.TANK">
+              <MappingFragment StoreEntitySet="TANK">
+                <ScalarProperty Name="RFID" ColumnName="RFID" />
+                <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+                <ScalarProperty Name="ID_CODE" ColumnName="ID_CODE" />
+                <ScalarProperty Name="BAY_FK" ColumnName="BAY_FK" />
+                <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TANK_BAY">
+            <EntityTypeMapping TypeName="fishinaboxModel.TANK_BAY">
+              <MappingFragment StoreEntitySet="TANK_BAY">
+                <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+                <ScalarProperty Name="ID_CODE" ColumnName="ID_CODE" />
                 <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />
               </MappingFragment>
             </EntityTypeMapping>
