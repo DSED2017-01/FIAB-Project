@@ -33,5 +33,10 @@ namespace FishInABox.Models.DataModel
         public virtual DbSet<RECORD_PET> RECORD_PET { get; set; }
         public virtual DbSet<TANK> TANKs { get; set; }
         public virtual DbSet<TANK_BAY> TANK_BAY { get; set; }
+        public virtual DbSet<MOVEMENT_PERIOD> MOVEMENT_PERIOD { get; set; }
+        public virtual DbSet<REASON_MORTALITY> REASON_MORTALITY { get; set; }
+        public virtual DbSet<TANK_LOG> TANK_LOG { get; set; }
+        public virtual DbSet<TANK_LOG_DAILY> TANK_LOG_DAILY { get; set; }
+        public virtual DbSet<SYS_STUFF> SYS_STUFF { get; set; }
     }
 }

@@ -12,21 +12,23 @@ namespace FishInABox.Models.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class TANK
+    public partial class SYS_STUFF
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TANK()
+        public SYS_STUFF()
         {
+            this.TANK_LOG_DAILY = new HashSet<TANK_LOG_DAILY>();
             this.TANK_LOG = new HashSet<TANK_LOG>();
         }
     
         public int ID_PK { get; set; }
-        public int BAY_FK { get; set; }
         public string ID_CODE { get; set; }
-        public string TEXT { get; set; }
-        public string RFID { get; set; }
+        public string FAMILY_NAME { get; set; }
+        public string FIRST_NAME { get; set; }
+        public string MIDDLE_NAME { get; set; }
     
-        public virtual TANK_BAY TANK_BAY { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TANK_LOG_DAILY> TANK_LOG_DAILY { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TANK_LOG> TANK_LOG { get; set; }
     }

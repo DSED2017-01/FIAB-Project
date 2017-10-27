@@ -12,21 +12,20 @@ namespace FishInABox.Models.DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class TANK
+    public partial class MOVEMENT_PERIOD
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TANK()
+        public MOVEMENT_PERIOD()
         {
             this.TANK_LOG = new HashSet<TANK_LOG>();
         }
     
         public int ID_PK { get; set; }
-        public int BAY_FK { get; set; }
-        public string ID_CODE { get; set; }
+        public System.DateTime START_DATE { get; set; }
         public string TEXT { get; set; }
-        public string RFID { get; set; }
+        public Nullable<System.DateTime> CLOSED_DATE { get; set; }
+        public bool CLOSED_FLAG { get; set; }
     
-        public virtual TANK_BAY TANK_BAY { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TANK_LOG> TANK_LOG { get; set; }
     }

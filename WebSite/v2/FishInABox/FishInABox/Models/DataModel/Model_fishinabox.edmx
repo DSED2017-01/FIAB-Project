@@ -36,6 +36,24 @@
           <Property Name="FLAG" Type="bit" Nullable="false" />
           <Property Name="FAMILY_FK" Type="int" />
         </EntityType>
+        <EntityType Name="MOVEMENT_PERIOD">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="START_DATE" Type="datetime" Nullable="false" />
+          <Property Name="TEXT" Type="nvarchar" MaxLength="25" />
+          <Property Name="CLOSED_DATE" Type="datetime" />
+          <Property Name="CLOSED_FLAG" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REASON_MORTALITY">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_CODE" Type="nvarchar" MaxLength="10" />
+          <Property Name="TEXT" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="RECORD_GROUP">
           <Key>
             <PropertyRef Name="ID_PK" />
@@ -61,6 +79,16 @@
           <Property Name="ID_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="25" Nullable="false" />
         </EntityType>
+        <EntityType Name="SYS_STUFF">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_CODE" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="FAMILY_NAME" Type="nvarchar" MaxLength="25" />
+          <Property Name="FIRST_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="MIDDLE_NAME" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="TANK">
           <Key>
             <PropertyRef Name="ID_PK" />
@@ -78,6 +106,34 @@
           <Property Name="ID_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_CODE" Type="nvarchar" MaxLength="3" Nullable="false" />
           <Property Name="TEXT" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TANK_LOG">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PERIOD_FK" Type="int" />
+          <Property Name="TANK_FK" Type="int" Nullable="false" />
+          <Property Name="SPECIES_FK" Type="int" />
+          <Property Name="SPECIES_TEXT" Type="nvarchar" MaxLength="50" />
+          <Property Name="SPECIES_TEXT_2" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="QTY" Type="int" Nullable="false" />
+          <Property Name="COMMENT" Type="nvarchar" MaxLength="100" />
+          <Property Name="STUFF_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TANK_LOG_DAILY">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LOD_DATE" Type="datetime" Nullable="false" />
+          <Property Name="LOG_FK" Type="int" Nullable="false" />
+          <Property Name="REASON_FK" Type="int" Nullable="false" />
+          <Property Name="SPECIES_FK" Type="int" />
+          <Property Name="SPECIES_TEXT" Type="nvarchar" MaxLength="50" />
+          <Property Name="QTY" Type="int" Nullable="false" />
+          <Property Name="COMMENT" Type="nvarchar" MaxLength="100" />
+          <Property Name="STUFF_FK" Type="int" />
         </EntityType>
         <Association Name="FK_MARINE_SPECIES_MARINE_CLASS">
           <End Role="MARINE_CLASS" Type="Self.MARINE_CLASS" Multiplicity="1" />
@@ -139,6 +195,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TANK_LOG_DAILY_REASON_MORTALITY">
+          <End Role="REASON_MORTALITY" Type="Self.REASON_MORTALITY" Multiplicity="1" />
+          <End Role="TANK_LOG_DAILY" Type="Self.TANK_LOG_DAILY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REASON_MORTALITY">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK_LOG_DAILY">
+              <PropertyRef Name="REASON_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANK_LOG_DAILY_SYS_STUFF">
+          <End Role="SYS_STUFF" Type="Self.SYS_STUFF" Multiplicity="0..1" />
+          <End Role="TANK_LOG_DAILY" Type="Self.TANK_LOG_DAILY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_STUFF">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK_LOG_DAILY">
+              <PropertyRef Name="STUFF_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANK_LOG_DAILY_TANK_LOG">
+          <End Role="TANK_LOG" Type="Self.TANK_LOG" Multiplicity="1" />
+          <End Role="TANK_LOG_DAILY" Type="Self.TANK_LOG_DAILY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TANK_LOG">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK_LOG_DAILY">
+              <PropertyRef Name="LOG_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANK_LOG_MOVEMENT_PERIOD">
+          <End Role="MOVEMENT_PERIOD" Type="Self.MOVEMENT_PERIOD" Multiplicity="0..1" />
+          <End Role="TANK_LOG" Type="Self.TANK_LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MOVEMENT_PERIOD">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK_LOG">
+              <PropertyRef Name="PERIOD_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANK_LOG_SYS_STUFF">
+          <End Role="SYS_STUFF" Type="Self.SYS_STUFF" Multiplicity="1" />
+          <End Role="TANK_LOG" Type="Self.TANK_LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_STUFF">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK_LOG">
+              <PropertyRef Name="STUFF_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANK_LOG_TANK">
+          <End Role="TANK" Type="Self.TANK" Multiplicity="1" />
+          <End Role="TANK_LOG" Type="Self.TANK_LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TANK">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK_LOG">
+              <PropertyRef Name="TANK_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TANK_TANK_BAY">
           <End Role="TANK_BAY" Type="Self.TANK_BAY" Multiplicity="1" />
           <End Role="TANK" Type="Self.TANK" Multiplicity="*" />
@@ -155,11 +283,16 @@
           <EntitySet Name="MARINE_CLASS" EntityType="Self.MARINE_CLASS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MARINE_FAMILY" EntityType="Self.MARINE_FAMILY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MARINE_SPECIES" EntityType="Self.MARINE_SPECIES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MOVEMENT_PERIOD" EntityType="Self.MOVEMENT_PERIOD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REASON_MORTALITY" EntityType="Self.REASON_MORTALITY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RECORD_GROUP" EntityType="Self.RECORD_GROUP" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RECORD_PET" EntityType="Self.RECORD_PET" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RECORD_PET_SIZE" EntityType="Self.RECORD_PET_SIZE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYS_STUFF" EntityType="Self.SYS_STUFF" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TANK" EntityType="Self.TANK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TANK_BAY" EntityType="Self.TANK_BAY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TANK_LOG" EntityType="Self.TANK_LOG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TANK_LOG_DAILY" EntityType="Self.TANK_LOG_DAILY" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_MARINE_SPECIES_MARINE_CLASS" Association="Self.FK_MARINE_SPECIES_MARINE_CLASS">
             <End Role="MARINE_CLASS" EntitySet="MARINE_CLASS" />
             <End Role="MARINE_SPECIES" EntitySet="MARINE_SPECIES" />
@@ -179,6 +312,30 @@
           <AssociationSet Name="FK_RECORD_PET_RECORD_PET_SIZE" Association="Self.FK_RECORD_PET_RECORD_PET_SIZE">
             <End Role="RECORD_PET_SIZE" EntitySet="RECORD_PET_SIZE" />
             <End Role="RECORD_PET" EntitySet="RECORD_PET" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANK_LOG_DAILY_REASON_MORTALITY" Association="Self.FK_TANK_LOG_DAILY_REASON_MORTALITY">
+            <End Role="REASON_MORTALITY" EntitySet="REASON_MORTALITY" />
+            <End Role="TANK_LOG_DAILY" EntitySet="TANK_LOG_DAILY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANK_LOG_DAILY_SYS_STUFF" Association="Self.FK_TANK_LOG_DAILY_SYS_STUFF">
+            <End Role="SYS_STUFF" EntitySet="SYS_STUFF" />
+            <End Role="TANK_LOG_DAILY" EntitySet="TANK_LOG_DAILY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANK_LOG_DAILY_TANK_LOG" Association="Self.FK_TANK_LOG_DAILY_TANK_LOG">
+            <End Role="TANK_LOG" EntitySet="TANK_LOG" />
+            <End Role="TANK_LOG_DAILY" EntitySet="TANK_LOG_DAILY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANK_LOG_MOVEMENT_PERIOD" Association="Self.FK_TANK_LOG_MOVEMENT_PERIOD">
+            <End Role="MOVEMENT_PERIOD" EntitySet="MOVEMENT_PERIOD" />
+            <End Role="TANK_LOG" EntitySet="TANK_LOG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANK_LOG_SYS_STUFF" Association="Self.FK_TANK_LOG_SYS_STUFF">
+            <End Role="SYS_STUFF" EntitySet="SYS_STUFF" />
+            <End Role="TANK_LOG" EntitySet="TANK_LOG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANK_LOG_TANK" Association="Self.FK_TANK_LOG_TANK">
+            <End Role="TANK" EntitySet="TANK" />
+            <End Role="TANK_LOG" EntitySet="TANK_LOG" />
           </AssociationSet>
           <AssociationSet Name="FK_TANK_TANK_BAY" Association="Self.FK_TANK_TANK_BAY">
             <End Role="TANK_BAY" EntitySet="TANK_BAY" />
@@ -282,6 +439,35 @@
             <End Role="TANK_BAY" EntitySet="TANK_BAY" />
             <End Role="TANK" EntitySet="TANKs" />
           </AssociationSet>
+          <EntitySet Name="MOVEMENT_PERIOD" EntityType="fishinaboxModel.MOVEMENT_PERIOD" />
+          <EntitySet Name="REASON_MORTALITY" EntityType="fishinaboxModel.REASON_MORTALITY" />
+          <EntitySet Name="TANK_LOG" EntityType="fishinaboxModel.TANK_LOG" />
+          <EntitySet Name="TANK_LOG_DAILY" EntityType="fishinaboxModel.TANK_LOG_DAILY" />
+          <AssociationSet Name="FK_TANK_LOG_MOVEMENT_PERIOD" Association="fishinaboxModel.FK_TANK_LOG_MOVEMENT_PERIOD">
+            <End Role="MOVEMENT_PERIOD" EntitySet="MOVEMENT_PERIOD" />
+            <End Role="TANK_LOG" EntitySet="TANK_LOG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANK_LOG_DAILY_REASON_MORTALITY" Association="fishinaboxModel.FK_TANK_LOG_DAILY_REASON_MORTALITY">
+            <End Role="REASON_MORTALITY" EntitySet="REASON_MORTALITY" />
+            <End Role="TANK_LOG_DAILY" EntitySet="TANK_LOG_DAILY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANK_LOG_TANK" Association="fishinaboxModel.FK_TANK_LOG_TANK">
+            <End Role="TANK" EntitySet="TANKs" />
+            <End Role="TANK_LOG" EntitySet="TANK_LOG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANK_LOG_DAILY_TANK_LOG" Association="fishinaboxModel.FK_TANK_LOG_DAILY_TANK_LOG">
+            <End Role="TANK_LOG" EntitySet="TANK_LOG" />
+            <End Role="TANK_LOG_DAILY" EntitySet="TANK_LOG_DAILY" />
+          </AssociationSet>
+          <EntitySet Name="SYS_STUFF" EntityType="fishinaboxModel.SYS_STUFF" />
+          <AssociationSet Name="FK_TANK_LOG_DAILY_SYS_STUFF" Association="fishinaboxModel.FK_TANK_LOG_DAILY_SYS_STUFF">
+            <End Role="SYS_STUFF" EntitySet="SYS_STUFF" />
+            <End Role="TANK_LOG_DAILY" EntitySet="TANK_LOG_DAILY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANK_LOG_SYS_STUFF" Association="fishinaboxModel.FK_TANK_LOG_SYS_STUFF">
+            <End Role="SYS_STUFF" EntitySet="SYS_STUFF" />
+            <End Role="TANK_LOG" EntitySet="TANK_LOG" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="RECORD_PET_SIZE">
           <Key>
@@ -359,6 +545,7 @@
           <Property Name="TEXT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="RFID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="TANK_BAY" Relationship="fishinaboxModel.FK_TANK_TANK_BAY" FromRole="TANK" ToRole="TANK_BAY" />
+          <NavigationProperty Name="TANK_LOG" Relationship="fishinaboxModel.FK_TANK_LOG_TANK" FromRole="TANK" ToRole="TANK_LOG" />
         </EntityType>
         <EntityType Name="TANK_BAY">
           <Key>
@@ -378,6 +565,145 @@
             </Principal>
             <Dependent Role="TANK">
               <PropertyRef Name="BAY_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MOVEMENT_PERIOD">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="START_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TEXT" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="CLOSED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="CLOSED_FLAG" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TANK_LOG" Relationship="fishinaboxModel.FK_TANK_LOG_MOVEMENT_PERIOD" FromRole="MOVEMENT_PERIOD" ToRole="TANK_LOG" />
+        </EntityType>
+        <EntityType Name="REASON_MORTALITY">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_CODE" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="TEXT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TANK_LOG_DAILY" Relationship="fishinaboxModel.FK_TANK_LOG_DAILY_REASON_MORTALITY" FromRole="REASON_MORTALITY" ToRole="TANK_LOG_DAILY" />
+        </EntityType>
+        <EntityType Name="TANK_LOG">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PERIOD_FK" Type="Int32" />
+          <Property Name="TANK_FK" Type="Int32" Nullable="false" />
+          <Property Name="SPECIES_FK" Type="Int32" />
+          <Property Name="SPECIES_TEXT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SPECIES_TEXT_2" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QTY" Type="Int32" Nullable="false" />
+          <Property Name="COMMENT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="STUFF_FK" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MOVEMENT_PERIOD" Relationship="fishinaboxModel.FK_TANK_LOG_MOVEMENT_PERIOD" FromRole="TANK_LOG" ToRole="MOVEMENT_PERIOD" />
+          <NavigationProperty Name="TANK" Relationship="fishinaboxModel.FK_TANK_LOG_TANK" FromRole="TANK_LOG" ToRole="TANK" />
+          <NavigationProperty Name="TANK_LOG_DAILY" Relationship="fishinaboxModel.FK_TANK_LOG_DAILY_TANK_LOG" FromRole="TANK_LOG" ToRole="TANK_LOG_DAILY" />
+          <NavigationProperty Name="SYS_STUFF" Relationship="fishinaboxModel.FK_TANK_LOG_SYS_STUFF" FromRole="TANK_LOG" ToRole="SYS_STUFF" />
+        </EntityType>
+        <EntityType Name="TANK_LOG_DAILY">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LOD_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LOG_FK" Type="Int32" Nullable="false" />
+          <Property Name="REASON_FK" Type="Int32" Nullable="false" />
+          <Property Name="SPECIES_FK" Type="Int32" />
+          <Property Name="SPECIES_TEXT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QTY" Type="Int32" Nullable="false" />
+          <Property Name="COMMENT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="STUFF_FK" Type="Int32" />
+          <NavigationProperty Name="REASON_MORTALITY" Relationship="fishinaboxModel.FK_TANK_LOG_DAILY_REASON_MORTALITY" FromRole="TANK_LOG_DAILY" ToRole="REASON_MORTALITY" />
+          <NavigationProperty Name="TANK_LOG" Relationship="fishinaboxModel.FK_TANK_LOG_DAILY_TANK_LOG" FromRole="TANK_LOG_DAILY" ToRole="TANK_LOG" />
+          <NavigationProperty Name="SYS_STUFF" Relationship="fishinaboxModel.FK_TANK_LOG_DAILY_SYS_STUFF" FromRole="TANK_LOG_DAILY" ToRole="SYS_STUFF" />
+        </EntityType>
+        <Association Name="FK_TANK_LOG_MOVEMENT_PERIOD">
+          <End Type="fishinaboxModel.MOVEMENT_PERIOD" Role="MOVEMENT_PERIOD" Multiplicity="0..1" />
+          <End Type="fishinaboxModel.TANK_LOG" Role="TANK_LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MOVEMENT_PERIOD">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK_LOG">
+              <PropertyRef Name="PERIOD_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANK_LOG_DAILY_REASON_MORTALITY">
+          <End Type="fishinaboxModel.REASON_MORTALITY" Role="REASON_MORTALITY" Multiplicity="1" />
+          <End Type="fishinaboxModel.TANK_LOG_DAILY" Role="TANK_LOG_DAILY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REASON_MORTALITY">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK_LOG_DAILY">
+              <PropertyRef Name="REASON_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANK_LOG_TANK">
+          <End Type="fishinaboxModel.TANK" Role="TANK" Multiplicity="1" />
+          <End Type="fishinaboxModel.TANK_LOG" Role="TANK_LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TANK">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK_LOG">
+              <PropertyRef Name="TANK_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANK_LOG_DAILY_TANK_LOG">
+          <End Type="fishinaboxModel.TANK_LOG" Role="TANK_LOG" Multiplicity="1" />
+          <End Type="fishinaboxModel.TANK_LOG_DAILY" Role="TANK_LOG_DAILY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TANK_LOG">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK_LOG_DAILY">
+              <PropertyRef Name="LOG_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SYS_STUFF">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_CODE" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FAMILY_NAME" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="FIRST_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MIDDLE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TANK_LOG_DAILY" Relationship="fishinaboxModel.FK_TANK_LOG_DAILY_SYS_STUFF" FromRole="SYS_STUFF" ToRole="TANK_LOG_DAILY" />
+          <NavigationProperty Name="TANK_LOG" Relationship="fishinaboxModel.FK_TANK_LOG_SYS_STUFF" FromRole="SYS_STUFF" ToRole="TANK_LOG" />
+        </EntityType>
+        <Association Name="FK_TANK_LOG_DAILY_SYS_STUFF">
+          <End Type="fishinaboxModel.SYS_STUFF" Role="SYS_STUFF" Multiplicity="0..1" />
+          <End Type="fishinaboxModel.TANK_LOG_DAILY" Role="TANK_LOG_DAILY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_STUFF">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK_LOG_DAILY">
+              <PropertyRef Name="STUFF_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANK_LOG_SYS_STUFF">
+          <End Type="fishinaboxModel.SYS_STUFF" Role="SYS_STUFF" Multiplicity="1" />
+          <End Type="fishinaboxModel.TANK_LOG" Role="TANK_LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYS_STUFF">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK_LOG">
+              <PropertyRef Name="STUFF_FK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -464,6 +790,67 @@
             <EntityTypeMapping TypeName="fishinaboxModel.TANK_BAY">
               <MappingFragment StoreEntitySet="TANK_BAY">
                 <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+                <ScalarProperty Name="ID_CODE" ColumnName="ID_CODE" />
+                <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MOVEMENT_PERIOD">
+            <EntityTypeMapping TypeName="fishinaboxModel.MOVEMENT_PERIOD">
+              <MappingFragment StoreEntitySet="MOVEMENT_PERIOD">
+                <ScalarProperty Name="CLOSED_FLAG" ColumnName="CLOSED_FLAG" />
+                <ScalarProperty Name="CLOSED_DATE" ColumnName="CLOSED_DATE" />
+                <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+                <ScalarProperty Name="START_DATE" ColumnName="START_DATE" />
+                <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REASON_MORTALITY">
+            <EntityTypeMapping TypeName="fishinaboxModel.REASON_MORTALITY">
+              <MappingFragment StoreEntitySet="REASON_MORTALITY">
+                <ScalarProperty Name="TEXT" ColumnName="TEXT" />
+                <ScalarProperty Name="ID_CODE" ColumnName="ID_CODE" />
+                <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TANK_LOG">
+            <EntityTypeMapping TypeName="fishinaboxModel.TANK_LOG">
+              <MappingFragment StoreEntitySet="TANK_LOG">
+                <ScalarProperty Name="STUFF_FK" ColumnName="STUFF_FK" />
+                <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+                <ScalarProperty Name="QTY" ColumnName="QTY" />
+                <ScalarProperty Name="SPECIES_TEXT_2" ColumnName="SPECIES_TEXT_2" />
+                <ScalarProperty Name="SPECIES_TEXT" ColumnName="SPECIES_TEXT" />
+                <ScalarProperty Name="SPECIES_FK" ColumnName="SPECIES_FK" />
+                <ScalarProperty Name="TANK_FK" ColumnName="TANK_FK" />
+                <ScalarProperty Name="PERIOD_FK" ColumnName="PERIOD_FK" />
+                <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TANK_LOG_DAILY">
+            <EntityTypeMapping TypeName="fishinaboxModel.TANK_LOG_DAILY">
+              <MappingFragment StoreEntitySet="TANK_LOG_DAILY">
+                <ScalarProperty Name="STUFF_FK" ColumnName="STUFF_FK" />
+                <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+                <ScalarProperty Name="QTY" ColumnName="QTY" />
+                <ScalarProperty Name="SPECIES_TEXT" ColumnName="SPECIES_TEXT" />
+                <ScalarProperty Name="SPECIES_FK" ColumnName="SPECIES_FK" />
+                <ScalarProperty Name="REASON_FK" ColumnName="REASON_FK" />
+                <ScalarProperty Name="LOG_FK" ColumnName="LOG_FK" />
+                <ScalarProperty Name="LOD_DATE" ColumnName="LOD_DATE" />
+                <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYS_STUFF">
+            <EntityTypeMapping TypeName="fishinaboxModel.SYS_STUFF">
+              <MappingFragment StoreEntitySet="SYS_STUFF">
+                <ScalarProperty Name="MIDDLE_NAME" ColumnName="MIDDLE_NAME" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="FAMILY_NAME" ColumnName="FAMILY_NAME" />
                 <ScalarProperty Name="ID_CODE" ColumnName="ID_CODE" />
                 <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />
               </MappingFragment>
