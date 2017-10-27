@@ -198,6 +198,7 @@
     <Compile Include="Controllers\MARINE_SPECIESController.cs" />
     <Compile Include="Controllers\RECORD_PET_SIZEController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
+    <Compile Include="Controllers\TANK_BAYController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -346,6 +347,11 @@
     <Content Include="Views\RECORD_PET_SIZE\Index.cshtml" />
     <Content Include="Views\System\InComplete.cshtml" />
     <Content Include="Views\System\TankInfoLoader.cshtml" />
+    <Content Include="Views\TANK_BAY\Create.cshtml" />
+    <Content Include="Views\TANK_BAY\Delete.cshtml" />
+    <Content Include="Views\TANK_BAY\Details.cshtml" />
+    <Content Include="Views\TANK_BAY\Edit.cshtml" />
+    <Content Include="Views\TANK_BAY\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
