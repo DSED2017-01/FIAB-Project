@@ -22,10 +22,13 @@ namespace FishInABox.Models.DataModel
         }
     
         public int ID_PK { get; set; }
-        public System.DateTime START_DATE { get; set; }
         [Display(Name = "Period")]
         public string TEXT { get; set; }
+        [Display(Name = "Start Date")]
+        public System.DateTime START_DATE { get; set; }
+        [Display(Name = "Ending Date")]
         public Nullable<System.DateTime> CLOSED_DATE { get; set; }
+        [Display(Name = "Period Closed off")]
         public bool CLOSED_FLAG { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

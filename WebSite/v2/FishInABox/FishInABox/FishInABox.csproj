@@ -196,6 +196,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MARINE_FAMILYController.cs" />
     <Compile Include="Controllers\MARINE_SPECIESController.cs" />
+    <Compile Include="Controllers\MOVEMENT_PERIODController.cs" />
     <Compile Include="Controllers\RECORD_PET_SIZEController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\TANKsController.cs" />
@@ -385,6 +386,11 @@
     <Content Include="Views\TANK_LOG_DAILY\Details.cshtml" />
     <Content Include="Views\TANK_LOG_DAILY\Edit.cshtml" />
     <Content Include="Views\TANK_LOG_DAILY\Index.cshtml" />
+    <Content Include="Views\MOVEMENT_PERIOD\Create.cshtml" />
+    <Content Include="Views\MOVEMENT_PERIOD\Delete.cshtml" />
+    <Content Include="Views\MOVEMENT_PERIOD\Details.cshtml" />
+    <Content Include="Views\MOVEMENT_PERIOD\Edit.cshtml" />
+    <Content Include="Views\MOVEMENT_PERIOD\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

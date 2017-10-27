@@ -41,6 +41,7 @@ namespace FishInABox.Controllers
         public ActionResult Create()
         {
             ViewBag.PERIOD_FK = new SelectList(db.MOVEMENT_PERIOD, "ID_PK", "TEXT");
+            ViewBag.START_DATE = new SelectList(db.MOVEMENT_PERIOD, "ID_PK", "START_DATE");
             ViewBag.TANK_FK = new SelectList(db.TANKs, "ID_PK", "ID_CODE");
             ViewBag.STUFF_FK = new SelectList(db.SYS_STUFF, "ID_PK", "ID_CODE");
             return View();

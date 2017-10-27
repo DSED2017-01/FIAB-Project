@@ -1,0 +1,51 @@
+﻿@model IEnumerable<FishInABox.Models.DataModel.MOVEMENT_PERIOD>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.START_DATE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TEXT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLOSED_DATE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLOSED_FLAG)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.START_DATE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TEXT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLOSED_DATE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLOSED_FLAG)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_PK }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_PK }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_PK })
+        </td>
+    </tr>
+}
+
+</table>

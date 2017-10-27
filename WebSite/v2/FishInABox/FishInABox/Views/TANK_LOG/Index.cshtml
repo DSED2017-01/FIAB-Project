@@ -15,9 +15,9 @@
 </p>
 <table class="table">
     <tr>
-        <!-- 1. Period ID -->
+        <!-- 1. Period Start Date -->
         <th>
-            @Html.DisplayNameFor(model => model.MOVEMENT_PERIOD.TEXT)
+            @Html.DisplayNameFor(model => model.MOVEMENT_PERIOD.START_DATE)
         </th>
         <!-- 2. Tank ID -->
         <th>
@@ -52,9 +52,9 @@
 
 @foreach (var item in Model) {
     <tr>
-        <!-- 1. Period ID -->
+        <!-- 1. Period Start Date -->
         <td>
-            @Html.DisplayFor(modelItem => item.MOVEMENT_PERIOD.TEXT)
+            @Html.DisplayFor(modelItem => item.MOVEMENT_PERIOD.START_DATE)
         </td>
         <!-- 2. Tank ID -->
         <td>
