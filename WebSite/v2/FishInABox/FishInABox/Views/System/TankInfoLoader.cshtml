@@ -7,18 +7,18 @@
     <h1 class="main">Tank Info Loader Menu</h1>
 </div>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
+        <p>1. Setup Bay/Aisle Number or Code</p>
         <p>
-            1. Setup Bay/Aisle Number or Code
             <!-- https://stackoverflow.com/questions/28471103/how-to-call-controller-from-the-button-click-in-asp-net-mvc-4  -->
             <input type="button" class='bigClickButton'
-                   value="Bay/Aisle Maintenance" onclick="location.href='@Url.Action("Index", "TANK_BAY")'" />
+                   value="Bay/Aisle Maintenance &raquo;" onclick="location.href='@Url.Action("Index", "TANK_BAY")'" />
         </p>
+        <p> 2. Link Tank Number or Code to Bay/Aisle Number or Code</p>
         <p>
-            2. Setup Bay/Aisle Number or Code
             <!-- https://stackoverflow.com/questions/28471103/how-to-call-controller-from-the-button-click-in-asp-net-mvc-4  -->
             <input type="button" class='bigClickButton'
-                   value="Tank Maintenance" onclick="location.href='@Url.Action("InComplete", "System")'" />
+                   value="Tank Maintenance &raquo;" onclick="location.href='@Url.Action("Index", "TANKs")'" />
         </p>
     </div>
 </div>

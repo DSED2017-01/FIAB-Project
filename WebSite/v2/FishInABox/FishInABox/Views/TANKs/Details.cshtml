@@ -1,0 +1,55 @@
+﻿@model FishInABox.Models.DataModel.TANK
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TANK</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <!-- @Html.DisplayNameFor(model => model.ID_CODE)  -->
+            Tank ID
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID_CODE)
+        </dd>
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RFID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RFID)
+        </dd>
+
+        <dt>
+            <!-- @Html.DisplayNameFor(model => model.TEXT)  -->
+            Comment
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TEXT)
+        </dd>
+        <!-- 
+        <dt>
+            @Html.DisplayNameFor(model => model.TANK_BAY.ID_CODE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TANK_BAY.ID_CODE)
+        </dd>
+            -->
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_PK }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
