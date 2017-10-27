@@ -4,34 +4,46 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
+<h2>Tank Log Menu</h2>
+<!-- Create a button for user to return to previous screen -->
+<input type="button" class='smallerClickButton'
+       value="&laquo; Return to Tank Info Loader Menu" onclick="location.href='@Url.Action("TankInfoLoader", "System")'" />
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <div class="col-md-2">
+        @Html.ActionLink("Create New", "Create")
+    </div>
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.SPECIES_FK)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SPECIES_TEXT)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SPECIES_TEXT_2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.QTY)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.COMMENT)
-        </th>
+        <!-- 1. Period ID -->
         <th>
             @Html.DisplayNameFor(model => model.MOVEMENT_PERIOD.TEXT)
         </th>
+        <!-- 2. Tank ID -->
         <th>
             @Html.DisplayNameFor(model => model.TANK.ID_CODE)
         </th>
+        <!-- 3. Species Record Information (to be implemented !!!)
+        <th>
+            @Html.DisplayNameFor(model => model.SPECIES_FK)
+        </th>-->
+        <!-- Temp 3. Species Description (Manually type in) (transient purpose)-->
+        <th>
+            @Html.DisplayNameFor(model => model.SPECIES_TEXT)
+        </th>
+        <!-- Temp 4. Species Other Information (Manually type in) (transient purpose)-->
+        <th>
+            @Html.DisplayNameFor(model => model.SPECIES_TEXT_2)
+        </th>
+        <!-- 4. Quantity -->
+        <th>
+            @Html.DisplayNameFor(model => model.QTY)
+        </th>
+        <!-- 5. Comment -->
+        <th>
+            @Html.DisplayNameFor(model => model.COMMENT)
+        </th>
+        <!-- 6. Stuff ID -->
         <th>
             @Html.DisplayNameFor(model => model.SYS_STUFF.ID_CODE)
         </th>
@@ -40,27 +52,35 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SPECIES_FK)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SPECIES_TEXT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SPECIES_TEXT_2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QTY)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.COMMENT)
-        </td>
+        <!-- 1. Period ID -->
         <td>
             @Html.DisplayFor(modelItem => item.MOVEMENT_PERIOD.TEXT)
         </td>
+        <!-- 2. Tank ID -->
         <td>
             @Html.DisplayFor(modelItem => item.TANK.ID_CODE)
         </td>
+        <!-- 3. Species Record Information (to be implemented !!!)
+        <td>
+            @Html.DisplayFor(modelItem => item.SPECIES_FK)
+        </td> -->
+        <!-- Temp 3. Species Description (Manually type in) (transient purpose)-->
+        <td>
+            @Html.DisplayFor(modelItem => item.SPECIES_TEXT)
+        </td>
+        <!-- Temp 4. Species Other Information (Manually type in) (transient purpose)-->
+        <td>
+            @Html.DisplayFor(modelItem => item.SPECIES_TEXT_2)
+        </td>
+        <!-- 4. Quantity -->
+        <td>
+            @Html.DisplayFor(modelItem => item.QTY)
+        </td>
+        <!-- 5. Comment -->
+        <td>
+            @Html.DisplayFor(modelItem => item.COMMENT)
+        </td>
+        <!-- 6. Stuff ID -->
         <td>
             @Html.DisplayFor(modelItem => item.SYS_STUFF.ID_CODE)
         </td>

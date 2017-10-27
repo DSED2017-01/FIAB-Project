@@ -16,9 +16,14 @@
         </p>
         <p> 2. Link Tank Number or Code to Bay/Aisle Number or Code</p>
         <p>
-            <!-- https://stackoverflow.com/questions/28471103/how-to-call-controller-from-the-button-click-in-asp-net-mvc-4  -->
             <input type="button" class='bigClickButton'
                    value="Tank Maintenance &raquo;" onclick="location.href='@Url.Action("Index", "TANKs")'" />
+        </p>
+
+        <p> 3. Create Tank Log</p>
+        <p>
+            <input type="button" class='bigClickButton'
+                   value="Tank Log &raquo;" onclick="location.href='@Url.Action("Index", "TANK_LOG")'" />
         </p>
     </div>
 </div>
