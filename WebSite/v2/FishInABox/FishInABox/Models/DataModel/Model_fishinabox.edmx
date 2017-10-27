@@ -126,7 +126,7 @@
             <PropertyRef Name="ID_PK" />
           </Key>
           <Property Name="ID_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LOD_DATE" Type="datetime" Nullable="false" />
+          <Property Name="LOG_DATE" Type="datetime" Nullable="false" />
           <Property Name="LOG_FK" Type="int" Nullable="false" />
           <Property Name="REASON_FK" Type="int" Nullable="false" />
           <Property Name="SPECIES_FK" Type="int" />
@@ -611,7 +611,6 @@
             <PropertyRef Name="ID_PK" />
           </Key>
           <Property Name="ID_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LOD_DATE" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LOG_FK" Type="Int32" Nullable="false" />
           <Property Name="REASON_FK" Type="Int32" Nullable="false" />
           <Property Name="SPECIES_FK" Type="Int32" />
@@ -622,6 +621,7 @@
           <NavigationProperty Name="REASON_MORTALITY" Relationship="fishinaboxModel.FK_TANK_LOG_DAILY_REASON_MORTALITY" FromRole="TANK_LOG_DAILY" ToRole="REASON_MORTALITY" />
           <NavigationProperty Name="TANK_LOG" Relationship="fishinaboxModel.FK_TANK_LOG_DAILY_TANK_LOG" FromRole="TANK_LOG_DAILY" ToRole="TANK_LOG" />
           <NavigationProperty Name="SYS_STUFF" Relationship="fishinaboxModel.FK_TANK_LOG_DAILY_SYS_STUFF" FromRole="TANK_LOG_DAILY" ToRole="SYS_STUFF" />
+          <Property Name="LOG_DATE" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <Association Name="FK_TANK_LOG_MOVEMENT_PERIOD">
           <End Type="fishinaboxModel.MOVEMENT_PERIOD" Role="MOVEMENT_PERIOD" Multiplicity="0..1" />
@@ -833,6 +833,7 @@
           <EntitySetMapping Name="TANK_LOG_DAILY">
             <EntityTypeMapping TypeName="fishinaboxModel.TANK_LOG_DAILY">
               <MappingFragment StoreEntitySet="TANK_LOG_DAILY">
+                <ScalarProperty Name="LOG_DATE" ColumnName="LOG_DATE" />
                 <ScalarProperty Name="STUFF_FK" ColumnName="STUFF_FK" />
                 <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
                 <ScalarProperty Name="QTY" ColumnName="QTY" />
@@ -840,7 +841,6 @@
                 <ScalarProperty Name="SPECIES_FK" ColumnName="SPECIES_FK" />
                 <ScalarProperty Name="REASON_FK" ColumnName="REASON_FK" />
                 <ScalarProperty Name="LOG_FK" ColumnName="LOG_FK" />
-                <ScalarProperty Name="LOD_DATE" ColumnName="LOD_DATE" />
                 <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />
               </MappingFragment>
             </EntityTypeMapping>

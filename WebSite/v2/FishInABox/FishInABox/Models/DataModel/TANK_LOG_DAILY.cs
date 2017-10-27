@@ -15,7 +15,6 @@ namespace FishInABox.Models.DataModel
     public partial class TANK_LOG_DAILY
     {
         public int ID_PK { get; set; }
-        public System.DateTime LOD_DATE { get; set; }
         public int LOG_FK { get; set; }
         public int REASON_FK { get; set; }
         public Nullable<int> SPECIES_FK { get; set; }
@@ -23,6 +22,7 @@ namespace FishInABox.Models.DataModel
         public int QTY { get; set; }
         public string COMMENT { get; set; }
         public Nullable<int> STUFF_FK { get; set; }
+        public System.DateTime LOG_DATE { get; set; }
     
         public virtual REASON_MORTALITY REASON_MORTALITY { get; set; }
         public virtual TANK_LOG TANK_LOG { get; set; }
