@@ -41,6 +41,7 @@ namespace FishInABox.Controllers
         public ActionResult Create()
         {
             ViewBag.REASON_FK = new SelectList(db.REASON_MORTALITY, "ID_PK", "ID_CODE");
+            ViewBag.REASON = new SelectList(db.REASON_MORTALITY, "ID_PK", "TEXT");
             ViewBag.LOG_FK = new SelectList(db.TANK_LOG, "ID_PK", "SPECIES_TEXT");
             ViewBag.STUFF_FK = new SelectList(db.SYS_STUFF, "ID_PK", "ID_CODE");
             return View();
