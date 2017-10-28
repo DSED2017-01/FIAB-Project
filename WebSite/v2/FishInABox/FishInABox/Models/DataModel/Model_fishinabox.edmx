@@ -120,6 +120,8 @@
           <Property Name="QTY" Type="int" Nullable="false" />
           <Property Name="COMMENT" Type="nvarchar" MaxLength="100" />
           <Property Name="STUFF_FK" Type="int" Nullable="false" />
+          <Property Name="ORDER_FK" Type="int" />
+          <Property Name="SIZE_FK" Type="int" />
         </EntityType>
         <EntityType Name="TANK_LOG_DAILY">
           <Key>
@@ -229,6 +231,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TANK_LOG_MARINE_SPECIES">
+          <End Role="MARINE_SPECIES" Type="Self.MARINE_SPECIES" Multiplicity="0..1" />
+          <End Role="TANK_LOG" Type="Self.TANK_LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MARINE_SPECIES">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK_LOG">
+              <PropertyRef Name="SPECIES_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TANK_LOG_MOVEMENT_PERIOD">
           <End Role="MOVEMENT_PERIOD" Type="Self.MOVEMENT_PERIOD" Multiplicity="0..1" />
           <End Role="TANK_LOG" Type="Self.TANK_LOG" Multiplicity="*" />
@@ -238,6 +252,18 @@
             </Principal>
             <Dependent Role="TANK_LOG">
               <PropertyRef Name="PERIOD_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANK_LOG_RECORD_PET_SIZE">
+          <End Role="RECORD_PET_SIZE" Type="Self.RECORD_PET_SIZE" Multiplicity="0..1" />
+          <End Role="TANK_LOG" Type="Self.TANK_LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RECORD_PET_SIZE">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK_LOG">
+              <PropertyRef Name="SIZE_FK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -323,8 +349,16 @@
             <End Role="TANK_LOG" EntitySet="TANK_LOG" />
             <End Role="TANK_LOG_DAILY" EntitySet="TANK_LOG_DAILY" />
           </AssociationSet>
+          <AssociationSet Name="FK_TANK_LOG_MARINE_SPECIES" Association="Self.FK_TANK_LOG_MARINE_SPECIES">
+            <End Role="MARINE_SPECIES" EntitySet="MARINE_SPECIES" />
+            <End Role="TANK_LOG" EntitySet="TANK_LOG" />
+          </AssociationSet>
           <AssociationSet Name="FK_TANK_LOG_MOVEMENT_PERIOD" Association="Self.FK_TANK_LOG_MOVEMENT_PERIOD">
             <End Role="MOVEMENT_PERIOD" EntitySet="MOVEMENT_PERIOD" />
+            <End Role="TANK_LOG" EntitySet="TANK_LOG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANK_LOG_RECORD_PET_SIZE" Association="Self.FK_TANK_LOG_RECORD_PET_SIZE">
+            <End Role="RECORD_PET_SIZE" EntitySet="RECORD_PET_SIZE" />
             <End Role="TANK_LOG" EntitySet="TANK_LOG" />
           </AssociationSet>
           <AssociationSet Name="FK_TANK_LOG_SYS_STUFF" Association="Self.FK_TANK_LOG_SYS_STUFF">
@@ -379,6 +413,7 @@
           <NavigationProperty Name="MARINE_CLASS" Relationship="Self.FK_MARINE_SPECIES_MARINE_CLASS" FromRole="MARINE_SPECIES" ToRole="MARINE_CLASS" />
           <NavigationProperty Name="MARINE_FAMILY" Relationship="Self.FK_MARINE_SPECIES_MARINE_FAMILY" FromRole="MARINE_SPECIES" ToRole="MARINE_FAMILY" />
           <NavigationProperty Name="RECORD_PET" Relationship="fishinaboxModel.FK_RECORD_PET_MARINE_SPECIES" FromRole="MARINE_SPECIES" ToRole="RECORD_PET" />
+          <NavigationProperty Name="TANK_LOG" Relationship="fishinaboxModel.FK_TANK_LOG_MARINE_SPECIES" FromRole="MARINE_SPECIES" ToRole="TANK_LOG" />
         </EntityType>
         <Association Name="FK_MARINE_SPECIES_MARINE_CLASS">
           <End Role="MARINE_CLASS" Type="Self.MARINE_CLASS" Multiplicity="1" />
@@ -466,6 +501,14 @@
             <End Role="SYS_STUFF" EntitySet="SYS_STUFF" />
             <End Role="TANK_LOG" EntitySet="TANK_LOG" />
           </AssociationSet>
+          <AssociationSet Name="FK_TANK_LOG_MARINE_SPECIES" Association="fishinaboxModel.FK_TANK_LOG_MARINE_SPECIES">
+            <End Role="MARINE_SPECIES" EntitySet="MARINE_SPECIES" />
+            <End Role="TANK_LOG" EntitySet="TANK_LOG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TANK_LOG_RECORD_PET_SIZE" Association="fishinaboxModel.FK_TANK_LOG_RECORD_PET_SIZE">
+            <End Role="RECORD_PET_SIZE" EntitySet="RECORD_PET_SIZE" />
+            <End Role="TANK_LOG" EntitySet="TANK_LOG" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="RECORD_PET_SIZE">
           <Key>
@@ -474,6 +517,7 @@
           <Property Name="ID_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DESCRIPTION" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="RECORD_PET" Relationship="fishinaboxModel.FK_RECORD_PET_RECORD_PET_SIZE" FromRole="RECORD_PET_SIZE" ToRole="RECORD_PET" />
+          <NavigationProperty Name="TANK_LOG" Relationship="fishinaboxModel.FK_TANK_LOG_RECORD_PET_SIZE" FromRole="RECORD_PET_SIZE" ToRole="TANK_LOG" />
         </EntityType>
         <EntityType Name="RECORD_GROUP">
           <Key>
@@ -603,6 +647,10 @@
           <NavigationProperty Name="TANK" Relationship="fishinaboxModel.FK_TANK_LOG_TANK" FromRole="TANK_LOG" ToRole="TANK" />
           <NavigationProperty Name="TANK_LOG_DAILY" Relationship="fishinaboxModel.FK_TANK_LOG_DAILY_TANK_LOG" FromRole="TANK_LOG" ToRole="TANK_LOG_DAILY" />
           <NavigationProperty Name="SYS_STUFF" Relationship="fishinaboxModel.FK_TANK_LOG_SYS_STUFF" FromRole="TANK_LOG" ToRole="SYS_STUFF" />
+          <Property Name="ORDER_FK" Type="Int32" />
+          <Property Name="SIZE_FK" Type="Int32" />
+          <NavigationProperty Name="MARINE_SPECIES" Relationship="fishinaboxModel.FK_TANK_LOG_MARINE_SPECIES" FromRole="TANK_LOG" ToRole="MARINE_SPECIES" />
+          <NavigationProperty Name="RECORD_PET_SIZE" Relationship="fishinaboxModel.FK_TANK_LOG_RECORD_PET_SIZE" FromRole="TANK_LOG" ToRole="RECORD_PET_SIZE" />
         </EntityType>
         <EntityType Name="TANK_LOG_DAILY">
           <Key>
@@ -700,6 +748,30 @@
             </Principal>
             <Dependent Role="TANK_LOG">
               <PropertyRef Name="STUFF_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANK_LOG_MARINE_SPECIES">
+          <End Type="fishinaboxModel.MARINE_SPECIES" Role="MARINE_SPECIES" Multiplicity="0..1" />
+          <End Type="fishinaboxModel.TANK_LOG" Role="TANK_LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MARINE_SPECIES">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK_LOG">
+              <PropertyRef Name="SPECIES_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TANK_LOG_RECORD_PET_SIZE">
+          <End Type="fishinaboxModel.RECORD_PET_SIZE" Role="RECORD_PET_SIZE" Multiplicity="0..1" />
+          <End Type="fishinaboxModel.TANK_LOG" Role="TANK_LOG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RECORD_PET_SIZE">
+              <PropertyRef Name="ID_PK" />
+            </Principal>
+            <Dependent Role="TANK_LOG">
+              <PropertyRef Name="SIZE_FK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -814,6 +886,8 @@
           <EntitySetMapping Name="TANK_LOG">
             <EntityTypeMapping TypeName="fishinaboxModel.TANK_LOG">
               <MappingFragment StoreEntitySet="TANK_LOG">
+                <ScalarProperty Name="SIZE_FK" ColumnName="SIZE_FK" />
+                <ScalarProperty Name="ORDER_FK" ColumnName="ORDER_FK" />
                 <ScalarProperty Name="STUFF_FK" ColumnName="STUFF_FK" />
                 <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
                 <ScalarProperty Name="QTY" ColumnName="QTY" />

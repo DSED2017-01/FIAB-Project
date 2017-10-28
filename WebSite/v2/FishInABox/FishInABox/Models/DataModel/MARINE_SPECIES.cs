@@ -18,6 +18,7 @@ namespace FishInABox.Models.DataModel
         public MARINE_SPECIES()
         {
             this.RECORD_PET = new HashSet<RECORD_PET>();
+            this.TANK_LOG = new HashSet<TANK_LOG>();
         }
     
         public int ID_PK { get; set; }
@@ -33,5 +34,7 @@ namespace FishInABox.Models.DataModel
         public virtual MARINE_FAMILY MARINE_FAMILY { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RECORD_PET> RECORD_PET { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TANK_LOG> TANK_LOG { get; set; }
     }
 }
