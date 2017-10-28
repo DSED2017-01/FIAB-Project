@@ -1,0 +1,87 @@
+﻿@model IEnumerable<FishInABox.Models.DataModel.TANK_LOG>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SPECIES_TEXT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SPECIES_TEXT_2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QTY)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.COMMENT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ORDER_FK)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MOVEMENT_PERIOD.TEXT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TANK.ID_CODE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SYS_STUFF.ID_CODE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MARINE_SPECIES.SCIENTIFIC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RECORD_PET_SIZE.DESCRIPTION)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SPECIES_TEXT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SPECIES_TEXT_2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QTY)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.COMMENT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ORDER_FK)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MOVEMENT_PERIOD.TEXT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TANK.ID_CODE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SYS_STUFF.ID_CODE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MARINE_SPECIES.SCIENTIFIC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RECORD_PET_SIZE.DESCRIPTION)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID_PK }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID_PK }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID_PK })
+        </td>
+    </tr>
+}
+
+</table>
