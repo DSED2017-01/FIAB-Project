@@ -41,6 +41,7 @@ namespace FishInABox.Controllers
         public ActionResult Create()
         {
             ViewBag.PERIOD_FK = new SelectList(db.MOVEMENT_PERIOD, "ID_PK", "TEXT");
+            ViewBag.START_DATE = new SelectList(db.MOVEMENT_PERIOD, "ID_PK", "START_DATE");
             ViewBag.TANK_FK = new SelectList(db.TANKs, "ID_PK", "ID_CODE");
             ViewBag.STUFF_FK = new SelectList(db.SYS_STUFF, "ID_PK", "ID_CODE");
             ViewBag.SPECIES_FK = new SelectList(db.MARINE_SPECIES, "ID_PK", "SCIENTIFIC");
@@ -63,6 +64,7 @@ namespace FishInABox.Controllers
             }
 
             ViewBag.PERIOD_FK = new SelectList(db.MOVEMENT_PERIOD, "ID_PK", "TEXT", tANK_LOG.PERIOD_FK);
+            ViewBag.START_DATE = new SelectList(db.MOVEMENT_PERIOD, "ID_PK", "START_DATE");
             ViewBag.TANK_FK = new SelectList(db.TANKs, "ID_PK", "ID_CODE", tANK_LOG.TANK_FK);
             ViewBag.STUFF_FK = new SelectList(db.SYS_STUFF, "ID_PK", "ID_CODE", tANK_LOG.STUFF_FK);
             ViewBag.SPECIES_FK = new SelectList(db.MARINE_SPECIES, "ID_PK", "SCIENTIFIC", tANK_LOG.SPECIES_FK);
@@ -83,6 +85,7 @@ namespace FishInABox.Controllers
                 return HttpNotFound();
             }
             ViewBag.PERIOD_FK = new SelectList(db.MOVEMENT_PERIOD, "ID_PK", "TEXT", tANK_LOG.PERIOD_FK);
+            ViewBag.START_DATE = new SelectList(db.MOVEMENT_PERIOD, "ID_PK", "START_DATE");
             ViewBag.TANK_FK = new SelectList(db.TANKs, "ID_PK", "ID_CODE", tANK_LOG.TANK_FK);
             ViewBag.STUFF_FK = new SelectList(db.SYS_STUFF, "ID_PK", "ID_CODE", tANK_LOG.STUFF_FK);
             ViewBag.SPECIES_FK = new SelectList(db.MARINE_SPECIES, "ID_PK", "SCIENTIFIC", tANK_LOG.SPECIES_FK);
@@ -104,6 +107,7 @@ namespace FishInABox.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.PERIOD_FK = new SelectList(db.MOVEMENT_PERIOD, "ID_PK", "TEXT", tANK_LOG.PERIOD_FK);
+            ViewBag.START_DATE = new SelectList(db.MOVEMENT_PERIOD, "ID_PK", "START_DATE");
             ViewBag.TANK_FK = new SelectList(db.TANKs, "ID_PK", "ID_CODE", tANK_LOG.TANK_FK);
             ViewBag.STUFF_FK = new SelectList(db.SYS_STUFF, "ID_PK", "ID_CODE", tANK_LOG.STUFF_FK);
             ViewBag.SPECIES_FK = new SelectList(db.MARINE_SPECIES, "ID_PK", "SCIENTIFIC", tANK_LOG.SPECIES_FK);
