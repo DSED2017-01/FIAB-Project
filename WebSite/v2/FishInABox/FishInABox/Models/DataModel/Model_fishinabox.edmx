@@ -128,7 +128,7 @@
             <PropertyRef Name="ID_PK" />
           </Key>
           <Property Name="ID_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LOG_DATE" Type="datetime" />
+          <Property Name="LOG_DATE" Type="datetime" Nullable="false" />
           <Property Name="LOG_FK" Type="int" Nullable="false" />
           <Property Name="REASON_FK" Type="int" Nullable="false" />
           <Property Name="QTY" Type="int" Nullable="false" />
@@ -665,7 +665,7 @@
           <NavigationProperty Name="REASON_MORTALITY" Relationship="fishinaboxModel.FK_TANK_LOG_DAILY_REASON_MORTALITY" FromRole="TANK_LOG_DAILY" ToRole="REASON_MORTALITY" />
           <NavigationProperty Name="TANK_LOG" Relationship="fishinaboxModel.FK_TANK_LOG_DAILY_TANK_LOG" FromRole="TANK_LOG_DAILY" ToRole="TANK_LOG" />
           <NavigationProperty Name="SYS_STUFF" Relationship="fishinaboxModel.FK_TANK_LOG_DAILY_SYS_STUFF" FromRole="TANK_LOG_DAILY" ToRole="SYS_STUFF" />
-          <Property Name="LOG_DATE" Type="DateTime" Precision="3" />
+          <Property Name="LOG_DATE" Type="DateTime" Precision="3" Nullable="false" />
         </EntityType>
         <Association Name="FK_TANK_LOG_MOVEMENT_PERIOD">
           <End Type="fishinaboxModel.MOVEMENT_PERIOD" Role="MOVEMENT_PERIOD" Multiplicity="0..1" />
