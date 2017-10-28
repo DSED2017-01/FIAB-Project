@@ -7,7 +7,7 @@
     <h1 class="main">Tank Info Loader Menu</h1>
 </div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-5">
         <p>1. Setup Bay/Aisle Number or Code</p>
         <p>
             <!-- https://stackoverflow.com/questions/28471103/how-to-call-controller-from-the-button-click-in-asp-net-mvc-4  -->
@@ -19,11 +19,22 @@
             <input type="button" class='bigClickButton'
                    value="Tank Maintenance &raquo;" onclick="location.href='@Url.Action("Index", "TANKs")'" />
         </p>
-
+        <!-- 
         <p> 3. Create Tank Log</p>
         <p>
             <input type="button" class='bigClickButton'
                    value="Tank Log &raquo;" onclick="location.href='@Url.Action("Index", "TANK_LOG")'" />
+        </p> -->
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <p>
+            Setup Quarantine Period 
+        </p>
+        <p>
+            <input type="button" class='bigClickButton'
+                   value="Quarantine Period Setup &raquo;" onclick="location.href='@Url.Action("Index", "MOVEMENT_PERIOD")'" />
         </p>
     </div>
+
 </div>

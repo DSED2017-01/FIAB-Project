@@ -16,7 +16,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.PERIOD_FK, "PERIOD_FK", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PERIOD_FK, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("PERIOD_FK", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PERIOD_FK, "", new { @class = "text-danger" })
@@ -24,7 +24,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TANK_FK, "TANK_FK", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TANK_FK, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("TANK_FK", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TANK_FK, "", new { @class = "text-danger" })
@@ -32,10 +32,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SPECIES_FK, "SPECIES_FK", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SPECIES_FK, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("SPECIES_FK", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SPECIES_FK, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SIZE_FK, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SIZE_FK", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SIZE_FK, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -72,34 +80,28 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.STUFF_FK, "STUFF_FK", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.STUFF_FK, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("STUFF_FK", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.STUFF_FK, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <!--
         <div class="form-group">
             @Html.LabelFor(model => model.ORDER_FK, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ORDER_FK, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ORDER_FK, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>-->
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SIZE_FK, "SIZE_FK", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("SIZE_FK", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SIZE_FK, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
-        </div>
+        </div> 
     </div>
 }
 

@@ -11,71 +11,97 @@
 </p>
 <table class="table">
     <tr>
+        <!-- 1. Period -->
         <th>
-            @Html.DisplayNameFor(model => model.SPECIES_TEXT)
+            @Html.DisplayNameFor(model => model.MOVEMENT_PERIOD.START_DATE)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SPECIES_TEXT_2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.QTY)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.COMMENT)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ORDER_FK)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MOVEMENT_PERIOD.TEXT)
-        </th>
+        <!-- 2. Tank ID -->
         <th>
             @Html.DisplayNameFor(model => model.TANK.ID_CODE)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SYS_STUFF.ID_CODE)
-        </th>
+        <!-- 3. Species Scientific Name -->
         <th>
             @Html.DisplayNameFor(model => model.MARINE_SPECIES.SCIENTIFIC)
         </th>
+        <!-- 4. Species Size -->
         <th>
             @Html.DisplayNameFor(model => model.RECORD_PET_SIZE.DESCRIPTION)
         </th>
+        <!-- 5. Species Description (Manual) -->
+        <th>
+            @Html.DisplayNameFor(model => model.SPECIES_TEXT)
+        </th>
+        <!-- 6. Species Additional Information (Manual) -->
+        <th>
+            @Html.DisplayNameFor(model => model.SPECIES_TEXT_2)
+        </th>
+        <!-- 7. Quantity -->
+        <th>
+            @Html.DisplayNameFor(model => model.QTY)
+        </th>
+        <!-- 8. Comment -->
+        <th>
+            @Html.DisplayNameFor(model => model.COMMENT)
+        </th>
+        <!-- 9. Stuff Code -->
+        <th>
+            @Html.DisplayNameFor(model => model.SYS_STUFF.ID_CODE)
+        </th>
+        <!-- 10. Order No
+        <th>
+            @Html.DisplayNameFor(model => model.ORDER_FK)
+        </th> -->
+
+
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <!-- 1. Period Sart Date -->
         <td>
-            @Html.DisplayFor(modelItem => item.SPECIES_TEXT)
+            @Html.DisplayFor(modelItem => item.MOVEMENT_PERIOD.START_DATE)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SPECIES_TEXT_2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QTY)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.COMMENT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ORDER_FK)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MOVEMENT_PERIOD.TEXT)
-        </td>
+        <!-- 2. Tank ID -->
         <td>
             @Html.DisplayFor(modelItem => item.TANK.ID_CODE)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SYS_STUFF.ID_CODE)
-        </td>
+        <!-- 3. Species Scientific Name -->
         <td>
             @Html.DisplayFor(modelItem => item.MARINE_SPECIES.SCIENTIFIC)
         </td>
+        <!-- 4. Species Size -->
         <td>
             @Html.DisplayFor(modelItem => item.RECORD_PET_SIZE.DESCRIPTION)
         </td>
+        <!-- 5. Species Description (Manual) -->
+        <td>
+            @Html.DisplayFor(modelItem => item.SPECIES_TEXT)
+        </td>
+        <!-- 6. Species Additional Information (Manual) -->
+        <td>
+            @Html.DisplayFor(modelItem => item.SPECIES_TEXT_2)
+        </td>
+        <!-- 7. Quantity -->
+        <td>
+            @Html.DisplayFor(modelItem => item.QTY)
+        </td>
+        <!-- 8. Comment -->
+        <td>
+            @Html.DisplayFor(modelItem => item.COMMENT)
+        </td>
+
+        <!-- 9. Stuff Code -->
+        <td>
+            @Html.DisplayFor(modelItem => item.SYS_STUFF.ID_CODE)
+        </td>
+
+        <!-- 10. Order No
+        <td>
+            @Html.DisplayFor(modelItem => item.ORDER_FK)
+        </td> -->
+
+
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID_PK }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID_PK }) |
