@@ -15,29 +15,33 @@
 </p>
 <table class="table">
     <tr>
+        <!-- 
         <th>
-            <!-- @Html.DisplayNameFor(model => model.ID_CODE)  -->
-            Tank ID
+            @Html.DisplayNameFor(model => model.TANK_BAY.ID_CODE)
+        </th> -->
+        <th>
+            @Html.DisplayNameFor(model => model.ID_CODE)
         </th>
         <th>
-            <!-- @Html.DisplayNameFor(model => model.RFID)  -->
-            RFID Code
+            @Html.DisplayNameFor(model => model.RFID)
         </th>
         <th>
-            <!--  @Html.DisplayNameFor(model => model.TEXT) -->
-            Comment
+            @Html.DisplayNameFor(model => model.TEXT)
         </th>
-
+        <!--
         <th>
-            <!-- @Html.DisplayNameFor(model => model.TANK_BAY.ID_CODE)  -->
-            
-        </th>
+            @Html.DisplayNameFor(model => model.TANK_BAY.ID_CODE)
+        </th> -->
         <th></th>
     </tr>
     <!--  https://dzone.com/articles/how-order-multiple-columns  -->
     <!-- Order the Tank by Bay, then by Tank Code -->
 @foreach (var item in Model.OrderBy(a => a.BAY_FK).ThenBy(b => b.ID_CODE)) {
     <tr>
+        <!--
+        <td>
+            @Html.DisplayFor(modelItem => item.TANK_BAY.ID_CODE)
+        </td> -->
         <td>
             @Html.DisplayFor(modelItem => item.ID_CODE)
         </td>
@@ -48,9 +52,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.TEXT)
         </td>
+        <!--
         <td>
-            <!-- @Html.DisplayFor(modelItem => item.TANK_BAY.ID_CODE)  -->
-        </td>
+             @Html.DisplayFor(modelItem => item.TANK_BAY.ID_CODE)  
+        </td> -->
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID_PK }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID_PK }) |
