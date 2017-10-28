@@ -11,7 +11,8 @@ namespace FishInABox.Models.DataModel
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class MARINE_SPECIES
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,12 +23,19 @@ namespace FishInABox.Models.DataModel
         }
     
         public int ID_PK { get; set; }
+        [Display(Name ="Class ID")]
         public int CLASS_FK { get; set; }
+        [Display(Name = "MPI Species ID")]
         public int SPECIES_FK { get; set; }
+        [Display(Name = "Scientific Name")]
         public string SCIENTIFIC { get; set; }
+        [Display(Name = "Common Name")]
         public string COMMON { get; set; }
+        [Display(Name = "Cam's Terminlogy")]
         public string TEXT { get; set; }
+        [Display(Name = "MPI Record")]
         public bool FLAG { get; set; }
+        [Display(Name = "Family ID")]
         public Nullable<int> FAMILY_FK { get; set; }
     
         public virtual MARINE_CLASS MARINE_CLASS { get; set; }

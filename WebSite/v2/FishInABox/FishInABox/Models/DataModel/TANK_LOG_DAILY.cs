@@ -16,12 +16,17 @@ namespace FishInABox.Models.DataModel
     public partial class TANK_LOG_DAILY
     {
         public int ID_PK { get; set; }
+        [Display(Name = "Tank Log ID")]
         public int LOG_FK { get; set; }
+        [Display(Name = "Mortality Reason")]
         public int REASON_FK { get; set; }
+        [Display(Name = "Quantity")]
         public int QTY { get; set; }
+        [Display(Name = "Comment")]
         public string COMMENT { get; set; }
+        [Display(Name = "Stuff ID")]
         public Nullable<int> STUFF_FK { get; set; }
-        [Display(Name = "Date of Birth")]
+        [Display(Name = "Log Date")]
         [DataType(DataType.Date)]
         public System.DateTime LOG_DATE { get; set; }
     

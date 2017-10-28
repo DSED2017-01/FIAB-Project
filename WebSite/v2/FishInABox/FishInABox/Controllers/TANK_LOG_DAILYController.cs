@@ -60,7 +60,7 @@ namespace FishInABox.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.REASON_FK = new SelectList(db.REASON_MORTALITY, "ID_PK", "ID_CODE", tANK_LOG_DAILY.REASON_FK);
+            ViewBag.REASON_FK = new SelectList(db.REASON_MORTALITY, "ID_PK", "TEXT", tANK_LOG_DAILY.REASON_FK);
             ViewBag.LOG_FK = new SelectList(db.TANK_LOG, "ID_PK", "SPECIES_TEXT", tANK_LOG_DAILY.LOG_FK);
             ViewBag.STUFF_FK = new SelectList(db.SYS_STUFF, "ID_PK", "ID_CODE", tANK_LOG_DAILY.STUFF_FK);
             return View(tANK_LOG_DAILY);
@@ -78,7 +78,7 @@ namespace FishInABox.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.REASON_FK = new SelectList(db.REASON_MORTALITY, "ID_PK", "ID_CODE", tANK_LOG_DAILY.REASON_FK);
+            ViewBag.REASON_FK = new SelectList(db.REASON_MORTALITY, "ID_PK", "TEXT", tANK_LOG_DAILY.REASON_FK);
             ViewBag.LOG_FK = new SelectList(db.TANK_LOG, "ID_PK", "SPECIES_TEXT", tANK_LOG_DAILY.LOG_FK);
             ViewBag.STUFF_FK = new SelectList(db.SYS_STUFF, "ID_PK", "ID_CODE", tANK_LOG_DAILY.STUFF_FK);
             return View(tANK_LOG_DAILY);
@@ -97,7 +97,7 @@ namespace FishInABox.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.REASON_FK = new SelectList(db.REASON_MORTALITY, "ID_PK", "ID_CODE", tANK_LOG_DAILY.REASON_FK);
+            ViewBag.REASON_FK = new SelectList(db.REASON_MORTALITY, "ID_PK", "TEXT", tANK_LOG_DAILY.REASON_FK);
             ViewBag.LOG_FK = new SelectList(db.TANK_LOG, "ID_PK", "SPECIES_TEXT", tANK_LOG_DAILY.LOG_FK);
             ViewBag.STUFF_FK = new SelectList(db.SYS_STUFF, "ID_PK", "ID_CODE", tANK_LOG_DAILY.STUFF_FK);
             return View(tANK_LOG_DAILY);
