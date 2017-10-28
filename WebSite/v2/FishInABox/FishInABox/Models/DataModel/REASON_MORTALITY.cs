@@ -11,8 +11,7 @@ namespace FishInABox.Models.DataModel
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class REASON_MORTALITY
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,9 +21,7 @@ namespace FishInABox.Models.DataModel
         }
     
         public int ID_PK { get; set; }
-        [Display(Name = "Mortality Code")]
         public string ID_CODE { get; set; }
-        [Display(Name = "Mortality Reason")]
         public string TEXT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

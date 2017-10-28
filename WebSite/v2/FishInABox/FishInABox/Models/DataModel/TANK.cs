@@ -11,8 +11,7 @@ namespace FishInABox.Models.DataModel
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class TANK
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,13 +21,9 @@ namespace FishInABox.Models.DataModel
         }
     
         public int ID_PK { get; set; }
-        [Display(Name = "Bay ID")]
         public int BAY_FK { get; set; }
-        [Display(Name = "Tank ID")]
         public string ID_CODE { get; set; }
-        [Display(Name = "Tank Description")]
         public string TEXT { get; set; }
-        [Display(Name = "RF ID")]
         public string RFID { get; set; }
     
         public virtual TANK_BAY TANK_BAY { get; set; }

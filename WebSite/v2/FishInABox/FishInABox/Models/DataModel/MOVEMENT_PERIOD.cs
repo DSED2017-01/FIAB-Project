@@ -11,8 +11,7 @@ namespace FishInABox.Models.DataModel
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class MOVEMENT_PERIOD
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,13 +21,9 @@ namespace FishInABox.Models.DataModel
         }
     
         public int ID_PK { get; set; }
-        [Display(Name = "Start Date")]
         public System.DateTime START_DATE { get; set; }
-        [Display(Name = "Period")]
         public string TEXT { get; set; }
-        [Display(Name = "Ending Date")]
         public Nullable<System.DateTime> CLOSED_DATE { get; set; }
-        [Display(Name = "Period Closed off")]
         public bool CLOSED_FLAG { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
