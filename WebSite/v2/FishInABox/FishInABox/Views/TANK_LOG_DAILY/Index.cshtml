@@ -12,12 +12,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.SPECIES_FK)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SPECIES_TEXT)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.QTY)
         </th>
         <th>
@@ -40,12 +34,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.SPECIES_FK)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SPECIES_TEXT)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.QTY)
         </td>

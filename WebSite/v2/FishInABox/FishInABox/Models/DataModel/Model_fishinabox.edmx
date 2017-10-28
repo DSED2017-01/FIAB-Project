@@ -129,8 +129,6 @@
           <Property Name="LOG_DATE" Type="datetime" Nullable="false" />
           <Property Name="LOG_FK" Type="int" Nullable="false" />
           <Property Name="REASON_FK" Type="int" Nullable="false" />
-          <Property Name="SPECIES_FK" Type="int" />
-          <Property Name="SPECIES_TEXT" Type="nvarchar" MaxLength="50" />
           <Property Name="QTY" Type="int" Nullable="false" />
           <Property Name="COMMENT" Type="nvarchar" MaxLength="100" />
           <Property Name="STUFF_FK" Type="int" />
@@ -613,8 +611,6 @@
           <Property Name="ID_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LOG_FK" Type="Int32" Nullable="false" />
           <Property Name="REASON_FK" Type="Int32" Nullable="false" />
-          <Property Name="SPECIES_FK" Type="Int32" />
-          <Property Name="SPECIES_TEXT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="QTY" Type="Int32" Nullable="false" />
           <Property Name="COMMENT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="STUFF_FK" Type="Int32" />
@@ -837,8 +833,6 @@
                 <ScalarProperty Name="STUFF_FK" ColumnName="STUFF_FK" />
                 <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
                 <ScalarProperty Name="QTY" ColumnName="QTY" />
-                <ScalarProperty Name="SPECIES_TEXT" ColumnName="SPECIES_TEXT" />
-                <ScalarProperty Name="SPECIES_FK" ColumnName="SPECIES_FK" />
                 <ScalarProperty Name="REASON_FK" ColumnName="REASON_FK" />
                 <ScalarProperty Name="LOG_FK" ColumnName="LOG_FK" />
                 <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />

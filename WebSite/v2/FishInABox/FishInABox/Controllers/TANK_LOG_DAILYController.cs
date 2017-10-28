@@ -51,7 +51,7 @@ namespace FishInABox.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID_PK,LOG_FK,REASON_FK,SPECIES_FK,SPECIES_TEXT,QTY,COMMENT,STUFF_FK,LOG_DATE")] TANK_LOG_DAILY tANK_LOG_DAILY)
+        public async Task<ActionResult> Create([Bind(Include = "ID_PK,LOG_FK,REASON_FK,QTY,COMMENT,STUFF_FK,LOG_DATE")] TANK_LOG_DAILY tANK_LOG_DAILY)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace FishInABox.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID_PK,LOG_FK,REASON_FK,SPECIES_FK,SPECIES_TEXT,QTY,COMMENT,STUFF_FK,LOG_DATE")] TANK_LOG_DAILY tANK_LOG_DAILY)
+        public async Task<ActionResult> Edit([Bind(Include = "ID_PK,LOG_FK,REASON_FK,QTY,COMMENT,STUFF_FK,LOG_DATE")] TANK_LOG_DAILY tANK_LOG_DAILY)
         {
             if (ModelState.IsValid)
             {

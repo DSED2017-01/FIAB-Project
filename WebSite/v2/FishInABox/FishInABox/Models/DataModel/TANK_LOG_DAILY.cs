@@ -17,8 +17,6 @@ namespace FishInABox.Models.DataModel
         public int ID_PK { get; set; }
         public int LOG_FK { get; set; }
         public int REASON_FK { get; set; }
-        public Nullable<int> SPECIES_FK { get; set; }
-        public string SPECIES_TEXT { get; set; }
         public int QTY { get; set; }
         public string COMMENT { get; set; }
         public Nullable<int> STUFF_FK { get; set; }
