@@ -4,60 +4,74 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Tank Daily Mortality</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.QTY)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.COMMENT)
-        </th>
+        <!-- 1. Log Date -->
         <th>
             @Html.DisplayNameFor(model => model.LOG_DATE)
         </th>
+
+        <!-- 2. Tank ID (from Tank Log)  -->
         <th>
-            @Html.DisplayNameFor(model => model.REASON_MORTALITY.ID_CODE)
+            @Html.DisplayNameFor(model => model.TANK_LOG.TANK.ID_CODE)
         </th>
+        <!-- 3. Moartality Reason-->
         <th>
-            @Html.DisplayNameFor(model => model.TANK_LOG.SPECIES_TEXT)
+            @Html.DisplayNameFor(model => model.REASON_MORTALITY.TEXT)
         </th>
+        <!-- 4. Quantity  -->
+        <th>
+            @Html.DisplayNameFor(model => model.QTY)
+        </th>
+        <!-- 5. Comment -->
+        <th>
+            @Html.DisplayNameFor(model => model.COMMENT)
+        </th>
+        <!-- 6. Stuff ID -->
         <th>
             @Html.DisplayNameFor(model => model.SYS_STUFF.ID_CODE)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.QTY)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.COMMENT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LOG_DATE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.REASON_MORTALITY.ID_CODE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TANK_LOG.SPECIES_TEXT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SYS_STUFF.ID_CODE)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_PK }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_PK }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_PK })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <!-- 1. Log Date -->
+            <td>
+                @Html.DisplayFor(modelItem => item.LOG_DATE)
+            </td>
+            <!-- 2. Tank ID (from Tank Log)  -->
+            <td>
+                @Html.DisplayFor(modelItem => item.TANK_LOG.TANK.ID_CODE)
+            </td>
+            <!-- 3. Moartality Reason-->
+            <td>
+                @Html.DisplayFor(modelItem => item.REASON_MORTALITY.TEXT)
+            </td>
+            <!-- 4. Quantity  -->
+            <td>
+                @Html.DisplayFor(modelItem => item.QTY)
+            </td>
+            <!-- 5. Comment -->
+            <td>
+                @Html.DisplayFor(modelItem => item.COMMENT)
+            </td>
+            <!-- 6. Stuff ID -->
+            <td>
+                @Html.DisplayFor(modelItem => item.SYS_STUFF.ID_CODE)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID_PK }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID_PK }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID_PK })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -11,7 +11,8 @@ namespace FishInABox.Models.DataModel
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TANK_LOG_DAILY
     {
         public int ID_PK { get; set; }
@@ -20,7 +21,9 @@ namespace FishInABox.Models.DataModel
         public int QTY { get; set; }
         public string COMMENT { get; set; }
         public Nullable<int> STUFF_FK { get; set; }
-        public System.DateTime? LOG_DATE { get; set; }
+        [Display(Name = "Date of Birth")]
+        [DataType(DataType.Date)]
+        public System.DateTime LOG_DATE { get; set; }
     
         public virtual REASON_MORTALITY REASON_MORTALITY { get; set; }
         public virtual TANK_LOG TANK_LOG { get; set; }
