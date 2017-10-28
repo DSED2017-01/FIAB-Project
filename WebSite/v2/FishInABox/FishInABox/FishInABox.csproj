@@ -202,6 +202,7 @@
     <Compile Include="Controllers\TANKsController.cs" />
     <Compile Include="Controllers\TANK_BAYController.cs" />
     <Compile Include="Controllers\TANK_LOGController.cs" />
+    <Compile Include="Controllers\TANK_LOG_DAILYController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -385,6 +386,11 @@
     <Content Include="Views\TANK_LOG\Details.cshtml" />
     <Content Include="Views\TANK_LOG\Edit.cshtml" />
     <Content Include="Views\TANK_LOG\Index.cshtml" />
+    <Content Include="Views\TANK_LOG_DAILY\Create.cshtml" />
+    <Content Include="Views\TANK_LOG_DAILY\Delete.cshtml" />
+    <Content Include="Views\TANK_LOG_DAILY\Details.cshtml" />
+    <Content Include="Views\TANK_LOG_DAILY\Edit.cshtml" />
+    <Content Include="Views\TANK_LOG_DAILY\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
