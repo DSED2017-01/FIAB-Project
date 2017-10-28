@@ -11,7 +11,8 @@ namespace FishInABox.Models.DataModel
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class SYS_STUFF
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,6 +23,7 @@ namespace FishInABox.Models.DataModel
         }
     
         public int ID_PK { get; set; }
+        [Display(Name = "Stuff ID")]
         public string ID_CODE { get; set; }
         public string FAMILY_NAME { get; set; }
         public string FIRST_NAME { get; set; }
