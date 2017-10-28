@@ -142,7 +142,7 @@ warning 6002: The table/view 'fishinabox.dbo.VIEW_TANK_LOG' does not have a prim
             <PropertyRef Name="ID_PK" />
           </Key>
           <Property Name="ID_PK" Type="int" Nullable="false" />
-          <Property Name="TEXT" Type="nvarchar" MaxLength="183" />
+          <Property Name="TEXT" Type="nvarchar" MaxLength="183" Nullable="false" />
         </EntityType>
         <Association Name="FK_MARINE_SPECIES_MARINE_CLASS">
           <End Role="MARINE_CLASS" Type="Self.MARINE_CLASS" Multiplicity="1" />
@@ -796,7 +796,7 @@ warning 6002: The table/view 'fishinabox.dbo.VIEW_TANK_LOG' does not have a prim
             <PropertyRef Name="ID_PK" />
           </Key>
           <Property Name="ID_PK" Type="Int32" Nullable="false" />
-          <Property Name="TEXT" Type="String" MaxLength="183" FixedLength="false" Unicode="true" />
+          <Property Name="TEXT" Type="String" MaxLength="183" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
