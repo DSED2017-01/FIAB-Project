@@ -202,7 +202,6 @@
     <Compile Include="Controllers\TANKsController.cs" />
     <Compile Include="Controllers\TANK_BAYController.cs" />
     <Compile Include="Controllers\TANK_LOGController.cs" />
-    <Compile Include="Controllers\TANK_LOG_DAILYController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
