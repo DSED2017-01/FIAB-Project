@@ -11,15 +11,22 @@ namespace FishInABox.Models.DataModel
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TANK_LOG_DAILY
     {
         public int ID_PK { get; set; }
+        [Display(Name = "Tank Log ID")]
         public int LOG_FK { get; set; }
+        [Display(Name = "Mortality Reason ID")]
         public int REASON_FK { get; set; }
+        [Display(Name = "Quantity")]
         public int QTY { get; set; }
+        [Display(Name = "Comment")]
         public string COMMENT { get; set; }
+        [Display(Name = "Stuff ID")]
         public Nullable<int> STUFF_FK { get; set; }
+        [Display(Name = "Log Date")]
         public System.DateTime LOG_DATE { get; set; }
     
         public virtual REASON_MORTALITY REASON_MORTALITY { get; set; }

@@ -41,9 +41,21 @@ namespace FishInABox.Controllers
         public ActionResult Create()
         {
             ViewBag.REASON_FK = new SelectList(db.REASON_MORTALITY, "ID_PK", "ID_CODE");
-            ViewBag.REASON = new SelectList(db.REASON_MORTALITY, "ID_PK", "TEXT");
             ViewBag.LOG_FK = new SelectList(db.TANK_LOG, "ID_PK", "SPECIES_TEXT");
             ViewBag.STUFF_FK = new SelectList(db.SYS_STUFF, "ID_PK", "ID_CODE");
+
+            ViewBag.REASON = new SelectList(db.REASON_MORTALITY, "ID_PK", "TEXT");
+            /* https://stackoverflow.com/questions/2758734/how-can-i-combine-two-fields-in-a-selectlist-text-description  */
+            ViewBag.LOG_TANK_INFO = new SelectList( 
+                (from log in db.TANK_LOG.ToList() 
+                select new { ID_PK = log.ID_PK,
+                             LOG_TANK_INFO = log.TANK.ID_CODE + " " +
+                                             log.MARINE_SPECIES.SCIENTIFIC + " " +
+                                             log.RECORD_PET_SIZE.DESCRIPTION + " " + 
+                                             "QTY: " + log.QTY}),
+                "ID_PK","LOG_TANK_INFO",
+                null);
+            
             return View();
         }
 
@@ -64,6 +76,22 @@ namespace FishInABox.Controllers
             ViewBag.REASON_FK = new SelectList(db.REASON_MORTALITY, "ID_PK", "ID_CODE", tANK_LOG_DAILY.REASON_FK);
             ViewBag.LOG_FK = new SelectList(db.TANK_LOG, "ID_PK", "SPECIES_TEXT", tANK_LOG_DAILY.LOG_FK);
             ViewBag.STUFF_FK = new SelectList(db.SYS_STUFF, "ID_PK", "ID_CODE", tANK_LOG_DAILY.STUFF_FK);
+
+            ViewBag.REASON = new SelectList(db.REASON_MORTALITY, "ID_PK", "TEXT");
+            /* https://stackoverflow.com/questions/2758734/how-can-i-combine-two-fields-in-a-selectlist-text-description  */
+            ViewBag.LOG_TANK_INFO = new SelectList(
+                (from log in db.TANK_LOG.ToList()
+                 select new
+                 {
+                     ID_PK = log.ID_PK,
+                     LOG_TANK_INFO = log.TANK.ID_CODE + " " +
+                                              log.MARINE_SPECIES.SCIENTIFIC + " " +
+                                              log.RECORD_PET_SIZE.DESCRIPTION + " " +
+                                              "QTY: " + log.QTY
+                 }),
+                "ID_PK", "LOG_TANK_INFO",
+                null);
+
             return View(tANK_LOG_DAILY);
         }
 
@@ -82,6 +110,21 @@ namespace FishInABox.Controllers
             ViewBag.REASON_FK = new SelectList(db.REASON_MORTALITY, "ID_PK", "ID_CODE", tANK_LOG_DAILY.REASON_FK);
             ViewBag.LOG_FK = new SelectList(db.TANK_LOG, "ID_PK", "SPECIES_TEXT", tANK_LOG_DAILY.LOG_FK);
             ViewBag.STUFF_FK = new SelectList(db.SYS_STUFF, "ID_PK", "ID_CODE", tANK_LOG_DAILY.STUFF_FK);
+
+            ViewBag.REASON = new SelectList(db.REASON_MORTALITY, "ID_PK", "TEXT");
+            /* https://stackoverflow.com/questions/2758734/how-can-i-combine-two-fields-in-a-selectlist-text-description  */
+            ViewBag.LOG_TANK_INFO = new SelectList(
+                (from log in db.TANK_LOG.ToList()
+                 select new
+                 {
+                     ID_PK = log.ID_PK,
+                     LOG_TANK_INFO = log.TANK.ID_CODE + " " +
+                                              log.MARINE_SPECIES.SCIENTIFIC + " " +
+                                              log.RECORD_PET_SIZE.DESCRIPTION + " " +
+                                              "QTY: " + log.QTY
+                 }),
+                "ID_PK", "LOG_TANK_INFO",
+                null);
             return View(tANK_LOG_DAILY);
         }
 
@@ -101,6 +144,21 @@ namespace FishInABox.Controllers
             ViewBag.REASON_FK = new SelectList(db.REASON_MORTALITY, "ID_PK", "ID_CODE", tANK_LOG_DAILY.REASON_FK);
             ViewBag.LOG_FK = new SelectList(db.TANK_LOG, "ID_PK", "SPECIES_TEXT", tANK_LOG_DAILY.LOG_FK);
             ViewBag.STUFF_FK = new SelectList(db.SYS_STUFF, "ID_PK", "ID_CODE", tANK_LOG_DAILY.STUFF_FK);
+
+            ViewBag.REASON = new SelectList(db.REASON_MORTALITY, "ID_PK", "TEXT");
+            /* https://stackoverflow.com/questions/2758734/how-can-i-combine-two-fields-in-a-selectlist-text-description  */
+            ViewBag.LOG_TANK_INFO = new SelectList(
+                (from log in db.TANK_LOG.ToList()
+                 select new
+                 {
+                     ID_PK = log.ID_PK,
+                     LOG_TANK_INFO = log.TANK.ID_CODE + " " +
+                                              log.MARINE_SPECIES.SCIENTIFIC + " " +
+                                              log.RECORD_PET_SIZE.DESCRIPTION + " " +
+                                              "QTY: " + log.QTY
+                 }),
+                "ID_PK", "LOG_TANK_INFO",
+                null);
             return View(tANK_LOG_DAILY);
         }
 
