@@ -32,6 +32,7 @@
         <AssociationConnector Association="fishinaboxModel.FK_TANK_LOG_SYS_STUFF" />
         <AssociationConnector Association="fishinaboxModel.FK_TANK_LOG_MARINE_SPECIES" />
         <AssociationConnector Association="fishinaboxModel.FK_TANK_LOG_RECORD_PET_SIZE" />
+        <EntityTypeShape EntityType="fishinaboxModel.VIEW_TANK_LOG" Width="1.5" PointX="10.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

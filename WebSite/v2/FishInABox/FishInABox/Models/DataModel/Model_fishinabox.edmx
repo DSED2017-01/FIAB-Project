@@ -135,6 +135,15 @@
           <Property Name="COMMENT" Type="nvarchar" MaxLength="100" />
           <Property Name="STUFF_FK" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'fishinabox.dbo.VIEW_TANK_LOG' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VIEW_TANK_LOG">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="int" Nullable="false" />
+          <Property Name="TEXT" Type="nvarchar" MaxLength="183" />
+        </EntityType>
         <Association Name="FK_MARINE_SPECIES_MARINE_CLASS">
           <End Role="MARINE_CLASS" Type="Self.MARINE_CLASS" Multiplicity="1" />
           <End Role="MARINE_SPECIES" Type="Self.MARINE_SPECIES" Multiplicity="*" />
@@ -317,6 +326,12 @@
           <EntitySet Name="TANK_BAY" EntityType="Self.TANK_BAY" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TANK_LOG" EntityType="Self.TANK_LOG" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TANK_LOG_DAILY" EntityType="Self.TANK_LOG_DAILY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VIEW_TANK_LOG" EntityType="Self.VIEW_TANK_LOG" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VIEW_TANK_LOG].[ID_PK] AS [ID_PK], 
+    [VIEW_TANK_LOG].[TEXT] AS [TEXT]
+    FROM [dbo].[VIEW_TANK_LOG] AS [VIEW_TANK_LOG]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_MARINE_SPECIES_MARINE_CLASS" Association="Self.FK_MARINE_SPECIES_MARINE_CLASS">
             <End Role="MARINE_CLASS" EntitySet="MARINE_CLASS" />
             <End Role="MARINE_SPECIES" EntitySet="MARINE_SPECIES" />
@@ -509,6 +524,7 @@
             <End Role="RECORD_PET_SIZE" EntitySet="RECORD_PET_SIZE" />
             <End Role="TANK_LOG" EntitySet="TANK_LOG" />
           </AssociationSet>
+          <EntitySet Name="VIEW_TANK_LOG" EntityType="fishinaboxModel.VIEW_TANK_LOG" />
         </EntityContainer>
         <EntityType Name="RECORD_PET_SIZE">
           <Key>
@@ -775,6 +791,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="VIEW_TANK_LOG">
+          <Key>
+            <PropertyRef Name="ID_PK" />
+          </Key>
+          <Property Name="ID_PK" Type="Int32" Nullable="false" />
+          <Property Name="TEXT" Type="String" MaxLength="183" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -920,6 +943,14 @@
                 <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
                 <ScalarProperty Name="FAMILY_NAME" ColumnName="FAMILY_NAME" />
                 <ScalarProperty Name="ID_CODE" ColumnName="ID_CODE" />
+                <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VIEW_TANK_LOG">
+            <EntityTypeMapping TypeName="fishinaboxModel.VIEW_TANK_LOG">
+              <MappingFragment StoreEntitySet="VIEW_TANK_LOG">
+                <ScalarProperty Name="TEXT" ColumnName="TEXT" />
                 <ScalarProperty Name="ID_PK" ColumnName="ID_PK" />
               </MappingFragment>
             </EntityTypeMapping>

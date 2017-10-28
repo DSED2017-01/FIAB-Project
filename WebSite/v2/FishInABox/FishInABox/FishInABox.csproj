@@ -263,6 +263,9 @@
     <Compile Include="Models\DataModel\TANK_LOG_DAILY.cs">
       <DependentUpon>Model_fishinabox.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataModel\VIEW_TANK_LOG.cs">
+      <DependentUpon>Model_fishinabox.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GroupModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
