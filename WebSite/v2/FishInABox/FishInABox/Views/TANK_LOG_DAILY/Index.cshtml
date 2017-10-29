@@ -20,6 +20,21 @@
         <th>
             @Html.DisplayNameFor(model => model.TANK_LOG.TANK.ID_CODE)
         </th>
+
+        <!-- 2.2 Species Scientific Name -->
+        <th>
+            @Html.DisplayNameFor(model => model.TANK_LOG.MARINE_SPECIES.SCIENTIFIC)
+        </th>
+        <!-- 2.3 Species Description -->
+        <th>
+            @Html.DisplayNameFor(model => model.TANK_LOG.SPECIES_TEXT)
+        </th>
+
+        <!-- 2.4 Species Extra Info. -->
+        <th>
+            @Html.DisplayNameFor(model => model.TANK_LOG.SPECIES_TEXT_2)
+        </th>
+
         <!-- 3. Moartality Reason-->
         <th>
             @Html.DisplayNameFor(model => model.REASON_MORTALITY.TEXT)
@@ -50,6 +65,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.TANK_LOG.TANK.ID_CODE)
             </td>
+
+            <!-- 2.2 Species Scientific Name -->
+            <td>
+                @Html.DisplayFor(model => item.TANK_LOG.MARINE_SPECIES.SCIENTIFIC)
+            </td>
+
+            <!-- 2.3 Species Description -->
+            <th>
+                @Html.DisplayFor(model => item.TANK_LOG.SPECIES_TEXT)
+            </th>
+
+            <!-- 2.4 Species Extra Info. -->
+            <th>
+                @Html.DisplayFor(model => item.TANK_LOG.SPECIES_TEXT_2)
+            </th>
+
             <!-- 3. Moartality Reason-->
             <td>
                 @Html.DisplayFor(modelItem => item.REASON_MORTALITY.TEXT)
