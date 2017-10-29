@@ -27,9 +27,9 @@ namespace FishInABox.Models.DataModel
         [Display(Name = "Stuff ID")]
         public Nullable<int> STUFF_FK { get; set; }
         [Display(Name = "Log Date")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         /* https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.displayformatattribute.dataformatstring(v=vs.110).aspx  */
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime LOG_DATE { get; set; }
     
         public virtual REASON_MORTALITY REASON_MORTALITY { get; set; }
