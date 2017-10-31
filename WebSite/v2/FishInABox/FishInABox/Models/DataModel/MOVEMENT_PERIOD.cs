@@ -25,6 +25,7 @@ namespace FishInABox.Models.DataModel
         [Display(Name = "Start Date")]
         [DataType(DataType.Date)]
         public System.DateTime START_DATE { get; set; }
+        [Display(Name = "Period")]
         public string TEXT { get; set; }
         [Display(Name = "Closed Date")]
         [DataType(DataType.Date)]

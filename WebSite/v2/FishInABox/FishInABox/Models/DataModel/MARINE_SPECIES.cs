@@ -20,10 +20,11 @@ namespace FishInABox.Models.DataModel
         {
             this.RECORD_PET = new HashSet<RECORD_PET>();
             this.TANK_LOG = new HashSet<TANK_LOG>();
+            this.SHIPMENT_ITEM = new HashSet<SHIPMENT_ITEM>();
         }
-    
+
         public int ID_PK { get; set; }
-        [Display(Name ="Class ID")]
+        [Display(Name = "Class ID")]
         public int CLASS_FK { get; set; }
         [Display(Name = "MPI Species ID")]
         public int SPECIES_FK { get; set; }
@@ -37,12 +38,14 @@ namespace FishInABox.Models.DataModel
         public bool FLAG { get; set; }
         [Display(Name = "Family ID")]
         public Nullable<int> FAMILY_FK { get; set; }
-    
+
         public virtual MARINE_CLASS MARINE_CLASS { get; set; }
         public virtual MARINE_FAMILY MARINE_FAMILY { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RECORD_PET> RECORD_PET { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TANK_LOG> TANK_LOG { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SHIPMENT_ITEM> SHIPMENT_ITEM { get; set; }
     }
 }
