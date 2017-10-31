@@ -23,15 +23,15 @@ namespace FishInABox.Models.DataModel
     
         public int ID_PK { get; set; }
         [Display(Name = "Start Date")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         /* https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.displayformatattribute.dataformatstring(v=vs.110).aspx  */
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = false)]
         public System.DateTime START_DATE { get; set; }
         [Display(Name = "Period")]
         public string TEXT { get; set; }
         [Display(Name = "Closed Date")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> CLOSED_DATE { get; set; }
         [Display(Name = "Closed Flag")]
         public bool CLOSED_FLAG { get; set; }
