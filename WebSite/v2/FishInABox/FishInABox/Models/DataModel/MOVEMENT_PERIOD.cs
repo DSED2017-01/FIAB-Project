@@ -30,7 +30,7 @@ namespace FishInABox.Models.DataModel
         [Display(Name = "Period")]
         public string TEXT { get; set; }
         [Display(Name = "Closed Date")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> CLOSED_DATE { get; set; }
         [Display(Name = "Closed Flag")]
