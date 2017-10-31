@@ -11,7 +11,8 @@ namespace FishInABox.Models.DataModel
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class RECORD_PET_SIZE
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,14 +20,18 @@ namespace FishInABox.Models.DataModel
         {
             this.RECORD_PET = new HashSet<RECORD_PET>();
             this.TANK_LOG = new HashSet<TANK_LOG>();
+            this.SHIPMENT_ITEM = new HashSet<SHIPMENT_ITEM>();
         }
     
         public int ID_PK { get; set; }
+        [Display(Name = "Size")]
         public string DESCRIPTION { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RECORD_PET> RECORD_PET { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TANK_LOG> TANK_LOG { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SHIPMENT_ITEM> SHIPMENT_ITEM { get; set; }
     }
 }
