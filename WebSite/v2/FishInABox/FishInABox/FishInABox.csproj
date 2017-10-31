@@ -249,6 +249,15 @@
     <Compile Include="Models\DataModel\RECORD_PET_SIZE.cs">
       <DependentUpon>Model_fishinabox.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataModel\SHIPMENT.cs">
+      <DependentUpon>Model_fishinabox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModel\SHIPMENT_ITEM.cs">
+      <DependentUpon>Model_fishinabox.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DataModel\SHIPMENT_ORDER.cs">
+      <DependentUpon>Model_fishinabox.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DataModel\SYS_STUFF.cs">
       <DependentUpon>Model_fishinabox.tt</DependentUpon>
     </Compile>

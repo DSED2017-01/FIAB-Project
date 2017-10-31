@@ -39,5 +39,8 @@ namespace FishInABox.Models.DataModel
         public virtual DbSet<TANK_LOG_DAILY> TANK_LOG_DAILY { get; set; }
         public virtual DbSet<SYS_STUFF> SYS_STUFF { get; set; }
         public virtual DbSet<VIEW_TANK_LOG> VIEW_TANK_LOG { get; set; }
+        public virtual DbSet<SHIPMENT> SHIPMENTs { get; set; }
+        public virtual DbSet<SHIPMENT_ITEM> SHIPMENT_ITEM { get; set; }
+        public virtual DbSet<SHIPMENT_ORDER> SHIPMENT_ORDER { get; set; }
     }
 }
