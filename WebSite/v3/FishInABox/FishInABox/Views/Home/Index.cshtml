@@ -1,8 +1,41 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    ViewData["Page Title"] = "Imports Management System";
 }
 
-<h2>@ViewData["Title"]</h2>
+<style>
+    h2 {
+        text-align: center;
+    }
+</style>
+
+<h2>@ViewData["Page Title"]</h2>
+
+<!--
 <h3>@ViewData["Message"]</h3>
 
 <p>Use this area to provide additional information.</p>
+
+-->
+
+<div class="container">
+    <div class="row">
+
+        <!-- https://stackoverflow.com/questions/28471103/how-to-call-controller-from-the-button-click-in-asp-net-mvc-4  -->
+
+        <!-- https://www.w3schools.com/bootstrap/bootstrap_buttons.asp -->
+        <p>
+            <input type="button" class="btn btn-block btn-lg" value="Shipment Registry" />
+        </p>
+        <p>
+            <input type="button" class="btn btn-block btn-lg" value="Quarantine Registry" />
+        </p>
+        <p>
+            <input type="button" class="btn btn-block btn-lg" value="Tank Log Registry" />
+        </p>
+        <p>
+            <input type="button" class="btn btn-block btn-lg" value="Daily Mortality Register" />
+        </p>
+
+    </div>
+</div>
