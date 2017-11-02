@@ -1,0 +1,60 @@
+﻿@model FishInABox.Models.DataModel.MarineSpecies
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MarineSpecies</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SpeciesFk)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SpeciesFk)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Scientific)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Scientific)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Common)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Common)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Text)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Flag)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Flag)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ClassFkNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClassFkNavigation.Schedule4)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FamilyFkNavigation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FamilyFkNavigation.Schedule3)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.IdPk">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

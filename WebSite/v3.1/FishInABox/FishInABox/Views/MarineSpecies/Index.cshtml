@@ -1,0 +1,73 @@
+﻿@model IEnumerable<FishInABox.Models.DataModel.MarineSpecies>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @* <a asp-action="Create">Create New</a> *@
+    <button type="button" class="btn-default btn-xs"
+            onclick="location.href='@Url.Action("Create", "MarineSpecies")'">
+         Create New
+    </button>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <!-- <th>@Html.DisplayNameFor(model => model.SpeciesFk)</th> -->
+
+            <th>@Html.DisplayNameFor(model => model.Scientific)</th>
+            <th>@Html.DisplayNameFor(model => model.Common)</th>
+            <!--
+            <th>@Html.DisplayNameFor(model => model.Text)</th>
+            <th>@Html.DisplayNameFor(model => model.Flag)</th>
+            <th>@Html.DisplayNameFor(model => model.ClassFkNavigation)</th> 
+            <th>@Html.DisplayNameFor(model => model.FamilyFkNavigation)</th> 
+            -->
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <!-- <td>@Html.DisplayFor(modelItem => item.SpeciesFk)</td> -->
+            <td>
+                @Html.DisplayFor(modelItem => item.Scientific)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Common)
+            </td>
+            <!--
+            <td>@Html.DisplayFor(modelItem => item.Text)</td>
+            <td>@Html.DisplayFor(modelItem => item.Flag)</td>
+            <td>@Html.DisplayFor(modelItem => item.ClassFkNavigation.Schedule4)</td>
+            <td>@Html.DisplayFor(modelItem => item.FamilyFkNavigation.Schedule3)</td>
+            -->
+            <td>
+                <button type="button" class="btn-default btn-xs" 
+                        onclick="location.href='@Url.Action("Edit", "MarineSpecies", new { id = @item.IdPk })'" >Edit</button>
+                <button type="button" class="btn-default btn-xs" id="@item.IdPk"
+                        onclick="location.href='@Url.Action("Detail", "MarineSpecies", new { id = @item.IdPk })'" >Details</button>
+                @if (item.Flag == false)
+                {
+                    <button type="button" class="btn-default btn-xs"
+                            onclick="location.href='@Url.Action("Delete", "MarineSpecies", new { id = @item.IdPk })'"  >Delete</button>
+                }
+                
+                @*   
+                    <a asp-action="Edit" asp-route-id="@item.IdPk">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdPk">Details</a> |
+                    @if (item.Flag == false)
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.IdPk">Delete</a>
+                    }
+                 *@
+                
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
