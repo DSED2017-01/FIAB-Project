@@ -17,7 +17,7 @@ namespace FishInABox.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "About page still under construction.";
 
             return View();
         }
@@ -29,6 +29,31 @@ namespace FishInABox.Controllers
             return View();
         }
 
+        public IActionResult Report()
+        {
+            ViewData["Message"] = "Reporting page still under construction.";
+
+            return View();
+        }
+
+        public IActionResult System()
+        {
+            ViewData["Message"] = "Setup System Table page.";
+
+            return View();
+        }
+
+        public IActionResult Shipping()
+        {
+            ViewData["Message"] = "Shipping Registry page.";
+
+            return View();
+        }
+
+        public IActionResult Quarantine()
+        {
+            return View();
+        }
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
