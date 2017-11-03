@@ -58,8 +58,9 @@
                             <ComboBox x:Name="cbxQuantity"  HorizontalAlignment="Left" Height="30" Margin="530,30,0,0" VerticalAlignment="Top" Width="80"
                                    FontSize="15" />
 
-                            <Button Content="Import Columns" Name="btnHeader" Width="130" FontSize="15" Height="30" FontWeight="Bold" Click="btnHeader_Click" Margin="640,7,30,40" />
-                            <Button Content="Extract Data" Name="btnExtract" Width="130" FontSize="15" Height="30" FontWeight="Bold" Click="btnExtract_Click" Margin="610,40,0,0" />
+                            <!-- Content="Import Columns" Name="btnHeader" Width="130" FontSize="15" Height="30" FontWeight="Bold" Click="btnHeader_Click" Margin="640,7,30,40" /-->
+                            <!-- Button Content="Extract Data" Name="btnExtract" Width="130" FontSize="15" Height="30" FontWeight="Bold" Click="btnExtract_Click" Margin="610,40,0,0" /-->
+                            <Button Content="Extract Data" Name="btnExtract" Width="130" FontSize="15" Height="30" FontWeight="Bold" Click="btnExtract_Click" Margin="640,7,30,40"/>
 
                             <Label Content="col : " HorizontalAlignment="Left" Height="30" Margin="15,63,0,0" VerticalAlignment="Top" Width="80"
                                    FontSize="15" FontWeight="Bold" />

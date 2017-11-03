@@ -16,9 +16,34 @@ namespace Excel_ImportWPF
     public partial class MainWindow : Window
     {
         private string file_fullpath = string.Empty;
+        private List<ComboBox> comboboxs = new List<ComboBox>();
+
         public MainWindow()
         {
             InitializeComponent();
+
+            //ComboBox[] comboboxs = { cbxCode, cbxScientific, cbxCommon, cbxSize, cbxPrice, cbxQuantity };
+
+            comboboxs.Add(cbxCode);
+            comboboxs.Add(cbxScientific);
+            comboboxs.Add(cbxCommon);
+            comboboxs.Add(cbxSize);
+            comboboxs.Add(cbxPrice);
+            comboboxs.Add(cbxQuantity);
+
+            Label[] labels = { lblCode, lblScientific, lblCommon, lblSize, lblPrice, lblQuantity };
+            int count = comboboxs.Count();
+            for (int i = 0; i < count; i++)
+            {
+                labels[i].Content = string.Empty;
+
+                ComboBox combobox = comboboxs[i];
+                Label label = labels[i];
+                combobox.SelectionChanged += delegate {
+                    label.Content = combobox.SelectedIndex + 1;
+                };
+                    
+            }
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -40,6 +65,9 @@ namespace Excel_ImportWPF
                 string[] text = file_fullpath.Split('\\');
                 int last_index = text.Count() - 1;
                 txtFilePath.Text = text[last_index];
+
+                //
+                btnHeader_Click(sender,e);
             }
         }
 
@@ -149,27 +177,9 @@ namespace Excel_ImportWPF
 
             if(columns.Count() > 0)
             {
-                ComboBox[] comboboxs = { cbxCode, cbxScientific, cbxCommon, cbxSize, cbxPrice, cbxQuantity };
-                Label[] labels = { lblCode, lblScientific, lblCommon, lblSize, lblPrice, lblQuantity };
-                int count = comboboxs.Length;
-
-                //foreach ( var combobox in comboboxs)
-                for(int i = 0; i < count; i++)
-                {
-                    comboboxs[i].ItemsSource = columns;
-                    labels[i].Content = string.Empty;
-
-                    ComboBox combobox = comboboxs[i];
-                    Label label = labels[i];
-                    combobox.SelectionChanged += delegate
-                    {
-                        //int index = comboboxs[i].SelectedIndex;
-                        //if(index > 0)
-                        //{
-                        label.Content = combobox.SelectedIndex + 1;
-                        //}
-                    };
-                }
+                //ComboBox[] comboboxs = { cbxCode, cbxScientific, cbxCommon, cbxSize, cbxPrice, cbxQuantity };
+                foreach ( var combobox in comboboxs)
+                    combobox.ItemsSource = columns;
                     
                 MessageBox.Show("Import Execel Columns haved completed !!!");
             }
