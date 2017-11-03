@@ -9,7 +9,7 @@
 
     <!-- I got inspiration from http://www.codescratcher.com/wpf/import-excel-file-datagrid-wpf/  
          but I took the XAML layout and expand on the functionality -->
-    
+
     <!-- Add a scrollbars to grid
          https://stackoverflow.com/questions/29354893/how-to-add-scrollbars-to-grid -->
     <ScrollViewer>
@@ -22,13 +22,13 @@
                             <TextBox Height="30" Name="txtFilePath" Width="400" Margin="10,0,10,0" FontSize="15" Opacity="1" />
                             <Button Content="Browse Excel" Name="btnOpen" Width="120" FontSize="15" Height="30" FontWeight="Bold" Click="btnOpen_Click" />
                             <Button Content="Close" FontSize="15" Height="30" FontWeight="Bold" Name="btnClose" Width="75" Margin="110,0,0,0" Background="#FFEFE5E5" Click="btnClose_Click" />
-                            
+
                         </WrapPanel>
 
                     </Border>
                     <!-- create the following layout to for user to select columns from Excel file to be extracted
                                 and also link the columns to the table columns -->
-                    <Border BorderBrush="Black" BorderThickness="0,0,0,2" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800">
+                    <Border BorderBrush="Black" BorderThickness="0,0,0,2" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800">
                         <Grid>
                             <!-- Label for the dropdown box -->
                             <Label Content="Code" HorizontalAlignment="Left" Height="30" Margin="40,0,0,0" VerticalAlignment="Top" Width="80"
@@ -45,21 +45,47 @@
                                    FontSize="15" FontWeight="Bold" />
 
                             <!-- dropdown box-->
-                            <ComboBox x:Name="lbxCode"  HorizontalAlignment="Left" Height="30" Margin="30,30,0,0" VerticalAlignment="Top" Width="80"
-                                   FontSize="12" FontWeight="Bold"  />
-                            <ComboBox x:Name="lbxScientific"  HorizontalAlignment="Left" Height="30" Margin="130,30,0,0" VerticalAlignment="Top" Width="80"
-                                   FontSize="12" FontWeight="Bold"  />
-                            <ComboBox x:Name="lbxCommon"  HorizontalAlignment="Left" Height="30" Margin="230,30,0,0" VerticalAlignment="Top" Width="80"
-                                   FontSize="12" FontWeight="Bold"  />
-                            <ComboBox x:Name="lbxSize"  HorizontalAlignment="Left" Height="30" Margin="330,30,0,0" VerticalAlignment="Top" Width="80"
-                                   FontSize="12" FontWeight="Bold"  />
-                            <ComboBox x:Name="lbxPrice"  HorizontalAlignment="Left" Height="30" Margin="430,30,0,0" VerticalAlignment="Top" Width="80"
-                                   FontSize="12" FontWeight="Bold"  />
-                            <ComboBox x:Name="lbxQuantity"  HorizontalAlignment="Left" Height="30" Margin="530,30,0,0" VerticalAlignment="Top" Width="80"
-                                   FontSize="12" FontWeight="Bold"  />
+                            <ComboBox x:Name="cbxCode"  HorizontalAlignment="Left" Height="30" Margin="30,30,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" />
+                            <ComboBox x:Name="cbxScientific"  HorizontalAlignment="Left" Height="30" Margin="130,30,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" />
+                            <ComboBox x:Name="cbxCommon"  HorizontalAlignment="Left" Height="30" Margin="230,30,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" />
+                            <ComboBox x:Name="cbxSize"  HorizontalAlignment="Left" Height="30" Margin="330,30,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" />
+                            <ComboBox x:Name="cbxPrice"  HorizontalAlignment="Left" Height="30" Margin="430,30,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" />
+                            <ComboBox x:Name="cbxQuantity"  HorizontalAlignment="Left" Height="30" Margin="530,30,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" />
 
                             <Button Content="Import Columns" Name="btnHeader" Width="130" FontSize="15" Height="30" FontWeight="Bold" Click="btnHeader_Click" Margin="640,7,30,40" />
                             <Button Content="Extract Data" Name="btnExtract" Width="130" FontSize="15" Height="30" FontWeight="Bold" Click="btnExtract_Click" Margin="610,40,0,0" />
+
+                            <Label Content="col : " HorizontalAlignment="Left" Height="30" Margin="15,63,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" FontWeight="Bold" />
+
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="50,65,690,8">
+                                <Label x:Name="lblCode">col 1</Label>
+                            </Border>
+
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="150,65,590,8">
+                                <Label x:Name="lblScientific">col 2</Label>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="250,65,490,8">
+                                <Label x:Name="lblCommon">col 3</Label>
+                            </Border>
+
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="350,65,390,8">
+                                <Label x:Name="lblSize">col 4</Label>
+                            </Border>
+
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="450,65,290,8">
+                                <Label x:Name="lblPrice">col 5</Label>
+                            </Border>
+
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="550,65,190,8">
+                                <Label x:Name="lblQuantity">col 6</Label>
+                            </Border>
                         </Grid>
                     </Border>
 

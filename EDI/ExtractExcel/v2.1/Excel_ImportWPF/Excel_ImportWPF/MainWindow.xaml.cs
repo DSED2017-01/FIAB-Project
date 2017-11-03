@@ -65,7 +65,8 @@ namespace Excel_ImportWPF
             int colCount = xlWorksheet.Cells.Find("*", System.Reflection.Missing.Value,
                            System.Reflection.Missing.Value, System.Reflection.Missing.Value,
                            Excel.XlSearchOrder.xlByColumns, Excel.XlSearchDirection.xlPrevious,
-                           false, System.Reflection.Missing.Value, System.Reflection.Missing.Value).Column;
+                           false, System.Reflection.Missing.Value, System.Reflection.Missing.Value).Column
+                           + 2 ; // Need to at least 2 more column so as to detect some more Excel column 
 
             DataTable dt = new DataTable();
             List<string> columns = new List<string>();
@@ -148,9 +149,29 @@ namespace Excel_ImportWPF
 
             if(columns.Count() > 0)
             {
-                ComboBox[] comboboxs = { lbxCode, lbxScientific, lbxCommon, lbxSize, lbxPrice, lbxQuantity };
-                foreach( var combobox in comboboxs)
-                    combobox.ItemsSource = columns;
+                ComboBox[] comboboxs = { cbxCode, cbxScientific, cbxCommon, cbxSize, cbxPrice, cbxQuantity };
+                Label[] labels = { lblCode, lblScientific, lblCommon, lblSize, lblPrice, lblQuantity };
+                int count = comboboxs.Length;
+
+                //foreach ( var combobox in comboboxs)
+                for(int i = 0; i < count; i++)
+                {
+                    comboboxs[i].ItemsSource = columns;
+                    labels[i].Content = string.Empty;
+
+                    ComboBox combobox = comboboxs[i];
+                    Label label = labels[i];
+                    combobox.SelectionChanged += delegate
+                    {
+                        //int index = comboboxs[i].SelectedIndex;
+                        //if(index > 0)
+                        //{
+                        label.Content = combobox.SelectedIndex + 1;
+                        //}
+                    };
+                }
+                    
+                MessageBox.Show("Import Execel Columns haved completed !!!");
             }
         }
 
