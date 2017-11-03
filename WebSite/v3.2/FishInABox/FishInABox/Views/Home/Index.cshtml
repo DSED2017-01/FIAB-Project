@@ -10,7 +10,7 @@
 
         <p>
             <button type="button" class="btn btn-block btn-lg"
-                    onclick="location.href='@Url.Action("Shipping", "Home")'">
+                    onclick="location.href='@Url.Action("Index", "Shipping")'">
                 Shipping Registry
             </button>
         </p>
@@ -37,6 +37,13 @@
             <button type="button" class="btn btn-block btn-lg"
                     onclick="location.href='@Url.Action("System", "Home")'">
                 System Registry
+            </button>
+        </p>
+
+        <p>
+            <button type="button" class="btn btn-block btn-lg"
+                    onclick="location.href='@Url.Action("Index", "TEST_SYS")'">
+               Import Order (Testing)
             </button>
         </p>
     </div>
