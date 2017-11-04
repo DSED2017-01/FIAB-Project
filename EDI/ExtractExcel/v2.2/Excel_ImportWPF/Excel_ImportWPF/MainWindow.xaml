@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Excel_ImportWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None">
-
+        Title="MainWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen">
     <!-- I got inspiration from http://www.codescratcher.com/wpf/import-excel-file-datagrid-wpf/  
          but I took the XAML layout and expand on the functionality -->
 

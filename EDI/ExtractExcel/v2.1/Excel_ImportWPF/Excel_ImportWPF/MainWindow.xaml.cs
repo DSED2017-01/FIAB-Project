@@ -17,10 +17,12 @@ namespace Excel_ImportWPF
     {
         private string file_fullpath = string.Empty;
         private List<ComboBox> comboboxs = new List<ComboBox>();
-
+        private List<Label> labels = new List<Label>();
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = new ViewModel();
 
             //ComboBox[] comboboxs = { cbxCode, cbxScientific, cbxCommon, cbxSize, cbxPrice, cbxQuantity };
 
@@ -31,11 +33,17 @@ namespace Excel_ImportWPF
             comboboxs.Add(cbxPrice);
             comboboxs.Add(cbxQuantity);
 
-            Label[] labels = { lblCode, lblScientific, lblCommon, lblSize, lblPrice, lblQuantity };
+            //Label[] labels = { lblCode, lblScientific, lblCommon, lblSize, lblPrice, lblQuantity };
+            labels.Add(lblCode);
+            labels.Add(lblScientific);
+            labels.Add(lblCommon);
+            labels.Add(lblSize);
+            labels.Add(lblPrice);
+            labels.Add(lblQuantity);
             int count = comboboxs.Count();
             for (int i = 0; i < count; i++)
             {
-                labels[i].Content = string.Empty;
+                //labels[i].Content = string.Empty;
 
                 ComboBox combobox = comboboxs[i];
                 Label label = labels[i];
@@ -44,6 +52,8 @@ namespace Excel_ImportWPF
                 };
                     
             }
+
+            lblMessage.Content = string.Empty;
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -65,10 +75,11 @@ namespace Excel_ImportWPF
                 string[] text = file_fullpath.Split('\\');
                 int last_index = text.Count() - 1;
                 txtFilePath.Text = text[last_index];
-
-                //
-                btnHeader_Click(sender,e);
+                lblMessage.Content = "Loading ..... ";
+                //System.Threading.Thread.Sleep(100);
+                btnHeader_Click(sender, e);
             }
+            
         }
 
         private void btnHeader_Click(object sender, RoutedEventArgs e)
@@ -79,6 +90,7 @@ namespace Excel_ImportWPF
                 MessageBox.Show("No File is selected !!!\nPlease try again");
                 return;
             }
+
 
             Excel.Application xlApp = new Excel.Application();
             Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(@file_fullpath);
@@ -178,9 +190,16 @@ namespace Excel_ImportWPF
             if(columns.Count() > 0)
             {
                 //ComboBox[] comboboxs = { cbxCode, cbxScientific, cbxCommon, cbxSize, cbxPrice, cbxQuantity };
-                foreach ( var combobox in comboboxs)
-                    combobox.ItemsSource = columns;
-                    
+                //foreach ( var combobox in comboboxs)
+                int count = comboboxs.Count();
+                for(int i= 0; i < count; i++)
+                {
+                    //labels[i].Content = string.Empty;
+                    comboboxs[i].ItemsSource = columns;
+                    comboboxs[i].SelectedIndex = -1;
+                }
+
+                lblMessage.Content = string.Empty;
                 MessageBox.Show("Import Execel Columns haved completed !!!");
             }
         }
