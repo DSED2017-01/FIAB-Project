@@ -4,6 +4,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -18,6 +19,8 @@ namespace Excel_ImportWPF
         private string file_fullpath = string.Empty;
         private List<ComboBox> comboboxs = new List<ComboBox>();
         private List<Label> labels = new List<Label>();
+
+        private int start_row;
         public MainWindow()
         {
             InitializeComponent();
@@ -50,9 +53,7 @@ namespace Excel_ImportWPF
                 combobox.SelectionChanged += delegate {
                     label.Content = combobox.SelectedIndex + 1;
                 };
-                    
             }
-
             lblMessage.Content = string.Empty;
         }
 
@@ -69,17 +70,22 @@ namespace Excel_ImportWPF
             //openfile.ShowDialog();
 
             var browsefile = openfile.ShowDialog();
+            
             if (browsefile == true)
             {
+                lblMessage.Content = "Loading ..... ";
+                lblMessage.Height = 50;
                 file_fullpath = openfile.FileName;
                 string[] text = file_fullpath.Split('\\');
                 int last_index = text.Count() - 1;
                 txtFilePath.Text = text[last_index];
-                lblMessage.Content = "Loading ..... ";
-                //System.Threading.Thread.Sleep(100);
+
+                MessageBox.Show("Import Excel Column");
+                //Thread.Sleep(5000);
                 btnHeader_Click(sender, e);
             }
-            
+            lblMessage.Content = "Import Excel Column Completed !!!";
+            //lblMessage.Height = 0;
         }
 
         private void btnHeader_Click(object sender, RoutedEventArgs e)
@@ -108,13 +114,15 @@ namespace Excel_ImportWPF
                            false, System.Reflection.Missing.Value, System.Reflection.Missing.Value).Column
                            + 2 ; // Need to at least 2 more column so as to detect some more Excel column 
 
+
             DataTable dt = new DataTable();
             List<string> columns = new List<string>();
 
             try {
                 /* Retreive the Column Heading information*/
                 int emptyCell = 0;
-                int start_row;
+                //int start_row;
+                start_row = 0;
                 string strCellData, strData="";
                 for (start_row = 1; start_row < rowCount; start_row++)
                 {
@@ -200,13 +208,131 @@ namespace Excel_ImportWPF
                 }
 
                 lblMessage.Content = string.Empty;
-                MessageBox.Show("Import Execel Columns haved completed !!!");
+                //MessageBox.Show("Import Execel Columns haved completed !!!");
             }
         }
 
         private void btnExtract_Click(object sender, RoutedEventArgs e)
         {
+            lblMessage.Content = "Extracting Data .....";
+            lblMessage.Height = 50;
 
+            MessageBox.Show("About to Extract Data.\nPlease wait patiently.");
+
+            int count = labels.Count();
+            List<int> col_index = new List<int>();
+            for(int i = 0; i < count;i++)
+            {
+                if (int.TryParse(labels[i].Content.ToString(), out int val))
+                    col_index.Add(val);
+            }
+
+            Excel.Application xlApp = new Excel.Application();
+            Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(@file_fullpath);
+            Excel.Worksheet xlWorksheet = xlWorkbook.Sheets[1];
+            Excel.Range xlRange = xlWorksheet.UsedRange;
+
+            /* https://stackoverflow.com/questions/43353073/c-sharp-excel-correct-way-to-get-rows-and-columns-count  */
+
+            int rowCount = xlWorksheet.Cells.Find("*", System.Reflection.Missing.Value,
+                           System.Reflection.Missing.Value, System.Reflection.Missing.Value,
+                           Excel.XlSearchOrder.xlByRows, Excel.XlSearchDirection.xlPrevious,
+                           false, System.Reflection.Missing.Value, System.Reflection.Missing.Value).Row;
+
+            int colCount = xlWorksheet.Cells.Find("*", System.Reflection.Missing.Value,
+                           System.Reflection.Missing.Value, System.Reflection.Missing.Value,
+                           Excel.XlSearchOrder.xlByColumns, Excel.XlSearchDirection.xlPrevious,
+                           false, System.Reflection.Missing.Value, System.Reflection.Missing.Value).Column;
+
+            /* DEBUG */
+            Debug.WriteLine($"File @{txtFilePath.Text.ToString()} has {rowCount} rows and {colCount} columns");
+
+            DataTable dt = new DataTable();
+
+            try
+            {
+                /* Create the grid column header */
+                for (int i = 0; i < col_index.Count(); i++)
+                {
+                    int col = col_index[i];
+                    Excel.Range temp = xlRange.Cells[start_row, col];
+                    object value = temp.Value2;
+                    //string strColumn = value.ToString();
+                    dt.Columns.Add(value.ToString(), typeof(string));
+                }
+                string strData, strCellData;
+                int emptyCell;
+
+                int qty_index ;
+                int.TryParse(lblQuantity.Content.ToString(), out qty_index);
+
+                for (int row = start_row + 1; row < rowCount; row++)
+                {
+
+                    ///* First check quantity field */
+                    Excel.Range temp_qty = xlRange.Cells[row, qty_index];
+                    object qty_obj = temp_qty.Value;
+
+                    if (qty_obj == null || qty_obj.ToString().Trim() == "" ) continue;
+
+                    strData = string.Empty;
+                    emptyCell = 0;
+                    for (int i = 0; i < col_index.Count(); i++)
+                    {
+                        int col = col_index[i];
+                        Excel.Range temp = xlRange.Cells[row, col];
+
+                        if (temp == null)
+                            continue;
+
+                        object value = temp.Value;
+
+                        if (value == null)
+                            strCellData = "";
+                        else
+                            strCellData = value.ToString();
+
+                        if (strCellData == "") emptyCell++;
+
+                        //strCellData = (string)(excelRange.Cells[rowCnt, colCnt] as Microsoft.Office.Interop.Excel.Range).Value2;
+                        strData += strCellData + "|";
+                    }
+                    if (emptyCell < colCount / 2)
+                    {
+                        /* DEBUG */
+                        Debug.WriteLine($"{row} : {strData}");
+                        strData = strData.Remove(strData.Length - 1, 1);
+                        dt.Rows.Add(strData.Split('|'));
+                    }
+                    /* Debug */
+                    //if (row == start_row + 50) break;
+                }
+                dtGrid.ItemsSource = dt.DefaultView;
+            }
+            catch (Exception ex)
+            {
+                Console.Write("Error Encounter :" + ex.ToString());
+            }
+            finally
+            {
+                //release com objects to fully kill excel process from running in the background
+                Marshal.ReleaseComObject(xlRange);
+                Marshal.ReleaseComObject(xlWorksheet);
+
+                //close and release
+                xlWorkbook.Close(false);
+                Marshal.ReleaseComObject(xlWorkbook);
+
+                //quit and release
+                xlApp.Quit();
+                Marshal.ReleaseComObject(xlApp);
+
+                //cleanup
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
+            lblMessage.Content = string.Empty;
+            lblMessage.Height = 0;
         }
     }
 }
