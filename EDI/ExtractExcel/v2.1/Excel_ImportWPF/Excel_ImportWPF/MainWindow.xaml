@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Excel_ImportWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="MainWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen"> <!--="None"-->
 
     <!-- I got inspiration from http://www.codescratcher.com/wpf/import-excel-file-datagrid-wpf/  
          but I took the XAML layout and expand on the functionality -->
@@ -20,8 +20,10 @@
                         <!-- WrapPanel contains the File Name Text, a button to open File Dialog Box and a Close App button-->
                         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                             <TextBox Height="30" Name="txtFilePath" Width="400" Margin="10,0,10,0" FontSize="15" Opacity="1" />
-                            <Button Content="Browse Excel" Name="btnOpen" Width="120" FontSize="15" Height="30" FontWeight="Bold" Click="btnOpen_Click" />
-                            <Button Content="Close" FontSize="15" Height="30" FontWeight="Bold" Name="btnClose" Width="75" Margin="110,0,0,0" Background="#FFEFE5E5" Click="btnClose_Click" />
+                            <Button Content="Open File" Name="btnOpen" Width="100" FontSize="15" Height="30" FontWeight="Bold" Click="btnOpen_Click" />
+                            <Button Content="Import Data" Name="btnExtract" Width="140" FontSize="15" Height="30" FontWeight="Bold" Margin="10,0,0,0" 
+                                    Click="btnExtract_Click" IsEnabled="{Binding IsDataExtractEnabled,IsAsync=True,Mode=OneWay}"/>
+                            <Button Content="Close" FontSize="15" Height="30" FontWeight="Bold" Name="btnClose" Width="75" Margin="10,0,0,0" Background="#FFEFE5E5" Click="btnClose_Click" />
 
                         </WrapPanel>
 
@@ -60,10 +62,10 @@
                             <ComboBox x:Name="cbxQuantity"  HorizontalAlignment="Left" Height="30" Margin="530,30,0,0" VerticalAlignment="Top" Width="80"
                                    FontSize="15" />
 
-                            <!-- Content="Import Columns" Name="btnHeader" Width="130" FontSize="15" Height="30" FontWeight="Bold" Click="btnHeader_Click" Margin="640,7,30,40" /-->
                             <!-- Button Content="Extract Data" Name="btnExtract" Width="130" FontSize="15" Height="30" FontWeight="Bold" Click="btnExtract_Click" Margin="610,40,0,0" /-->
-                            <Button Content="Extract Data" Name="btnExtract" Width="130" FontSize="15" Height="30" FontWeight="Bold" Click="btnExtract_Click" Margin="640,7,30,40" 
-                                    IsEnabled="{Binding IsDataExtractEnabled,IsAsync=True,Mode=OneWay}"/>
+                            <Button Content="Validate Data" Name="btnValidate" Width="130" FontSize="15" Height="30" FontWeight="Bold"  Margin="640,7,30,40" 
+                                    Click="btnValidate_Click" />
+                            <Button Content="Upload Data" Name="btnUpLoad" Width="130" FontSize="15" Height="30" FontWeight="Bold"  Margin="640,58,30,10" />
 
                             <Label Content="col : " HorizontalAlignment="Left" Height="30" Margin="15,63,0,0" VerticalAlignment="Top" Width="80"
                                    FontSize="15" FontWeight="Bold" />
@@ -96,7 +98,7 @@
 
                     <!--  enable scrollbars on the WPF Datagrid
                           https://stackoverflow.com/questions/673516/how-can-i-enable-scrollbars-on-the-wpf-datagrid  -->
-                    <DataGrid AutoGenerateColumns="True" IsReadOnly="True" HorizontalAlignment="Center" Name="dtGrid" VerticalAlignment="Center" 
+                    <DataGrid AutoGenerateColumns="True" IsReadOnly="True" HorizontalAlignment="Left" Name="dtGrid" VerticalAlignment="Center" 
                            ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
                 </StackPanel>
             </Border>

@@ -104,6 +104,7 @@ namespace Excel_ImportWPF
 
         public bool IsDataExtractEnabled { get => code_flag & scientific_flag & common_flag & size_flag & price_flag & quantitiy_flag;  }
 
+        //public bool IsValidateDataEnabled { get => IsDataExtractEnabled; }
         public ViewModel()
         {
 
