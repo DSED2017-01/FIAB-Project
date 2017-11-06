@@ -88,8 +88,8 @@
                 $("#DIV").html('');
                 var DIV = '';
                 $.each(data, function (i, item) {
-                    
-                    
+
+
 
                     //var rows = "<tr>" +
                     //    //"<td id='IdPk'>" + item.idPk + "</td>" +
@@ -98,11 +98,16 @@
                     //    "</tr>";
                     //$('#Table').append(rows);
 
+                    /*
+                     https://www.w3schools.com/jsref/event_onclick.asp
+                     */
+
                     var rows = "<tr>" +
                         //"<td id='IdPk'>" + item.idPk + "</td>" +
                         "<td id='Scientific'>" + item.scientific + "</td>" +
                         "<td id='Common'>" + item.common + "</td>" +
-                        "<td> <button type='button' class='btn-default btn-xs'>  Edit </button> </td>" +
+                        "<td> <button type='button' class='btn-default btn-xs' " +
+                        " onclick= \"javascript:Edit(" + item.idPk + ")\"> Edit </button> </td>" +
                         "<td> <button type='button' class='btn-default btn-xs'>  Detail </button> </td>" +
                         "<td> <button type='button' class='btn-default btn-xs'>  Delete </button> </td>" +
                         "</tr>";
@@ -122,6 +127,16 @@
 
         });
 
-
     });
+
+            /* https://stackoverflow.com/questions/8952953/calling-asp-net-mvc-action-methods-from-javascript  */
+        function Edit(id) {
+
+            $.ajax({
+                url: '@Url.Action("Edit", "MarineSpecies")',
+                data: { id: id }
+            }).done(function () {
+                //alert('Edit');
+            });
+        }
 </script>
