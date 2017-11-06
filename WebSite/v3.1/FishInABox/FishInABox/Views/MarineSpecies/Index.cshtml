@@ -5,6 +5,7 @@
 }
 
 <h2>Index</h2>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 <p>
     @* <a asp-action="Create">Create New</a> *@
@@ -13,7 +14,7 @@
          Create New
     </button>
 </p>
-<table class="table">
+<table class="table" id="Table">
     <thead>
         <tr>
             <!-- <th>@Html.DisplayNameFor(model => model.SpeciesFk)</th> -->
@@ -30,7 +31,7 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
+    @* @foreach (var item in Model)
     {
         <tr>
             <!-- <td>@Html.DisplayFor(modelItem => item.SpeciesFk)</td> -->
@@ -57,17 +58,70 @@
                             onclick="location.href='@Url.Action("Delete", "MarineSpecies", new { id = @item.IdPk })'"  >Delete</button>
                 }
                 
-                @*   
+                //@*
                     <a asp-action="Edit" asp-route-id="@item.IdPk">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.IdPk">Details</a> |
                     @if (item.Flag == false)
                     {
                         <a asp-action="Delete" asp-route-id="@item.IdPk">Delete</a>
                     }
-                 *@
-                
+
+
             </td>
         </tr>
-    }
+    }*@
     </tbody>
 </table>
+
+<script>
+
+    $(document).ready(function () {
+
+
+        $.ajax({
+            type: "GET",
+            url: "/api/MarineSpeciesAPI",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                //alert(JSON.stringify(data));
+                $("#DIV").html('');
+                var DIV = '';
+                $.each(data, function (i, item) {
+                    
+                    
+
+                    //var rows = "<tr>" +
+                    //    //"<td id='IdPk'>" + item.idPk + "</td>" +
+                    //    "<td id='Scientific'>" + item.scientific + "</td>" +
+                    //    "<td id='Common'>" + item.common + "</td>" +
+                    //    "</tr>";
+                    //$('#Table').append(rows);
+
+                    var rows = "<tr>" +
+                        //"<td id='IdPk'>" + item.idPk + "</td>" +
+                        "<td id='Scientific'>" + item.scientific + "</td>" +
+                        "<td id='Common'>" + item.common + "</td>" +
+                        "<td> <button type='button' class='btn-default btn-xs'>  Edit </button> </td>" +
+                        "<td> <button type='button' class='btn-default btn-xs'>  Detail </button> </td>" +
+                        "<td> <button type='button' class='btn-default btn-xs'>  Delete </button> </td>" +
+                        "</tr>";
+                    $('#Table').append(rows);
+
+
+                }); //End of foreach Loop
+                console.log(data);
+            }, //End of AJAX Success function
+
+            failure: function (data) {
+                alert(data.responseText);
+            }, //End of AJAX failure function
+            error: function (data) {
+                alert(data.responseText);
+            } //End of AJAX error function
+
+        });
+
+
+    });
+</script>

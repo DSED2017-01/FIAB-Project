@@ -26,35 +26,35 @@
 
 <script>
 
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: "/api/MarineSpeciesAPI",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {
-                //alert(JSON.stringify(data));
-                $("#DIV").html('');
-                var DIV = '';
-                $.each(data, function (i, item) {
-                    var rows = "<tr>" +
-                        "<td id='IdPk'>" + item.idPk + "</td>" +
-                        "<td id='Scientific'>" + item.scientific + "</td>" +
-                        "<td id='Common'>" + item.common + "</td>" +
-                        "</tr>";
-                    $('#Table').append(rows);
-                }); //End of foreach Loop
-                console.log(data);
-            }, //End of AJAX Success function
+$(document).ready(function () {
+    $.ajax({
+        type: "GET",
+        url: "/api/MarineSpeciesAPI",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (data) {
+            //alert(JSON.stringify(data));
+            $("#DIV").html('');
+            var DIV = '';
+            $.each(data, function (i, item) {
+                var rows = "<tr>" +
+                    "<td id='IdPk'>" + item.idPk + "</td>" +
+                    "<td id='Scientific'>" + item.scientific + "</td>" +
+                    "<td id='Common'>" + item.common + "</td>" +
+                    "</tr>";
+                $('#Table').append(rows);
+            }); //End of foreach Loop
+            console.log(data);
+        }, //End of AJAX Success function
 
-            failure: function (data) {
-                alert(data.responseText);
-            }, //End of AJAX failure function
-            error: function (data) {
-                alert(data.responseText);
-            } //End of AJAX error function
+        failure: function (data) {
+            alert(data.responseText);
+        }, //End of AJAX failure function
+        error: function (data) {
+            alert(data.responseText);
+        } //End of AJAX error function
 
-        });
     });
+});
 </script>
 
