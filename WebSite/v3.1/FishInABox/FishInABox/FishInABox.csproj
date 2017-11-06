@@ -15,4 +15,12 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Views\MarineSpecies\IndexAPI.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\MarineSpeciesAPI\" />
+  </ItemGroup>
+
 </Project>

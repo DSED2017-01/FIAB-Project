@@ -20,6 +20,11 @@ namespace FishInABox.Controllers
             _context = context;
         }
 
+        public IActionResult IndexAPI()
+        {
+            return View();
+        }
+
         // GET: MarineSpecies
         public async Task<IActionResult> Index()
         {
