@@ -1,0 +1,107 @@
+﻿<Window x:Class="Excel_ImportWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Excel_ImportWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+    <!-- I got inspiration from http://www.codescratcher.com/wpf/import-excel-file-datagrid-wpf/  
+         but I took the XAML layout and expand on the functionality -->
+
+    <!-- Add a scrollbars to grid
+         https://stackoverflow.com/questions/29354893/how-to-add-scrollbars-to-grid -->
+    <ScrollViewer>
+        <Grid>
+            <Border BorderBrush="Black" BorderThickness="2">
+                <StackPanel HorizontalAlignment="Center" >
+                    <Border BorderBrush="Black" BorderThickness="0,0,0,2" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800">
+                        <!-- WrapPanel contains the File Name Text, a button to open File Dialog Box and a Close App button-->
+                        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBox Height="30" Name="txtFilePath" Width="400" Margin="10,0,10,0" FontSize="15" Opacity="1" />
+                            <Button Content="Open File" Name="btnOpen" Width="100" FontSize="15" Height="30" FontWeight="Bold" Click="btnOpen_Click" />
+                            <Button Content="Import Data" Name="btnExtract" Width="140" FontSize="15" Height="30" FontWeight="Bold" Margin="10,0,0,0" 
+                                    Click="btnExtract_Click" IsEnabled="{Binding IsDataExtractEnabled,IsAsync=True,Mode=OneWay}"/>
+                            <Button Content="Close" FontSize="15" Height="30" FontWeight="Bold" Name="btnClose" Width="75" Margin="10,0,0,0" Background="#FFEFE5E5" Click="btnClose_Click" />
+
+                        </WrapPanel>
+
+                    </Border>
+
+                    <!-- create the following layout to for user to select columns from Excel file to be extracted
+                                and also link the columns to the table columns -->
+                    <Border BorderBrush="Black" BorderThickness="0,0,0,2" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800">
+                        <Grid>
+
+                            <!-- Label for the dropdown box -->
+                            <Label Content="Code" HorizontalAlignment="Left" Height="30" Margin="40,0,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" FontWeight="Bold" />
+                            <Label Content="Scientific" HorizontalAlignment="Left" Height="30" Margin="130,0,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" FontWeight="Bold" />
+                            <Label Content="Common" HorizontalAlignment="Left" Height="30" Margin="230,0,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" FontWeight="Bold" />
+                            <Label Content="Size" HorizontalAlignment="Left" Height="30" Margin="330,0,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" FontWeight="Bold" />
+                            <Label Content="Price" HorizontalAlignment="Left" Height="30" Margin="430,0,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" FontWeight="Bold" />
+                            <Label Content="Quantity" HorizontalAlignment="Left" Height="30" Margin="530,0,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" FontWeight="Bold" />
+
+                            <!-- dropdown box-->
+                            <ComboBox x:Name="cbxCode"  HorizontalAlignment="Left" Height="30" Margin="30,30,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" />
+                            <ComboBox x:Name="cbxScientific"  HorizontalAlignment="Left" Height="30" Margin="130,30,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" />
+                            <ComboBox x:Name="cbxCommon"  HorizontalAlignment="Left" Height="30" Margin="230,30,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" />
+                            <ComboBox x:Name="cbxSize"  HorizontalAlignment="Left" Height="30" Margin="330,30,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" />
+                            <ComboBox x:Name="cbxPrice"  HorizontalAlignment="Left" Height="30" Margin="430,30,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" />
+                            <ComboBox x:Name="cbxQuantity"  HorizontalAlignment="Left" Height="30" Margin="530,30,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" />
+
+                            <!-- Button Content="Extract Data" Name="btnExtract" Width="130" FontSize="15" Height="30" FontWeight="Bold" Click="btnExtract_Click" Margin="610,40,0,0" /-->
+                            <Button Content="Validate Data" Name="btnValidate" Width="130" FontSize="15" Height="30" FontWeight="Bold"  Margin="640,7,30,40" 
+                                    Click="btnValidate_Click" />
+                            <Button Content="Upload Data" Name="btnUpLoad" Width="130" FontSize="15" Height="30" FontWeight="Bold"  Margin="640,58,30,10" />
+
+                            <Label Content="col : " HorizontalAlignment="Left" Height="30" Margin="15,63,0,0" VerticalAlignment="Top" Width="80"
+                                   FontSize="15" FontWeight="Bold" />
+
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="50,65,690,8">
+                                <Label x:Name="lblCode" Content="{Binding CodeColumn ,IsAsync=True,Mode=TwoWay}"/>
+                            </Border>
+
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="150,65,590,8">
+                                <Label x:Name="lblScientific" Content="{Binding ScientificColumn ,IsAsync=True,Mode=TwoWay}"/>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="250,65,490,8">
+                                <Label x:Name="lblCommon" Content="{Binding CommonColumn ,IsAsync=True,Mode=TwoWay}"/>
+                            </Border>
+
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="350,65,390,8">
+                                <Label x:Name="lblSize" Content="{Binding SizeColumn ,IsAsync=True,Mode=TwoWay}"/>
+                            </Border>
+
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="450,65,290,8">
+                                <Label x:Name="lblPrice" Content="{Binding PriceColumn ,IsAsync=True,Mode=TwoWay}"/>
+                            </Border>
+
+                            <Border BorderBrush="Black" BorderThickness="1" Margin="550,65,190,8">
+                                <Label x:Name="lblQuantity" Content="{Binding QuantityColumn ,IsAsync=True,Mode=TwoWay}"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <Label Name="lblMessage" Content="Place Important Message to User" FontSize="25" Margin="1" HorizontalAlignment="Center" Foreground="#FFFF5F04" Height="50" />
+
+                    <!--  enable scrollbars on the WPF Datagrid
+                          https://stackoverflow.com/questions/673516/how-can-i-enable-scrollbars-on-the-wpf-datagrid  -->
+                    <DataGrid AutoGenerateColumns="True" IsReadOnly="True" HorizontalAlignment="Left" Name="dtGrid" VerticalAlignment="Center" 
+                           ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+                </StackPanel>
+            </Border>
+
+        </Grid>
+    </ScrollViewer>
+</Window>
