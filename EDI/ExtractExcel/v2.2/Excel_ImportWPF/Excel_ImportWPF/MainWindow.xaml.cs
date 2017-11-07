@@ -1,4 +1,5 @@
-﻿using ExcelDataReader;
+﻿using Excel_ImportWPF.DAO;
+using ExcelDataReader;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -84,17 +86,16 @@ namespace Excel_ImportWPF
 
             if (browsefile == true)
             {
-                lblMessage.Content = "Loading ..... ";
-                lblMessage.Height = 50;
+                //lblMessage.Content = "Loading ..... ";
+                //lblMessage.Height = 50;
                 file_fullpath = openfile.FileName;
                 string[] text = file_fullpath.Split('\\');
                 int last_index = text.Count() - 1;
                 txtFilePath.Text = text[last_index];
 
-
                 dtGrid.ItemsSource = null;
 
-                MessageBox.Show("Import Excel Column");
+                //MessageBox.Show("Import Excel Column");
                 //Thread.Sleep(5000);
                 btnHeader_Click(sender, e);
 
@@ -106,7 +107,7 @@ namespace Excel_ImportWPF
                 btnValidate.IsEnabled = false;
                 btnUpLoad.IsEnabled = false;
             }
-            lblMessage.Content = "Import Excel Column Completed !!!";
+            //lblMessage.Content = "Import Excel Column Completed !!!";
             //lblMessage.Height = 0;
         }
 
@@ -208,17 +209,17 @@ namespace Excel_ImportWPF
                     comboboxs[i].SelectedIndex = -1;
                 }
 
-                lblMessage.Content = string.Empty;
+                //lblMessage.Content = string.Empty;
                 //MessageBox.Show("Import Execel Columns haved completed !!!");
             }
         }
 
         private void btnExtract_Click(object sender, RoutedEventArgs e)
         {
-            lblMessage.Content = "Extracting Data .....";
-            lblMessage.Height = 50;
+            //lblMessage.Content = "Extracting Data .....";
+            //lblMessage.Height = 50;
             //btnValidate.IsEnabled = false;
-            MessageBox.Show("About to Extract Data.\nPlease wait patiently.");
+            //MessageBox.Show("About to Extract Data.\nPlease wait patiently.");
 
             int count = labels.Count();
             List<int> col_index = new List<int>();
@@ -357,7 +358,90 @@ namespace Excel_ImportWPF
 
         private void btnValidate_Click(object sender, RoutedEventArgs e)
         {
+            btnUpLoad.IsEnabled = false;
 
+            // https://social.msdn.microsoft.com/Forums/en-US/290d3c67-440e-4037-86b6-cf668990b5da/how-to-loop-through-all-the-the-cells-in-datagrid?forum=wpf
+
+            for (int row = 0; row < dtGrid.Items.Count; row++)
+            {
+                //for(int column = 0; column < dtGrid.Columns.Count; column++)
+                //{
+                //    DataGridCell cell = GetCell(row, column);
+                //}
+
+                DataGridCell cell = GetCell(row, 1);
+                TextBlock text = cell.Content as TextBlock;
+                string[] array = text.Text.Split(' ');
+                string species = array[0] + ' ' + array[1];
+                Debug.WriteLine(species);
+                //dtGrid.Items[row].Cells[dtGrid.Columns.Count-1].Text = SpeciesDataHelper.GetIDByScientificName(species).ToString();
+
+                string id, name;
+                (id, name) = SpeciesDataHelper.CheckScientificName(species);
+
+                //cell = GetCell(row, dtGrid.Columns.Count - 1);
+                //cell = GetCell(row, 1);
+                if (id.Trim() != "-1" && species.Length != name.Length)
+                    id = "-1";
+
+                /* Display the status */
+                cell = GetCell(row, dtGrid.Columns.Count - 1);
+                ((TextBlock)cell.Content).Text = id.ToString();
+                /* Display MPI Name */
+                cell = GetCell(row, dtGrid.Columns.Count - 2);
+                ((TextBlock)cell.Content).Text = name.ToString();
+            }
+        }
+
+        private DataGridCell GetCell(int row, int column)
+        {
+            DataGridRow rowContainer = GetRow(row);
+
+            if (rowContainer != null)
+            {
+                DataGridCellsPresenter presenter = GetVisualChild<DataGridCellsPresenter>(rowContainer);
+
+                DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(column);
+                if (cell == null)
+                {
+                    dtGrid.ScrollIntoView(rowContainer, dtGrid.Columns[column]);
+                    cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(column);
+                }
+                return cell;
+            }
+            return null;
+        }
+
+        private DataGridRow GetRow(int index)
+        {
+            DataGridRow row = (DataGridRow)dtGrid.ItemContainerGenerator.ContainerFromIndex(index);
+            if (row == null)
+            {
+                dtGrid.UpdateLayout();
+                dtGrid.ScrollIntoView(dtGrid.Items[index]);
+                row = (DataGridRow)dtGrid.ItemContainerGenerator.ContainerFromIndex(index);
+            }
+            return row;
+        }
+
+        public static T GetVisualChild<T>(Visual parent) where T : Visual
+        {
+            T child = default(T);
+            int numVisuals = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < numVisuals; i++)
+            {
+                Visual v = (Visual)VisualTreeHelper.GetChild(parent, i);
+                child = v as T;
+                if (child == null)
+                {
+                    child = GetVisualChild<T>(v);
+                }
+                if (child != null)
+                {
+                    break;
+                }
+            }
+            return child;
         }
     }
 }

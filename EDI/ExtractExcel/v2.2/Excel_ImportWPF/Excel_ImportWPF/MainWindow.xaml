@@ -93,7 +93,7 @@
                             </Border>
                         </Grid>
                     </Border>
-                    <Label Name="lblMessage" Content="Place Important Message to User" FontSize="25" Margin="1" HorizontalAlignment="Center" Foreground="#FFFF5F04" Height="50" />
+                    <Label Name="lblMessage" Content="Place Important Message to User" FontSize="25" Margin="1" HorizontalAlignment="Center" Foreground="#FFFF5F04" Height="0" />
 
                     <!--  enable scrollbars on the WPF Datagrid
                           https://stackoverflow.com/questions/673516/how-can-i-enable-scrollbars-on-the-wpf-datagrid  -->
