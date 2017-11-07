@@ -102,5 +102,47 @@ namespace Excel_ImportWPF.DAO
 
             return result;
         }
+
+        public static List<string> RetreiveAllString(SqlCommand command, int noString)
+        {
+            List<string> result = new List<string>();
+
+            using (SqlConnection connection = new SqlConnection(ConnectionHelper.ConnectionString))
+            {
+                command.Connection = connection;
+                connection.Open();
+                try
+                {
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+                        //result = (string)reader[0];
+                        //return re
+                        for (int i = 0; i < noString; i++)
+                        {
+                            //if(reader[i].)
+                            result.Add(reader[i].ToString());
+                        }
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("ERROR : " + ex.Message);
+                }
+                finally
+                {
+                    if (connection.State == System.Data.ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }

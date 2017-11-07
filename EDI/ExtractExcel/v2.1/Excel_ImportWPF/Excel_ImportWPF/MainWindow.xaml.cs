@@ -235,6 +235,9 @@ namespace Excel_ImportWPF
 
             MessageBox.Show("About to Extract Data.\nPlease wait patiently.");
 
+
+
+
             int count = labels.Count();
             List<int> col_index = new List<int>();
             for(int i = 0; i < count;i++)
@@ -276,6 +279,7 @@ namespace Excel_ImportWPF
                     //string strColumn = value.ToString();
                     dt.Columns.Add(value.ToString(), typeof(string));
                 }
+                dt.Columns.Add("MPI Name", typeof(string));
                 dt.Columns.Add("Status", typeof(string));
 
                 string strData, strCellData;
@@ -344,9 +348,14 @@ namespace Excel_ImportWPF
                         dt.Rows.Add(strData.Split('|'));
                     }
                     /* Debug */
-                    //if (row == start_row + 50) break;
+                    if (row == start_row + 50)
+                    {
+                        Debug.WriteLine("Debug : Only check 50 lines");
+                        break;
+                    }
+                        
                 }
-                dtGrid.ItemsSource = dt.DefaultView;
+                //dtGrid.ItemsSource = dt.DefaultView;
             }
             catch (Exception ex)
             {
@@ -370,6 +379,9 @@ namespace Excel_ImportWPF
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
             }
+
+            dtGrid.ItemsSource = dt.DefaultView;
+
             lblMessage.Content = string.Empty;
             lblMessage.Height = 0;
 
@@ -406,8 +418,21 @@ namespace Excel_ImportWPF
                 string species = array[0] + ' ' + array[1];
                 Debug.WriteLine(species);
                 //dtGrid.Items[row].Cells[dtGrid.Columns.Count-1].Text = SpeciesDataHelper.GetIDByScientificName(species).ToString();
+                
+                string id, name;
+                (id,name)= SpeciesDataHelper.CheckScientificName(species);
+
+                //cell = GetCell(row, dtGrid.Columns.Count - 1);
+                cell = GetCell(row, 1);
+                if (id.Trim() != "-1" && ((TextBlock)cell.Content).Text.Length != name.Length)
+                    id = "-1";
+
+                /* Display the status */
                 cell = GetCell(row, dtGrid.Columns.Count - 1);
-                ((TextBlock)cell.Content).Text = SpeciesDataHelper.GetIDByScientificName(species).ToString();
+                ((TextBlock)cell.Content).Text = id.ToString();
+                /* Display MPI Name */
+                cell = GetCell(row, dtGrid.Columns.Count - 2);
+                ((TextBlock)cell.Content).Text = name.ToString();
             }
         }
 

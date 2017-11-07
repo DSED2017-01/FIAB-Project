@@ -40,5 +40,23 @@ namespace Excel_ImportWPF.DAO
 
             return DAOHelper.RetreiveString(command);
         }
+
+        public static (string, string) CheckScientificName(string scientific_name)
+        {
+            SqlCommand command = new SqlCommand();
+            command.CommandText = "SELECT ID_PK, [SCIENTIFIC] FROM [MARINE_SPECIES] WHERE [SCIENTIFIC] LIKE @SCIENTIFIC_TEXT";
+            command.Parameters.AddWithValue("@SCIENTIFIC_TEXT", "%" + scientific_name + "%");
+
+            //return DAOHelper.RetreiveID(command);
+            List<string> result = DAOHelper.RetreiveAllString(command,2);
+
+            switch(result.Count)
+            {
+                case 2: return (result[0], result[1]);
+                case 1: return (result[0], "");
+                default: return ("-1", "");
+            }
+            
+        }
     }
 }
