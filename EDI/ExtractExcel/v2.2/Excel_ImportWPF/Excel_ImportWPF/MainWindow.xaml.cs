@@ -178,7 +178,7 @@ namespace Excel_ImportWPF
                     }
                     Debug.WriteLine($"Header String {strData}");
 
-                    for (int col = 1; col < colCount; col++)
+                    for (int col = 0; col < colCount; col++)
                     {
                         //Excel.Range temp = xlRange.Cells[start_row, col];
                         object value = dt.Rows[start_row][col];
@@ -191,7 +191,7 @@ namespace Excel_ImportWPF
                         {
                             strColumn = value.ToString();
                         }
-                        dt.Columns.Add(strColumn, typeof(string));
+                        //dt.Columns.Add(strColumn, typeof(string));
                         columns.Add(strColumn);
                     }
                 }
@@ -225,8 +225,14 @@ namespace Excel_ImportWPF
             List<int> col_index = new List<int>();
             for (int i = 0; i < count; i++)
             {
-                if (int.TryParse(labels[i].Content.ToString(), out int val))
-                    col_index.Add(val);
+                if(labels[i].Content == null)
+                    col_index.Add(-1);
+                else
+                {
+                    if (int.TryParse(labels[i].Content.ToString(), out int val))
+                        col_index.Add(val-1);
+                }
+
             }
 
             DataTable dt = new DataTable();
@@ -255,11 +261,41 @@ namespace Excel_ImportWPF
                     for (int i = 0; i < col_index.Count(); i++)
                     {
                         int col = col_index[i];
-                        //Excel.Range temp = xlRange.Cells[start_row, col];
-                        //object value = temp.Value2;
-                        //string strColumn = value.ToString();
-                        object value = excel_dt.Rows[start_row][col];
-                        dt.Columns.Add(value.ToString(), typeof(string));
+
+                        /* Note : some supplier do not provide size nor code
+                         code - index 0
+                         size - index 3
+                         */
+                        if( col < 0)
+                        {
+                            //string value = "Col " + i;
+                            string value;
+                            switch(i)
+                            {
+                                case 0: value = "code"; break;
+                                case 2: value = "common"; break;
+
+                                case 3: value = "size"; break;
+                                default: value = "Col " + i; break;
+                            }
+
+                            dt.Columns.Add(value.ToString(), typeof(string));
+                        }
+                        else
+                        {
+                            object value = excel_dt.Rows[start_row][col];
+                            string[] temp = value.ToString().Split('/');
+
+                            if (dt.Columns.Contains(temp[0]))
+                                dt.Columns.Add("Duplicate " + (col+1), typeof(string));
+                            else
+                            {
+                                
+                                dt.Columns.Add(temp[0], typeof(string));
+                            }
+                                
+                        }
+                        
                     }
                     dt.Columns.Add("MPI Name", typeof(string));
                     dt.Columns.Add("Status", typeof(string));
@@ -274,68 +310,61 @@ namespace Excel_ImportWPF
                         {
                             int index;
                             int.TryParse(strValue, out index);
-                            //Excel.Range temp_value = xlRange.Cells[row, index];
-                            object value = excel_dt.Rows[row][index];
-
-                            //object obj = temp_value.Value;
-                            //if (obj == null || obj.ToString().Trim() == "")
-                            //    return true;
-                            //return false;
+                            object value = excel_dt.Rows[row][index - 1];
 
                             return value.ToString().Trim() == "" ? true : false;
                         }
 
                         ///* First check quantity field */
-                        //Excel.Range temp_qty = xlRange.Cells[row, qty_index];
-                        //object qty_obj = temp_qty.Value;
-                        //if (qty_obj == null || qty_obj.ToString().Trim() == "" ) continue;
 
-                        /* Check Code field */
-                        if (isNotOK(lblCode.Content.ToString())) continue;
+                        ///* Check Code field */
+                        ////if (isNotOK(lblCode.Content.ToString())) continue;
 
-                        /* Check Scientific Name field */
-                        if (isNotOK(lblScientific.Content.ToString())) continue;
+                        ///* Check Scientific Name field */
+                        //if (isNotOK(lblScientific.Content.ToString())) continue;
 
-                        /* Check Common Name field */
-                        if (isNotOK(lblCommon.Content.ToString())) continue;
+                        ///* Check Common Name field */
+                        //if (isNotOK(lblCommon.Content.ToString())) continue;
 
-                        /* Check Size field */
-                        if (isNotOK(lblSize.Content.ToString())) continue;
+                        ///* Check Size field */
+                        ////if (isNotOK(lblSize.Content.ToString())) continue;
 
                         /* First check quantity field */
                         if (isNotOK(lblQuantity.Content.ToString())) continue;
 
                         strData = string.Empty;
                         emptyCell = 0;
+                        //object value;
                         for (int i = 0; i < col_index.Count(); i++)
                         {
                             int col = col_index[i];
-                            //Excel.Range temp = xlRange.Cells[start_row, col];
-                            //object value = temp.Value2;
-                            //string strColumn = value.ToString();
-                            object value = excel_dt.Rows[row][col];
 
-                            strCellData = value.ToString();
+                            /* Note : some supplier do not provide size nor code
+                             code - index 0
+                             common - index 2
+                             size - index 3
+                             */
+                            //strCellData = col != -1 ? excel_dt.Rows[row][col].ToString() : "" ;
+                            
+                            strCellData = "";
+                            if (col != -1)
+                            {
+                                object value = excel_dt.Rows[row][col];
+                                strCellData = value.ToString();
+                            }
+
 
                             if (strCellData == "") emptyCell++;
 
-                            //strCellData = (string)(excelRange.Cells[rowCnt, colCnt] as Microsoft.Office.Interop.Excel.Range).Value2;
                             strData += strCellData + "|";
                         }
-                        if (emptyCell < colCount / 2)
-                        {
-                            /* DEBUG */
-                            Debug.WriteLine($"{row} : {strData}");
-                            strData = strData.Remove(strData.Length - 1, 1);
-                            dt.Rows.Add(strData.Split('|'));
-                        }
-                        /* Debug */
-                        //if (row == start_row + 50)
+                        /* DEBUG */
+                        Debug.WriteLine($"{row} : {strData}");
+                        //if (emptyCell < colCount / 2)
                         //{
-                        //    Debug.WriteLine("Debug : Only check 50 lines");
-                        //    break;
-                        //}
 
+                            //strData = strData.Remove(strData.Length - 1, 1);
+                            dt.Rows.Add(strData.Split('|'));
                         //}
                     }
                 }

@@ -102,7 +102,10 @@ namespace Excel_ImportWPF
 
         private bool code_flag, scientific_flag, common_flag, size_flag, price_flag, quantitiy_flag;
 
-        public bool IsDataExtractEnabled { get => code_flag & scientific_flag & common_flag & size_flag & price_flag & quantitiy_flag;  }
+        //public bool IsDataExtractEnabled { get => code_flag & scientific_flag & common_flag & size_flag & price_flag & quantitiy_flag;  }
+
+        /* Note: some supplier do not provide code nor size  for species */
+        public bool IsDataExtractEnabled { get => scientific_flag & common_flag & price_flag & quantitiy_flag; }
 
         //public bool IsValidateDataEnabled { get => IsDataExtractEnabled; }
         public ViewModel()
