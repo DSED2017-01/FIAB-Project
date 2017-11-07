@@ -348,11 +348,11 @@ namespace Excel_ImportWPF
                         dt.Rows.Add(strData.Split('|'));
                     }
                     /* Debug */
-                    if (row == start_row + 50)
-                    {
-                        Debug.WriteLine("Debug : Only check 50 lines");
-                        break;
-                    }
+                    //if (row == start_row + 50)
+                    //{
+                    //    Debug.WriteLine("Debug : Only check 50 lines");
+                    //    break;
+                    //}
                         
                 }
                 //dtGrid.ItemsSource = dt.DefaultView;
