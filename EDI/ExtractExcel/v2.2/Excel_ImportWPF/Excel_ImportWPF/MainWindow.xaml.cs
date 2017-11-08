@@ -125,6 +125,7 @@ namespace Excel_ImportWPF
 
             //DataTable dt = new DataTable();
             List<string> columns = new List<string>();
+
             using (var stream = File.Open(file_fullpath, FileMode.Open, FileAccess.Read))
             {
                 //IExcelDataReader excelReader;
