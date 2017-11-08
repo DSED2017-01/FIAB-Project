@@ -1,4 +1,5 @@
-﻿using ExcelDataReader;
+﻿using CheckApprovedSpecies.DAO;
+using ExcelDataReader;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -251,14 +253,33 @@ namespace CheckApprovedSpecies
 
                         if (value.ToString().Trim() == "") continue;
 
+                        string[] array = value.ToString().Trim().Split(' ');
+
+                        if(array.Length > 1 && array[1].Contains('-'))
+                        {
+                            string[] subStr = array[1].Split('-');
+                            array[1] = subStr[0];
+                        }
+
+                        string species = array[0] +  (array.Length > 1 ?     " " + array[1] : "");
+
+                        string id, name;
+                        (id, name) = SpeciesDataHelper.CheckScientificName(species);
+                        if (id.Trim() != "-1" && species.Length != name.Length)
+                            id = "-1";
+
                         celData = "" + row + "|";
                         celData += value.ToString().Trim();
-                        rowData = celData + "||";
+                        rowData = celData + "|"+ name +"|" + id;
+
+                        /* */
+                        Debug.WriteLine($"row [{row}] :{rowData}");
                         dt_Species.Rows.Add(rowData.Split('|'));
                     }
                 }
-                
+
             }
+            //dataGrid.Items.Add()
             dataGrid.ItemsSource = dt_Species.DefaultView;
 
         }
@@ -267,5 +288,8 @@ namespace CheckApprovedSpecies
         {
             this.Close();
         }
+
+
+
     }
 }
