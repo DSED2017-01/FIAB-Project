@@ -4,18 +4,103 @@
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
+<style>
+    #myInput {
+        width: 65%;
+        font-size: 16px;
+        color:black;
+    }
+
+</style>
+
 <div class="panel panel-primary">
     <div class="panel-heading">
-        Marine Species
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">Marine Species</div>
+                <div class="col-lg-9">
+
+                    @*  How TO - Filter/Search Table
+                        https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_filter_table *@
+
+                        <input type="text" id="myInput"
+                               onkeyup="myFunction()" placeholder="Search">
+                </div>
+            </div>
+        </div>
     </div>   <!--en dof panel-heading -->
-    <div class="panel-body">
-        <table class="table table-bordered" id="Table">
+    
+    @* https://stackoverflow.com/questions/35418358/how-to-make-panel-heading-fixed-with-bootstrap *@
+    <div class="panel-body" style="padding:0;border:0px;height:450px;overflow-y:auto">
+        <table class="table table-bordered table-striped" id="Table">
             <tr>
-                <th>Record Id</th>
+                <th>Id</th>
                 <th>Scientific Name</th>
                 <th>Common Name</th>
             </tr>   <!--end of table-row -->
         </table>   <!--end of table -->
     </div> <!--end of Panel-body -->
 </div> <!--end of Panel -->
+
+<script>
+
+    $(document).ready(() => {
+        $.ajax({
+            type: "GET",
+            url: "/api/MarineSpeciesAPI",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (data) => {
+                $("#DIV").html('');
+                var DIV = '';
+                $.each(data, (i, item) => {
+                    var rows = "<tr>" +
+                        "<td id='IdPk'>" + item.idPk + "</td>" +
+                        "<td id='Scientific'>" + item.scientific + "</td>" +
+                        "<td id='Common'>" + item.common + "</td>" + "</tr>";
+                    /*
+                        "<td><button class='btn-info btn-xs' name='btnEdit'>" +
+                        "<span class='glyphicon glyphicon-pencil'></span></button>" +
+                        "<button class='btn-info btn-xs' name='btnDetail'>" +
+                        "<span class='glyphicon glyphicon-search'></span></button>" +
+                        "<button class='btn-info btn-xs' name='btnDelete'>" +
+                        "<span class='glyphicon glyphicon-trash'></span></button></td>" +
+                        */
+                    $('#Table').append(rows);
+                }); //End of foreach Loop
+                console.log(data);
+            }, //End of AJAX Success function
+
+            failure: function (data) {
+                alert(data.responseText);
+            }, //End of AJAX failure function
+            error: function (data) {
+                alert(data.responseText);
+            } //End of AJAX error function
+        });
+
+    });
+
+    function myFunction() {
+        // Declare variables 
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("Table");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+</script>
 
