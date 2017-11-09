@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+    <title>@ViewData["Title"] - FishInABox</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -15,51 +15,9 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
-    <style>
-        /* Remove the navbar's default rounded borders and increase the bottom margin */
-        .navbar {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin-bottom: 50px;
-            border-radius: 0;
-        }
-
-        /* Remove the jumbotron's default bottom margin */
-        .jumbotron {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin-bottom: 0;
-        }
-
-        /* Add a gray background color and some padding to the footer */
-        footer {
-            background-color: #f2f2f2;
-            padding: 5px;
-        }
-
-        .panel-heading {
-            font-size: 14pt;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .btn-info {
-            font-size: 12pt;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        h2 {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        h3 {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        th {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-    </style>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top alert-success">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -68,13 +26,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><span style="color:darkolivegreen;font-size:14pt">Atlantis Imports</span></a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">FishInABox</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav masthead-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index"><span style="color:black;font-size:14pt">Home</span></a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About"><span style="color:black;font-size:14pt">About</span></a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact"><span style="color:black;font-size:14pt">Contact</span></a></li>
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -83,7 +41,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2017 - Atlantis Imports</p>
+            <p>&copy; 2017 - FishInABox</p>
         </footer>
     </div>
 
