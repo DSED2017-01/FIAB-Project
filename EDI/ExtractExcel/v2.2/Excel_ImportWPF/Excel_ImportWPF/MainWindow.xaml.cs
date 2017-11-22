@@ -255,7 +255,6 @@ namespace Excel_ImportWPF
                     //
                     DataTable excel_dt = result.Tables[0];
 
-
                     int rowCount = excel_dt.Rows.Count;
                     int colCount = excel_dt.Columns.Count;
 
