@@ -389,7 +389,7 @@ namespace Excel_ImportWPF
         {
             btnUpLoad.IsEnabled = false;
 
-            // https://social.msdn.microsoft.com/Forums/en-US/290d3c67-440e-4037-86b6-cf668990b5da/how-to-loop-through-all-the-the-cells-in-datagrid?forum=wpf
+            DataGridCellHelper cell_helper = new DataGridCellHelper(dtGrid);
 
             for (int row = 0; row < dtGrid.Items.Count; row++)
             {
@@ -398,7 +398,7 @@ namespace Excel_ImportWPF
                 //    DataGridCell cell = GetCell(row, column);
                 //}
 
-                DataGridCell cell = GetCell(row, 1);
+                DataGridCell cell = cell_helper.GetCell(row, 1);
                 TextBlock text = cell.Content as TextBlock;
                 string[] array = text.Text.Split(' ');
                 string species = array[0] + ' ' + array[1];
@@ -414,63 +414,14 @@ namespace Excel_ImportWPF
                     id = "-1";
 
                 /* Display the status */
-                cell = GetCell(row, dtGrid.Columns.Count - 1);
+                cell = cell_helper.GetCell(row, dtGrid.Columns.Count - 1);
                 ((TextBlock)cell.Content).Text = id.ToString();
                 /* Display MPI Name */
-                cell = GetCell(row, dtGrid.Columns.Count - 2);
+                cell = cell_helper.GetCell(row, dtGrid.Columns.Count - 2);
                 ((TextBlock)cell.Content).Text = name.ToString();
             }
         }
 
-        private DataGridCell GetCell(int row, int column)
-        {
-            DataGridRow rowContainer = GetRow(row);
 
-            if (rowContainer != null)
-            {
-                DataGridCellsPresenter presenter = GetVisualChild<DataGridCellsPresenter>(rowContainer);
-
-                DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(column);
-                if (cell == null)
-                {
-                    dtGrid.ScrollIntoView(rowContainer, dtGrid.Columns[column]);
-                    cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(column);
-                }
-                return cell;
-            }
-            return null;
-        }
-
-        private DataGridRow GetRow(int index)
-        {
-            DataGridRow row = (DataGridRow)dtGrid.ItemContainerGenerator.ContainerFromIndex(index);
-            if (row == null)
-            {
-                dtGrid.UpdateLayout();
-                dtGrid.ScrollIntoView(dtGrid.Items[index]);
-                row = (DataGridRow)dtGrid.ItemContainerGenerator.ContainerFromIndex(index);
-            }
-            return row;
-        }
-
-        public static T GetVisualChild<T>(Visual parent) where T : Visual
-        {
-            T child = default(T);
-            int numVisuals = VisualTreeHelper.GetChildrenCount(parent);
-            for (int i = 0; i < numVisuals; i++)
-            {
-                Visual v = (Visual)VisualTreeHelper.GetChild(parent, i);
-                child = v as T;
-                if (child == null)
-                {
-                    child = GetVisualChild<T>(v);
-                }
-                if (child != null)
-                {
-                    break;
-                }
-            }
-            return child;
-        }
     }
 }

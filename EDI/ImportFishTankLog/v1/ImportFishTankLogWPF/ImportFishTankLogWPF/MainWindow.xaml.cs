@@ -1,4 +1,5 @@
 ﻿using ExcelDataReader;
+using ImportFishTankLogWPF.DAO;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -61,6 +62,9 @@ namespace ImportFishTankLogWPF
             /* Clear the content of following variables */
             txtFilePath.Text = string.Empty;
             file_fullpath = string.Empty;
+
+            cbxNo.Items.Clear();
+            dtGrid.ItemsSource = null;
 
             /* Prompt the user to open a file */
             OpenFile();
@@ -223,6 +227,7 @@ namespace ImportFishTankLogWPF
                     dt.Columns.Add("Common", typeof(string));    // SPECIES_TEXT
                     dt.Columns.Add("Size", typeof(string)); // SIZE
                     dt.Columns.Add("Quantity", typeof(string));  // QTY
+                    dt.Columns.Add("Result", typeof(string));  // ==> for validate data status
 
                     #region Link excel column to table column
                     /* process the strData to link the excel column to table column */
@@ -303,6 +308,9 @@ namespace ImportFishTankLogWPF
 
                     #endregion
 
+                    /* Need to format Scientific Name before validating*/
+
+
                     #region Display excel records onto screen (data grid)
                     bool addData = false;
                     for (int row = start_row + 1; row < rowCount; row++)
@@ -320,6 +328,16 @@ namespace ImportFishTankLogWPF
                             int col = excel_col_index[i];
                             value = excel_dt.Rows[row][col];
                             strCellData = value.ToString();
+
+                            switch(i)
+                            {
+                                case 2: /* Foremat Scientific Name */
+                                    string temp = value.ToString();
+                                    string[] scientific = temp.Split(' ');
+                                    strCellData = scientific[0] + ( scientific.Length > 1 ? ' ' + scientific[1]: "");
+                                    break;
+                                default: strCellData = value.ToString(); break;
+                            }
                             strData += (strData != "" ? "|" : "") + strCellData;
 
                             //
@@ -335,10 +353,7 @@ namespace ImportFishTankLogWPF
             dtGrid.ItemsSource = dt.DefaultView;
         }
 
-        private void btnUpdate_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
@@ -354,6 +369,44 @@ namespace ImportFishTankLogWPF
             {
                 ExtractExcelData(selected);
             }
+        }
+
+        /// <summary>
+        /// This function verify excel record before data update
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnVerify_Click(object sender, RoutedEventArgs e)
+        {
+
+            /*1. Check Scientific Name.*/
+            /* Helper class to extract data from data grid cell. */
+            DataGridCellHelper cell_helper = new DataGridCellHelper(dtGrid);
+
+            int col = 2; // Column that store Scientific Name
+            for (int row = 0; row < dtGrid.Items.Count; row++)
+            {
+
+                DataGridCell cell = cell_helper.GetCell(row, col);
+                TextBlock text = cell.Content as TextBlock;
+                
+
+                string species = text.Text;
+                string id, name;
+
+                (id, name) = SpeciesDataHelper.CheckScientificName(species);
+                //Debug.WriteLine($"row {row + 1}:{text.Text} => {name}");
+
+                /* Get the status data grid cell field */
+                cell = cell_helper.GetCell(row, dtGrid.Columns.Count - 1);
+                ((TextBlock)cell.Content).Text = id == "-1" ? id : name ;
+
+            }
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

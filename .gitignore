@@ -272,3 +272,4 @@ orderlist1.xlsx
 /WebSite/v3.3/FishInABox/FishInABox/appsettings.json
 /EDI/ExtractExcel/v2.2/Excel_ImportWPF/Excel_ImportWPF/DAO/ConnectionHelper.cs
 /EDI/CheckApprovedSpecies/v1/CheckApprovedSpecies/CheckApprovedSpecies/DAO/ConnectionHelper.cs
+/EDI/ImportFishTankLog/v1/ImportFishTankLogWPF/ImportFishTankLogWPF/DAO/ConnectionHelper.cs
