@@ -20,6 +20,16 @@
                             <Button Content="Close" FontSize="15" Height="30" FontWeight="Bold" Name="btnClose" Width="75" Margin="10,0,0,0" Background="#FFEFE5E5" Click="btnClose_Click" />
                         </WrapPanel>
                     </Border>
+                    <Border BorderBrush="Black" BorderThickness="0,0,0,2" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800">
+                        <Grid>
+                            <!-- Label for the dropdown box -->
+                            <Label Content="Spreadsheet: " HorizontalAlignment="Left" Height="30" Margin="40,10,0,0" VerticalAlignment="Top" Width="150"
+                                   FontSize="15" FontWeight="Bold" />
+                            <!-- dropdown box-->
+                            <ComboBox x:Name="cbxNo"  HorizontalAlignment="Left" Height="30" Margin="150,10,0,0" VerticalAlignment="Top" Width="100"
+                                  SelectionChanged="RefreshData"  FontSize="15" />                            
+                        </Grid>
+                    </Border>
                     <!--  enable scrollbars on the WPF Datagrid
                           https://stackoverflow.com/questions/673516/how-can-i-enable-scrollbars-on-the-wpf-datagrid  -->
                     <DataGrid AutoGenerateColumns="True" IsReadOnly="True" HorizontalAlignment="Left" Name="dtGrid" VerticalAlignment="Center" 

@@ -30,6 +30,32 @@ namespace ImportFishTankLogWPF
             InitializeComponent();
         }
 
+        /// <summary>
+        /// point to the file with file path and full file name)
+        /// </summary>
+        private string file_fullpath = string.Empty;
+
+        /// <summary>
+        ///  open a dialog box for user to open excel file. 
+        /// </summary>
+        private void OpenFile()
+        {
+            Microsoft.Win32.OpenFileDialog openfile = new Microsoft.Win32.OpenFileDialog();
+            openfile.DefaultExt = ".xls";
+            openfile.Filter = "(.xls)|*.xls|(.xlsx)|*.xlsx";
+            var browsefile = openfile.ShowDialog();
+
+            /* Only do something when the user actually select a file */
+            if (browsefile == true)
+            {
+                file_fullpath = openfile.FileName;
+                string[] text = file_fullpath.Split('\\');
+                int last_index = text.Count() - 1;
+                txtFilePath.Text = text[last_index];
+
+                dtGrid.ItemsSource = null;
+            }
+        }
         private void btnImport_Click(object sender, RoutedEventArgs e)
         {
             /* Clear the content of following variables */
@@ -58,8 +84,26 @@ namespace ImportFishTankLogWPF
                 /* Since no file is being selected, do not proceed from here */
             }
 
-            /* Extract Excel File */
+            using (var stream = File.Open(file_fullpath, FileMode.Open, FileAccess.Read))
+            {
+                using (var reader = ExcelReaderFactory.CreateReader(stream))
+                {
+                    int sheetCount = reader.ResultsCount;
 
+                    cbxNo.Items.Clear();
+                    for (int i=0; i < sheetCount;i++)
+                    {
+                        cbxNo.Items.Add(i + 1);
+                    }
+                }
+            }
+            cbxNo.SelectedIndex = 0;
+            ExtractExcelData(0);
+        }
+
+        private void ExtractExcelData(int sheet_index)
+        {
+            /* Extract Excel File */
             /* create a new datatable*/
             DataTable dt = new DataTable();
 
@@ -74,13 +118,16 @@ namespace ImportFishTankLogWPF
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
                     DataSet result = reader.AsDataSet();
-                    DataTable excel_dt = result.Tables[0];
+                    DataTable excel_dt = result.Tables[sheet_index];
 
                     /* get total row and total columns. */
                     int rowCount = excel_dt.Rows.Count;
                     int colCount = excel_dt.Columns.Count;
 
+                    int sheetCount = reader.ResultsCount;
+
                     /* Debug */
+                    Debug.WriteLine($"Total Number of Sheet: {sheetCount}");
                     Debug.WriteLine($"rows : { rowCount }  coulumns : { colCount }");
 
                     #region Retrieve excel column header
@@ -102,7 +149,7 @@ namespace ImportFishTankLogWPF
 
                         if (text.Trim() == string.Empty) return flag;
 
-                        for(int n=0; n < header_text.Length; n++)
+                        for (int n = 0; n < header_text.Length; n++)
                         {
                             //flag = header_text[n].Contains(text.ToLower());
                             flag = text.ToLower().Contains(header_text[n]);
@@ -119,7 +166,7 @@ namespace ImportFishTankLogWPF
                     {
                         cellCount = 0;
                         strData = "";
-                        for(int col = 0; col < colCount; col++)
+                        for (int col = 0; col < colCount; col++)
                         {
                             object value = excel_dt.Rows[start_row][col];
                             //object value = temp.Value;
@@ -181,17 +228,19 @@ namespace ImportFishTankLogWPF
                     /* process the strData to link the excel column to table column */
                     /* retreive the table column name */
                     string[] strTableColumn = strColumnHeader.Split('|');
+                    string scientific_field = "description vietnamese latin name ";
                     string[] strMatchingText = { "tank","code",
-                        "description latin name", "", // process Common Name when dealing with Scientific Name
+                        scientific_field, "", // process Common Name when dealing with Scientific Name
                         "size", "qty tot'pc" };
                     string[] strColumnName = strData.Split('|');
+                    string[] strScientific = scientific_field.Split(' ');
                     List<int> excel_col_index = new List<int>();
                     /* */
                     int table_col_index = 0;
                     string table_col = "";
 
-                    strData = ""; 
-                    for(int col = 0; col < colCount; col++)
+                    strData = "";
+                    for (int col = 0; col < colCount; col++)
                     {
                         string text = strColumnName[col].ToLower();
                         string matching_text = strMatchingText[table_col_index];
@@ -200,7 +249,7 @@ namespace ImportFishTankLogWPF
                         bool IsMatchingText()
                         {
                             string[] subText = text.Split(' ');
-                            for(int sub_index = 0; sub_index < subText.Length; sub_index++)
+                            for (int sub_index = 0; sub_index < subText.Length; sub_index++)
                             {
                                 if (matching_text.Contains(subText[sub_index])) return true;
                             }
@@ -210,11 +259,14 @@ namespace ImportFishTankLogWPF
 
                         /*If there is match up between excel column and table column, 
                            do the following and proceed to the next table column */
-                        if ( text != "" && matching_text != "" &&
-                             IsMatchingText() )
-                            //text.Contains(matching_text))
+                        if (text != "" && matching_text != "" &&
+                             IsMatchingText())
+                        //text.Contains(matching_text))
                         {
-                            
+                            /* save the actual column (index) */
+                            excel_col_index.Add(col);
+                            strData += text + "|";
+                           
 
                             switch (table_col_index)
                             {
@@ -222,20 +274,25 @@ namespace ImportFishTankLogWPF
                                 case 1:
                                 case 4:
                                 case 5:
-                                    
+
                                     break;
                                 /* Handle Scientific and Common Name together */
                                 case 2:
-                                    excel_col_index.Add(col);
+                                    if( text.Contains(strScientific[0]) )
+                                        excel_col_index.Add(col + 1);
+                                    else if( text.Contains(strScientific[1]))
+                                        excel_col_index.Add(col-1);
+                                    else
+                                        excel_col_index.Add(col);
+                                        
                                     strData += text + "|";
+
                                     table_col_index++;
                                     break;
                                 //case 3: break;
                                 default: throw new Exception($"Error : table index {table_col_index} not defined !!!");
                             }
-                            /* save the actual column (index) */
-                            excel_col_index.Add(col);
-                            strData += text + "|";
+
                             table_col_index++;
                         }
 
@@ -258,13 +315,13 @@ namespace ImportFishTankLogWPF
                             Also remove invalid record ..... */
                         if (strCellData == string.Empty) continue;
 
-                        for(int i = 0; i < excel_col_index.Count; i++)
+                        for (int i = 0; i < excel_col_index.Count; i++)
                         {
                             int col = excel_col_index[i];
                             value = excel_dt.Rows[row][col];
                             strCellData = value.ToString();
                             strData += (strData != "" ? "|" : "") + strCellData;
-                            
+
                             //
                         }
                         dt.Rows.Add(strData.Split('|'));
@@ -288,31 +345,14 @@ namespace ImportFishTankLogWPF
             this.Close();
         }
 
-        /// <summary>
-        /// point to the file with file path and full file name)
-        /// </summary>
-        private string file_fullpath = string.Empty;
 
-        /// <summary>
-        ///  open a dialog box for user to open excel file. 
-        /// </summary>
-        private void OpenFile()
+        private void RefreshData(object sender, SelectionChangedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog openfile = new Microsoft.Win32.OpenFileDialog();
-            openfile.DefaultExt = ".xls";
-            openfile.Filter = "(.xls)|*.xls|(.xlsx)|*.xlsx";
-            var browsefile = openfile.ShowDialog();
-
-            /* Only do something when the user actually select a file */
-            if (browsefile == true)
+            ComboBox obj = sender as ComboBox;
+            int selected = obj.SelectedIndex;
+            if ( selected != -1)
             {
-                file_fullpath = openfile.FileName;
-                string[] text = file_fullpath.Split('\\');
-                int last_index = text.Count() - 1;
-                txtFilePath.Text = text[last_index];
-
-                dtGrid.ItemsSource = null;
-
+                ExtractExcelData(selected);
             }
         }
     }
