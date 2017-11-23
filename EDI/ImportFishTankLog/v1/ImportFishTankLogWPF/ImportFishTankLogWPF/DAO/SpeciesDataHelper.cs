@@ -44,8 +44,9 @@ namespace ImportFishTankLogWPF.DAO
         public static (string, string) CheckScientificName(string scientific_name)
         {
             SqlCommand command = new SqlCommand();
-            command.CommandText = "SELECT ID_PK, [SCIENTIFIC] FROM [SPECIES] WHERE [SCIENTIFIC] LIKE @SCIENTIFIC_TEXT";
-            //"SELECT ID_PK, [SCIENTIFIC] FROM [MARINE_SPECIES] WHERE [SCIENTIFIC] LIKE @SCIENTIFIC_TEXT";
+            command.CommandText = 
+                "SELECT ID_PK, [SCIENTIFIC] FROM [SPECIES] WHERE [SCIENTIFIC] LIKE @SCIENTIFIC_TEXT";
+                //"SELECT ID_PK, [SCIENTIFIC] FROM [MARINE_SPECIES] WHERE [SCIENTIFIC] LIKE @SCIENTIFIC_TEXT";
             command.Parameters.AddWithValue("@SCIENTIFIC_TEXT", "%" + scientific_name + "%");
 
             //return DAOHelper.RetreiveID(command);

@@ -102,7 +102,7 @@ namespace ImportFishTankLogWPF
                 }
             }
             cbxNo.SelectedIndex = 0;
-            ExtractExcelData(0);
+            //ExtractExcelData(0);
         }
 
         private void ExtractExcelData(int sheet_index)
@@ -130,7 +130,7 @@ namespace ImportFishTankLogWPF
 
                     int sheetCount = reader.ResultsCount;
 
-                    /* Debug */
+                    /* Debug: Information about the excel spreadsheet */
                     Debug.WriteLine($"Total Number of Sheet: {sheetCount}");
                     Debug.WriteLine($"rows : { rowCount }  coulumns : { colCount }");
 
@@ -271,7 +271,6 @@ namespace ImportFishTankLogWPF
                             /* save the actual column (index) */
                             excel_col_index.Add(col);
                             strData += text + "|";
-                           
 
                             switch (table_col_index)
                             {
@@ -310,6 +309,8 @@ namespace ImportFishTankLogWPF
 
                     /* Need to format Scientific Name before validating*/
 
+                    // Debug
+                    Debug.WriteLine("");
 
                     #region Display excel records onto screen (data grid)
                     bool addData = false;
@@ -342,10 +343,117 @@ namespace ImportFishTankLogWPF
 
                             //
                         }
-                        dt.Rows.Add(strData.Split('|'));
+                        // Debug
                         //Debug.WriteLine($"{row}:{strData}");
+                        /* The following line is print a dump and save as text file and export into excel as csv file.*/
+                        Debug.WriteLine($"{strData}");
+
+                        #region Format data such that each date row (i.e strData) will ONLY contains ONE tank ID
+                        /* Format the strData due to following user way to entering the tank id :
+                           1. Sometime user just key in 1A01, etc instead of 01A1, which we has agreed to.
+                              ==> the program need to format the tank id as NNAN format. 
+                           2. Sometime user combine a few tank id into a single spreadsheet line.
+                              ==> the progarm need to break into record with just one tank id 
+                                  and complete with the rest of the excel row information.
+                                  using delimitor as ',' or '-' */
+                        // Debug
+                        string[] strDataCell = strData.Split('|');
+
+                        string FormatTankID(string[] data)
+                        {
+                            string text = data[0]; // Tank ID feild
+                            int len = text.Length;
+                            if ( len < 4)
+                            {
+                                text = "".PadRight(4 - len, '0') + text;
+                            }
+
+                            return text;
+                        }
+
+                        if(strDataCell[0].Contains(",") ||
+                            strDataCell[0].Contains("-"))
+                        {
+                            char delimiter;
+                            if (strDataCell[0].Contains(","))
+                                delimiter = ',';
+                            else if (strDataCell[0].Contains("-"))
+                                delimiter = '-';
+                            else
+                                // Place an error catcher
+                                delimiter = ' '; 
+
+                            if(delimiter != ' ')
+                            {
+                                string[] data = strDataCell[0].Split(delimiter);
+                                string prev_text = "";
+
+                                switch(delimiter)
+                                {
+                                    case ',':
+                                        for (int i = 0; i < data.Length; i++)
+                                        {
+                                            if (prev_text != "" && data[i].Length == 1)
+                                            {
+                                                int len = prev_text.Length - 1;
+                                                strDataCell[0] = prev_text.Substring(0, len) + data[i];
+                                            }
+                                            else
+                                            {
+                                                strDataCell[0] = data[i];
+                                                prev_text = data[i];
+                                            }
+                                            /* Format Tank ID */
+                                            strDataCell[0] = FormatTankID(strDataCell);
+                                            dt.Rows.Add(strDataCell);
+                                        }
+                                        break;
+                                    case '-':
+                                        if(data.Length==2)
+                                        {
+                                            int start, end;
+                                            
+                                            prev_text = data[0];
+                                            int len = prev_text.Length - 1;
+                                            /* Assumption is that start and end range is between 1 to 9 */
+                                            start = int.Parse(prev_text.Substring(len));
+                                            end = int.Parse(data[1]);
+                                            
+                                            for (int i=start; i <=end; i++)
+                                            {
+                                                strDataCell[0] = prev_text.Substring(0, len) + i;
+                                                /* Format Tank ID */
+                                                strDataCell[0] = FormatTankID(strDataCell);
+                                                dt.Rows.Add(strDataCell);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            throw new Exception($"Error : Delimiter {delimiter} throw Error !!!\n {strDataCell[0]}");
+                                        }
+                                        break;
+                                    default: throw new Exception($"Error : Delimiter {delimiter} not defined !!!"); 
+                                }
+
+                                //Debug.WriteLine($"{strData}");
+                            }
+
+                            
+                        }
+                        else
+                        {
+                            /* */
+                            /* Format Tank ID */
+                            strDataCell[0] = FormatTankID(strDataCell);
+                            dt.Rows.Add(strDataCell);
+                            //dt.Rows.Add(strData.Split('|'));
+                        }
+
+                        #endregion
 
                     }
+                    // Debug
+                    Debug.WriteLine("");
                     #endregion
                 }
             }
@@ -384,6 +492,7 @@ namespace ImportFishTankLogWPF
             DataGridCellHelper cell_helper = new DataGridCellHelper(dtGrid);
 
             int col = 2; // Column that store Scientific Name
+            
             for (int row = 0; row < dtGrid.Items.Count; row++)
             {
 
@@ -402,6 +511,13 @@ namespace ImportFishTankLogWPF
                 ((TextBlock)cell.Content).Text = id == "-1" ? id : name ;
 
             }
+
+            //col = 4; // column for Size
+            //for (int row = 0; row < dtGrid.Items.Count; row++)
+            //{
+            //    DataGridCell cell = cell_helper.GetCell(row, col);
+            //    TextBlock text = cell.Content as TextBlock;
+            //}
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)

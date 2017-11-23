@@ -37,7 +37,7 @@
                     <!--  enable scrollbars on the WPF Datagrid
                           https://stackoverflow.com/questions/673516/how-can-i-enable-scrollbars-on-the-wpf-datagrid  -->
                     <DataGrid AutoGenerateColumns="True" IsReadOnly="True" HorizontalAlignment="Left" Name="dtGrid" VerticalAlignment="Center" 
-                           ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+                           ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" FontSize="16"/>
                 </StackPanel>                
             </Border>
         </Grid>
