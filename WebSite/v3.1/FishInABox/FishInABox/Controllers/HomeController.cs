@@ -1,10 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using FishInABox.Models;
 
 namespace FishInABox.Controllers
 {
@@ -15,48 +14,10 @@ namespace FishInABox.Controllers
             return View();
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "About page still under construction.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Report()
-        {
-            ViewData["Message"] = "Reporting page still under construction.";
-
-            return View();
-        }
-
-        public IActionResult System()
-        {
-            ViewData["Message"] = "Setup System Table page.";
-
-            return View();
-        }
-
-        public IActionResult Shipping()
-        {
-            ViewData["Message"] = "Shipping Registry page.";
-
-            return View();
-        }
-
-        public IActionResult Quarantine()
-        {
-            return View();
-        }
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            ViewData["RequestId"] = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            return View();
         }
     }
 }

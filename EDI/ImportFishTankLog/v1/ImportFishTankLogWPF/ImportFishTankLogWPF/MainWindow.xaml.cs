@@ -459,6 +459,32 @@ namespace ImportFishTankLogWPF
             }
             /* update the data grid */
             dtGrid.ItemsSource = dt.DefaultView;
+
+            #region  Format Size Field
+            /* try to standardize the size format.
+               */
+            /* Helper class to extract data from data grid cell. */
+            DataGridCellHelper cell_helper = new DataGridCellHelper(dtGrid);
+            {
+                int col = 4; // column for Size
+                for (int row = 0; row < dtGrid.Items.Count; row++)
+                {
+                    DataGridCell cell = cell_helper.GetCell(row, col);
+                    TextBlock text = cell.Content as TextBlock;
+                    string size = text.Text;
+
+                    if (size.Contains(","))
+                        /* Format some error like 2,5"  should be 2.5"*/
+                        size = size.Replace(',', '.');
+                    else if (size.Trim() == string.Empty)
+                        /* use '-' as N/A value */
+                        size = "-";
+                    /* Get the status data grid cell field */
+                    cell = cell_helper.GetCell(row, col);
+                    ((TextBlock)cell.Content).Text = size.Trim();
+                }
+            }
+            #endregion
         }
 
 
@@ -508,16 +534,20 @@ namespace ImportFishTankLogWPF
 
                 /* Get the status data grid cell field */
                 cell = cell_helper.GetCell(row, dtGrid.Columns.Count - 1);
-                ((TextBlock)cell.Content).Text = id == "-1" ? id : name ;
+                ((TextBlock)cell.Content).Text = (id == "-1") ? id : name ;
 
             }
 
-            //col = 4; // column for Size
-            //for (int row = 0; row < dtGrid.Items.Count; row++)
-            //{
-            //    DataGridCell cell = cell_helper.GetCell(row, col);
-            //    TextBlock text = cell.Content as TextBlock;
-            //}
+            col = 4; // column for Size
+            for (int row = 0; row < dtGrid.Items.Count; row++)
+            {
+                DataGridCell cell = cell_helper.GetCell(row, col);
+                TextBlock text = cell.Content as TextBlock;
+
+                /* Get the status data grid cell field */
+                cell = cell_helper.GetCell(row, dtGrid.Columns.Count - 1);
+                ((TextBlock)cell.Content).Text = text.Text;
+            }
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
