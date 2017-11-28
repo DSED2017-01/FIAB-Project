@@ -1,25 +1,23 @@
-<nav class='navbar alert-success'>
-    <div class='navbar-header'>
-        <!--<button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
-            <span class='sr-only'>Toggle navigation</span>
-            <span class='icon-bar'></span>
-            <span class='icon-bar'></span>
-            <span class='icon-bar'></span>
-        </button>-->
-
-        <a class='navbar-brand' [routerLink]="['/home']">
-            <span style="color:black;font-size:14pt">Home</span>
-        </a>
-
-        <!--<div class='navbar-collapse collapse'>
+<div class='main-nav'>
+    <div class='navbar navbar-inverse'>
+        <div class='navbar-header'>
+            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
+                <span class='sr-only'>Toggle navigation</span>
+                <span class='icon-bar'></span>
+                <span class='icon-bar'></span>
+                <span class='icon-bar'></span>
+            </button>
+            <a class='navbar-brand' [routerLink]="['/home']">FishInABox</a>
+        </div>
+        <div class='clearfix'></div>
+        <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
                 <li [routerLinkActive]="['link-active']">
-                    <a class="navbar-brand" [routerLink]="['/home']">
+                    <a [routerLink]="['/home']">
                         <span class='glyphicon glyphicon-home'></span> Home
                     </a>
                 </li>
-                
-                 <li [routerLinkActive]="['link-active']">
+                <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/counter']">
                         <span class='glyphicon glyphicon-education'></span> Counter
                     </a>
@@ -33,10 +31,8 @@
                     <a [routerLink]="['/mpispecies']">
                         <span class='glyphicon glyphicon-th-list'></span> MPI Speices
                     </a>
-                </li>                   
-                    
-
+                </li>
             </ul>
-        </div>-->
+        </div>
     </div>
-</nav>
+</div>
