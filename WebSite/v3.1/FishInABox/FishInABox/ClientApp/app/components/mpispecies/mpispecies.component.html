@@ -1,0 +1,20 @@
+﻿<h1>MPI spiecies List</h1>
+
+<p *ngIf="!mpidata"><em>Loading...</em></p>
+
+<table class='table' *ngIf="mpidata">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Scientific Name</th>
+            <th>Common Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of mpidata">
+            <td>{{ data.idPk }}</td>
+            <td>{{ data.scientific }}</td>
+            <td>{{ data.common }}</td>
+        </tr>
+    </tbody>
+</table>
